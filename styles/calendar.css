@@ -8,11 +8,12 @@
     margin-top: 10px;
 }
 
-.switch-div{
-    text-align: center;
+.forward-div{
+    display: grid;
+    justify-items: end;
 }
 
-.month-switch{
+.month-back, .month-forward{
     width: 35px;
     border: none;
     outline: none;
@@ -29,7 +30,7 @@
     flex-direction: column;
 }
 
-.cal{
+.day-names, .day-boxes{
     display: grid;
     grid-template-columns: repeat(7, 50px);
     gap: 3px;
