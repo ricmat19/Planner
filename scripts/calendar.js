@@ -139,6 +139,7 @@ function displayMonth(selectedMonth, change){
                 addCalBoxes(daysInMonth);
             }
             if(change === "back"){
+                currentYear--;
                 addCalBoxes(daysInMonth);
                 backIndent(lastIndent);
             }
@@ -315,6 +316,7 @@ function displayMonth(selectedMonth, change){
 
             if(change === "forward"){
                 daysLastMonth =  monthDays(currentYear, 11);
+                currentYear++;
                 forwardIndent(lastIndent, daysLastMonth);
                 addCalBoxes(daysInMonth);
             }
