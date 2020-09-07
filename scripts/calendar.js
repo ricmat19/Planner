@@ -1,4 +1,5 @@
 let dayBoxes = document.querySelector(".day-boxes");
+let dayBox = document.querySelectorAll('.day-box');
 let monthTitle = document.querySelector('.month-title');
 let currentWeekDay = new Date().getDay();
 let currentMonth = new Date().getMonth();
@@ -6,6 +7,7 @@ let currentYear = new Date().getFullYear();
 let monthBack = document.querySelector('.month-back');
 let monthForward = document.querySelector('.month-forward');
 let daysInMonth = "";
+let thisIndent = "";
 let lastIndent = "";
 let monthChange = "";
 
@@ -39,19 +41,40 @@ function forwardIndent(indent, daysLastMonth){
 
 }
 
-function backIndent(indent, daysThisMonth){
+function backIndent(indent){
 
-    console.log(indent);
+    console.log(indent)
 
-    let newIndent = 7 - indent;
+    let backIndent = 0;
+    if(indent !== 0){
+        backIndent = 7 - indent;
+    }
 
-    for(let i = 0; i < newIndent; i++){
+    for(let i = 0; i < backIndent; i++){
 
         dayBoxes.innerHTML += '<div class=""><div class="center-num"></div></div>';
 
     }
 
-    return lastIndent = newIndent;
+    let frontIndent = 0;
+
+    if(dayBoxes.childElementCount > 35){
+        frontIndent = 42 - dayBoxes.childElementCount;
+    }else{
+        frontIndent = 35 - dayBoxes.childElementCount;
+    }
+
+    let frontBoxes = "";
+
+    for(let i = 0; i < frontIndent; i++){
+
+        frontBoxes += '<div class=""><div class="center-num"></div></div>';
+
+    }
+
+    dayBoxes.innerHTML = frontBoxes + dayBoxes.innerHTML;
+
+    lastIndent = frontIndent;
 
 }
 
@@ -62,6 +85,8 @@ function addCalBoxes(daysInMonth){
         dayBoxes.innerHTML += '<div class="day day-box"><div class="center-num">' + i + '</div></div>';
 
     }
+
+    thisIndent = 0;
 }
 
 monthBack.addEventListener("click", function monthBack(){
@@ -104,7 +129,7 @@ function displayMonth(selectedMonth, change){
 
     switch(selectedMonth){
         case 0: 
-            monthTitle.innerHTML = "January";
+            monthTitle.innerHTML = "January" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 1);
 
@@ -115,12 +140,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 1: 
-            monthTitle.innerHTML = "Febuary";
+            monthTitle.innerHTML = "Febuary" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 2);
 
@@ -131,11 +156,11 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
             break;
         case 2: 
-            monthTitle.innerHTML = "March";
+            monthTitle.innerHTML = "March" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 3);
 
@@ -146,12 +171,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 3: 
-            monthTitle.innerHTML = "April";
+            monthTitle.innerHTML = "April" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 4);
 
@@ -162,12 +187,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 4: 
-            monthTitle.innerHTML = "May";
+            monthTitle.innerHTML = "May" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 5);
 
@@ -178,12 +203,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 5: 
-            monthTitle.innerHTML = "June";
+            monthTitle.innerHTML = "June" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 6);
 
@@ -194,12 +219,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 6: 
-            monthTitle.innerHTML = "July";
+            monthTitle.innerHTML = "July" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 7);
 
@@ -210,12 +235,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 7: 
-            monthTitle.innerHTML = "August";
+            monthTitle.innerHTML = "August" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 8);
 
@@ -226,12 +251,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 8: 
-            monthTitle.innerHTML = "September";
+            monthTitle.innerHTML = "September" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 9);
 
@@ -247,12 +272,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 9: 
-            monthTitle.innerHTML = "October";
+            monthTitle.innerHTML = "October" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 10);
 
@@ -263,12 +288,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 10: 
-            monthTitle.innerHTML = "November";
+            monthTitle.innerHTML = "November" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 11);
 
@@ -279,12 +304,12 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
         case 11: 
-            monthTitle.innerHTML = "December";
+            monthTitle.innerHTML = "December" + " " + currentYear;
             dayBoxes.innerHTML = '';
             daysInMonth = monthDays(currentYear, 12);
 
@@ -295,7 +320,7 @@ function displayMonth(selectedMonth, change){
             }
             if(change === "back"){
                 addCalBoxes(daysInMonth);
-                backIndent(lastIndent, daysInMonth);
+                backIndent(lastIndent);
             }
 
             break;
