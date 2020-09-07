@@ -4,10 +4,10 @@ let monthTitle = document.querySelector('.month-title');
 let currentWeekDay = new Date().getDay();
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
+let currentDay = new Date().getDate();
 let monthBack = document.querySelector('.month-back');
 let monthForward = document.querySelector('.month-forward');
 let daysInMonth = "";
-let thisIndent = "";
 let lastIndent = "";
 let monthChange = "";
 
@@ -42,8 +42,6 @@ function forwardIndent(indent, daysLastMonth){
 }
 
 function backIndent(indent){
-
-    console.log(indent)
 
     let backIndent = 0;
     if(indent !== 0){
@@ -82,11 +80,19 @@ function addCalBoxes(daysInMonth){
 
     for(let i = 1; i <= daysInMonth; i++){
 
-        dayBoxes.innerHTML += '<div class="day day-box"><div class="center-num">' + i + '</div></div>';
+        let thisMonth = new Date().getMonth();
+        let thisYear = new Date().getFullYear();
 
+        if(i === currentDay && currentMonth === thisMonth && currentYear === thisYear){
+
+            dayBoxes.innerHTML += '<div class="day day-box day-today"><div class="center-num">' + i + '</div></div>';
+
+        }else{
+
+            dayBoxes.innerHTML += '<div class="day day-box"><div class="center-num">' + i + '</div></div>';
+
+        }
     }
-
-    thisIndent = 0;
 }
 
 monthBack.addEventListener("click", function monthBack(){
@@ -101,9 +107,9 @@ monthBack.addEventListener("click", function monthBack(){
 
     monthChange = "back";
 
-    displayMonth(newMonth, monthChange);
-
     currentMonth = newMonth;
+
+    displayMonth(newMonth, monthChange);
 
 });
 
@@ -119,9 +125,10 @@ monthForward.addEventListener("click", function monthForward(){
 
     monthChange = "forward";
 
+    currentMonth = newMonth;
+
     displayMonth(newMonth, monthChange);
 
-    currentMonth = newMonth;
 
 });
 

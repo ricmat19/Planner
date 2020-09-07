@@ -67,6 +67,16 @@
     background-color: #9ea6c7;
 }
 
+.day-today{
+    background-color: #30323b;
+    color: white;
+}
+
+.day-today:hover{
+    background-color: #424c75;
+    color: white;
+}
+
 .center-num{
     height: 100%;
     display: flex;
