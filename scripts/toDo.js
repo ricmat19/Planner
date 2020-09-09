@@ -1,4 +1,4 @@
-let inputText = document.querySelector(".to-do-input");
+let inputText = document.querySelector(".input-box");
 let toDoList = document.querySelector(".to-do-list");
 let addButton = document.querySelector(".to-do-button");
 

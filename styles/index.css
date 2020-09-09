@@ -25,6 +25,21 @@ body{
     color: black;
 }
 
+.input-div{
+  margin: 20px 0;
+  width: 100%;
+  gap: 5px;
+}
+
+.input-box{
+  width: 100%;
+  padding: 10px 5px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border-style: none;
+  outline: none;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 15px; left:100px;

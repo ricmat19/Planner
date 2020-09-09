@@ -3,19 +3,7 @@
 }
 
 .input-div{
-    margin: 20px 0;
-    width: 100%;
     grid-template-columns: auto 50px;
-    gap: 5px;
-}
-
-.to-do-input{
-    width: 100%;
-    padding: 10px 5px;
-    font-size: 1rem;
-    border-radius: 10px;
-    border-style: none;
-    outline: none;
 }
 
 .to-do-button{

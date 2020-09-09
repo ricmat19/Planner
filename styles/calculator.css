@@ -1,0 +1,37 @@
+.title{
+    margin: 5px 0;
+}
+
+.input-box{
+    padding: 10px 5px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 25px;
+    width: auto;
+}
+
+.calculator{
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    gap: 3px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-box{
+    display: inline-block;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 80px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.button-box:hover{
+    background-color: #30323b;
+    color: white;
+}
