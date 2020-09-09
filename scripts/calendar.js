@@ -95,7 +95,15 @@ function addCalBoxes(daysInMonth){
     }
 }
 
-monthBack.addEventListener("click", function monthBack(){
+monthBack.addEventListener("click", goBack);
+
+document.addEventListener("keyup", function backArrow(){
+    if(event.keyCode === 37){
+        goBack();
+    }
+});
+
+function goBack(){
 
     let newMonth = "";
     
@@ -111,9 +119,17 @@ monthBack.addEventListener("click", function monthBack(){
 
     displayMonth(newMonth, monthChange);
 
+};
+
+monthForward.addEventListener("click", goForward);
+
+document.addEventListener("keyup", function forwardArrow(){
+    if(event.keyCode === 39){
+        goForward();
+    }
 });
 
-monthForward.addEventListener("click", function monthForward(){
+function goForward(){
 
     let newMonth = "";
     
@@ -130,7 +146,7 @@ monthForward.addEventListener("click", function monthForward(){
     displayMonth(newMonth, monthChange);
 
 
-});
+};
 
 function displayMonth(selectedMonth, change){
 
@@ -141,12 +157,14 @@ function displayMonth(selectedMonth, change){
             daysInMonth = monthDays(currentYear, 1);
 
             if(change === "forward"){
+                currentYear++;
+                monthTitle.innerHTML = "January" + " " + currentYear;
                 daysLastMonth =  monthDays(currentYear, 12);
                 forwardIndent(lastIndent, daysLastMonth);
                 addCalBoxes(daysInMonth);
             }
             if(change === "back"){
-                currentYear--;
+                console.log(currentYear)
                 addCalBoxes(daysInMonth);
                 backIndent(lastIndent);
             }
@@ -323,11 +341,12 @@ function displayMonth(selectedMonth, change){
 
             if(change === "forward"){
                 daysLastMonth =  monthDays(currentYear, 11);
-                currentYear++;
                 forwardIndent(lastIndent, daysLastMonth);
                 addCalBoxes(daysInMonth);
             }
             if(change === "back"){
+                currentYear--;
+                monthTitle.innerHTML = "December" + " " + currentYear;
                 addCalBoxes(daysInMonth);
                 backIndent(lastIndent);
             }
