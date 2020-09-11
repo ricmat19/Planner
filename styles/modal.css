@@ -1,0 +1,32 @@
+.modal-button{
+    display: inline-block;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 80px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 25px;
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: (0, 0, 0, .5);
+}
+
+.modal-close{
+    cursor: pointer;
+}
+
+.modal-title-div{
+    grid-template-columns: auto auto;
+}
