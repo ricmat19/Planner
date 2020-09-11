@@ -22,21 +22,48 @@ let value2 = "";
 let result = 0;
 let calculation = "";
 
-zero.addEventListener("click", function(){
+function enterZero(){
 
-    if(collecting1 === true && value1 !== ""){
+    if(value1 === "" && collecting1 === true){
+        value1 = "0"
+    }
+    if(value2 === "" && collecting1 === false){
+        value2 = "0"
+    }
+
+    if(collecting1 === true && value1 !== "" && value1 !== "0"){
         value1 += "0"
         inputBox.value = value1;
     }
-    if(collecting1 === false && value2 !== ""){
+    if(collecting1 === false && value2 !== "" && value2 !== "0"){
         value2 += "0"
         inputBox.value = value2;
     }
 
+}
 
+zero.addEventListener("click", function(){
+    enterZero()
 })
 
-one.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 48){
+        enterZero()
+    }
+});
+
+function enterOne(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "1";
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "1";
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "1"
@@ -46,9 +73,30 @@ one.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+one.addEventListener("click", function(){
+    enterOne()
 })
 
-two.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 49){
+        enterOne()
+    }
+});
+
+function enterTwo(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "2"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "2"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "2"
@@ -58,9 +106,30 @@ two.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+two.addEventListener("click", function(){
+    enterTwo()
 })
 
-three.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 50){
+        enterTwo()
+    }
+});
+
+function enterThree(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "3"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "3"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "3"
@@ -70,9 +139,30 @@ three.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+three.addEventListener("click", function(){
+    enterThree()
 })
 
-four.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 51){
+        enterThree()
+    }
+});
+
+function enterFour(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "4"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "4"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "4"
@@ -82,9 +172,30 @@ four.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+four.addEventListener("click", function(){
+    enterFour()
 })
 
-five.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 52){
+        enterFour()
+    }
+});
+
+function enterFive(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "5"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "5"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "5"
@@ -94,9 +205,30 @@ five.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+five.addEventListener("click", function(){
+    enterFive();
 })
 
-six.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 53){
+        enterFive();
+    }
+});
+
+function enterSix(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "6"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "6"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "6"
@@ -106,9 +238,30 @@ six.addEventListener("click", function(){
         inputBox.value = value2;
     }
     
+}
+
+six.addEventListener("click", function(){
+    enterSix()
 })
 
-seven.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 54){
+        enterSix()
+    }
+});
+
+function enterSeven(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "7"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "7"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "7"
@@ -118,9 +271,30 @@ seven.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+seven.addEventListener("click", function(){
+    enterSeven()
 })
 
-eight.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 55){
+        enterSeven()
+    }
+});
+
+function enterEight(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "8"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "8"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "8"
@@ -130,9 +304,30 @@ eight.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+eight.addEventListener("click", function(){
+    enterEight()
 })
 
-nine.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 56){
+        enterEight()
+    }
+});
+
+function enterNine(){
+
+    if(value1 === "0" && collecting1 === true){
+        value1 = "9"
+        inputBox.value = value1;
+        return;
+    }
+    if(value2 === "0" && collecting1 === false){
+        value2 = "9"
+        inputBox.value = value2;
+        return;
+    }
 
     if(collecting1 === true){
         value1 += "9"
@@ -142,9 +337,19 @@ nine.addEventListener("click", function(){
         inputBox.value = value2;
     }
 
+}
+
+nine.addEventListener("click", function(){
+    enterNine()
 })
 
-plus.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 57){
+        enterNine()
+    }
+});
+
+function enterPlus(){
 
     calculation = "+";
 
@@ -152,13 +357,27 @@ plus.addEventListener("click", function(){
         collecting1 = false;
     }
 
-    if(collecting1 === false && value2 !=="" && value2 !=="0"){
-        equalFunction();
+    if(collecting1 === false && value2 !==""){
+        enterEqual();
     }
 
+    console.log("Value1:" + value1);
+    console.log("Value2:" + value2);
+    console.log("Result:" + result);
+
+}
+
+plus.addEventListener("click", function(){
+    enterPlus()
 })
 
-minus.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 187){
+        enterPlus()
+    }
+});
+
+function enterMinus(){
 
     calculation = "-";
 
@@ -166,27 +385,55 @@ minus.addEventListener("click", function(){
         collecting1 = false;
     }
 
-    if(collecting1 === false && value2 !=="" && value2 !=="0"){
-        equalFunction();
+    if(collecting1 === false && value2 !==""){
+        enterEqual();
     }
 
+    console.log("Value1:" + value1);
+    console.log("Value2:" + value2);
+    console.log("Result:" + result);
+
+}
+
+minus.addEventListener("click", function(){
+    enterMinus()
 })
 
-multiply.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 189){
+        enterMinus()
+    }
+});
+
+function enterMultiply(){
 
     calculation = "*";
 
-    if(collecting1 === true && value1 !== "0"){
+    if(collecting1 === true){
         collecting1 = false;
     }
 
     if(collecting1 === false && value2 !==""){
-        equalFunction();
+        enterEqual();
     }
 
+    console.log("Value1:" + value1);
+    console.log("Value2:" + value2);
+    console.log("Result:" + result);
+
+}
+
+multiply.addEventListener("click", function(){
+    enterMultiply()
 })
 
-divide.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 88){
+        enterMultiply()
+    }  
+});
+
+function enterDivide(){
 
     calculation = "/";
 
@@ -195,34 +442,46 @@ divide.addEventListener("click", function(){
     }
 
     if(collecting1 === false && value2 !==""){
-        equalFunction();
+        enterEqual();
     }
 
+    console.log("Value1:" + value1);
+    console.log("Value2:" + value2);
+    console.log("Result:" + result);
+
+}
+
+divide.addEventListener("click", function(){
+    enterDivide()
 })
 
-equal.addEventListener("click", function(){
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 191){
+        enterDivide()
+    }
+});
 
-    equalFunction();
+function enterEqual(){
 
-})
-
-function equalFunction(){
-
-    if(calculation === "+"){
-        result = parseInt(value1, 10) + parseInt(value2, 10);
+    if(calculation === "+" && collecting1 === false && value2 !==""){
+        result = parseFloat(value1, 10) + parseFloat(value2, 10);
     }
 
-    if(calculation === "-"){
-        result = parseInt(value1, 10) - parseInt(value2, 10);
+    if(calculation === "-" && collecting1 === false && value2 !==""){
+        result = parseFloat(value1, 10) - parseFloat(value2, 10);
     }
 
-    if(calculation === "*"){
-        result = parseInt(value1, 10) * parseInt(value2, 10);
+    if(calculation === "*" && collecting1 === false && value2 !==""){
+        result = parseFloat(value1, 10) * parseFloat(value2, 10);
     }
 
-    if(calculation === "/"){
-        result = parseInt(value1, 10) / parseInt(value2, 10);
+    if(calculation === "/" && collecting1 === false && value2 !==""){
+        result = parseFloat(value1, 10) / parseFloat(value2, 10);
     }
+    
+    console.log("Value1:" + value1);
+    console.log("Value2:" + value2);
+    console.log("Result:" + result);
 
     inputBox.value = result;
 
@@ -231,15 +490,33 @@ function equalFunction(){
     result = 0;
 }
 
-clear.addEventListener("click", function(){
+equal.addEventListener("click", function(){
+    enterEqual();
+})
 
-    inputBox.value
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 13){
+        enterEqual()
+    }
+});
+
+function enterClear(){
+    inputBox.value = "0"
     collecting1 = true;
     value1 = "";
     value2 = "";
     result = 0;
     calculation = "";
+}
 
+clear.addEventListener("click", function(){
+    enterClear();
 })
+
+document.addEventListener("keyup", function numEnter(){
+    if(event.keyCode === 8 || event.keyCode === 46){
+        enterClear()
+    }
+});
 
 
