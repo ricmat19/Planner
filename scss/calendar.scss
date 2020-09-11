@@ -1,3 +1,5 @@
+$solid-border: black 3px solid;
+
 .container{
     margin: 15px;
 }
@@ -45,19 +47,19 @@
 }
 
 .day-name{
-    border-bottom: black 3px solid;
+    border-bottom: $solid-border;
     padding: 5px 0;
     margin: 5px 0;
 }
 
 .day-name:hover{
-    border-bottom: black 3px solid;
+    border-bottom: $solid-border;
     padding: 5px 0;
     margin: 5px 0;
 }
 
 .day-box{
-    border: 2px solid black;
+    border: $solid-border;
     border-radius: 10px;
     height: 50px;
     cursor: pointer;

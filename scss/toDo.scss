@@ -1,3 +1,5 @@
+$solid-border: black 3px solid;
+
 .container{
     width: 400px;
 }
@@ -8,7 +10,7 @@
 
 .to-do-button{
     border-radius: 10px;
-    border: solid black 2px;
+    border: $solid-border;
     cursor: pointer;
     outline: none;
 }
@@ -32,7 +34,7 @@
     word-wrap: break-word;
     word-break: break-all;
     gap: 15px;
-    border-bottom: 2px solid black;
+    border-bottom: $solid-border;
 }
 
 .to-do-delete{
@@ -40,7 +42,7 @@
     cursor: pointer;
     background-color: #30323b;
     color: white;
-    border: black solid 1px;
+    border: $solid-border;
     border-radius: 5px;
     display: flex;
     justify-content: center;

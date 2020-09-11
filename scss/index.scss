@@ -1,3 +1,5 @@
+$solid-border: black 3px solid;
+
 body{
     margin: 0;
     padding: 0;
@@ -18,7 +20,7 @@ body{
 }
 
 .container{
-    border: 2px solid black;
+    border: $solid-border;
     border-radius: 10px;
     padding: 20px;
     background-color: #e9e9e9;
@@ -58,5 +60,5 @@ body{
 .title{
     text-align: center;
     font-size: 40px;
-    border-bottom: 3px solid black;
+    border-bottom: $solid-border;
 }
