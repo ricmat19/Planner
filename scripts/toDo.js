@@ -16,7 +16,7 @@ function getStorageSize(){
 
     for(let i = 0; i <= localStorage.length; i++){
 
-        if(localStorage.key(i) > highestKey){
+        if(parseInt(localStorage.key(i), 10) >= highestKey){
 
             highestKey = localStorage.key(i);
 
@@ -24,11 +24,15 @@ function getStorageSize(){
 
     }
 
+    // console.log(highestKey)
+
 }
 
 function getToDos(){
 
     getStorageSize()
+
+    // console.log(highestKey)
 
     for(let i = 1; i <= highestKey; i++){
 
