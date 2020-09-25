@@ -12,9 +12,9 @@ inputText.addEventListener("keyup", function enterToDo(){
     }
 });
 
-function getToDos(){
+function getStorageSize(){
 
-    for(let i = 1; i <= localStorage.length; i++){
+    for(let i = 0; i <= localStorage.length; i++){
 
         if(localStorage.key(i) > highestKey){
 
@@ -24,9 +24,13 @@ function getToDos(){
 
     }
 
-    for(let i = 1; i <= highestKey; i++){
+}
 
-        console.log(localStorage.key(i))
+function getToDos(){
+
+    getStorageSize()
+
+    for(let i = 1; i <= highestKey; i++){
 
         if(localStorage.getItem(i) !== null){
 
@@ -43,12 +47,14 @@ function getToDos(){
 getToDos();
 
 function addToDo(){
+
     toDoItem = document.querySelector(".to-do-item");
 
     if (inputText.value !== ""){
-        toDoList.innerHTML += '<div class="grid to-do-item"><div class="to-do-item-name">' + inputText.value + '</div><div class="to-do-delete">X</div></div>';
 
         toDoKey++;
+
+        toDoList.innerHTML += '<div class="grid to-do-item"><div class="to-do-item-name">' + inputText.value + '</div><div id ="' + toDoKey + '" class="to-do-delete">X</div></div>';
 
         localStorage.setItem(toDoKey, inputText.value);
     }
@@ -69,11 +75,12 @@ toDoList.addEventListener("click", function deleteToDo(e){
 
         let elementRemoved = elementClicked.getAttribute('id');
 
+        console.log(elementRemoved);
+
         localStorage.removeItem(elementRemoved);
     }
         
 });
-
 
 
 
