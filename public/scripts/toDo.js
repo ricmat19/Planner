@@ -24,15 +24,11 @@ function getStorageSize(){
 
     }
 
-    // console.log(highestKey)
-
 }
 
 function getToDos(){
 
     getStorageSize()
-
-    // console.log(highestKey)
 
     for(let i = 1; i <= highestKey; i++){
 
