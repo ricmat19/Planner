@@ -1,5 +1,6 @@
 let dayBoxes = document.querySelector(".day-boxes");
-let dayBox = document.querySelectorAll('.day-box');
+let modal = document.querySelector(".modal");
+let modalClose = document.querySelector(".modal-close");
 let monthTitle = document.querySelector('.month-title');
 let currentWeekDay = new Date().getDay();
 let currentMonth = new Date().getMonth();
@@ -93,6 +94,10 @@ function addCalBoxes(daysInMonth){
 
         }
     }
+    
+    let dayBox = document.querySelectorAll('.day-box');
+
+    addModals(dayBox)
 }
 
 monthBack.addEventListener("click", goBack);
@@ -355,20 +360,22 @@ function displayMonth(selectedMonth, change){
     }
 }
 
-// let button = document.querySelector(".modal-button");
-// let modal = document.querySelector(".modal");
-// let modalClose = document.querySelector(".modal-close");
+function addModals(dayBox){
 
-// button.addEventListener("click", function(){
-//     modal.style.display = "grid";
-// })
+    for(let i = 0; i < dayBox.length; i++){
+        dayBox[i].addEventListener("click", function(){
+            modal.style.display = "grid";
+        })
+    }
+    
+    modalClose.addEventListener("click", function(){
+        modal.style.display = "none";
+    })
+    
+    window.addEventListener("click", function(e){
+        if(e.target === modal){
+            modal.style.display = "none";
+        }
+    })
 
-// modalClose.addEventListener("click", function(){
-//     modal.style.display = "none";
-// })
-
-// window.addEventListener("click", function(e){
-//     if(e.target === modal){
-//         modal.style.display = "none";
-//     }
-// })
+}
