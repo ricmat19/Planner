@@ -14,6 +14,25 @@ body{
     display: grid;
 }
 
+.nav-div{
+  grid-template-columns: auto auto auto;
+  text-align: center;
+  color: black;
+  border-bottom: $solid-border;
+  background-color: #e9e9e9;
+  margin-bottom: 30px;
+}
+
+.nav-item{
+  padding: 20px;
+
+}
+
+.nav-item-anchor{
+  text-decoration: none;
+  color: black;
+}
+
 .grid-center{
     justify-items: center;
     align-items: center;
@@ -61,4 +80,37 @@ body{
     text-align: center;
     font-size: 40px;
     border-bottom: $solid-border;
+}
+
+.modal-button{
+  display: inline-block;
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 10px;
+  height: 80px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 25px;
+}
+
+.modal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: (0, 0, 0, .5);
+}
+
+.modal-close{
+  cursor: pointer;
+}
+
+.modal-title-div{
+  grid-template-columns: auto auto;
 }
