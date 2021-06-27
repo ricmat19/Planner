@@ -11,4 +11,4 @@ app.use(express.static(__dirname + "/public"))
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port
-app.listen( 3000, () => { console.log("Server Running") } )
+app.listen( 3000, () => { console.log("Server Running") } ) 
