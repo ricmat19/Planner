@@ -4,461 +4,138 @@ import PlannerAPI from '../plannerAPI.js';
 
 const CalculatorC = () => {
 
-    const [inputValue, setInputValue] = useState(0)
+    const [firstValue, setFirstValue] = useState(null);
+    const [secondValue, setSecondValue] = useState(null);
+    const [currentInput, setCurrentInput] = useState(0);
+    const [collectingFirstValue, setCollectingFirstValue] = useState(true);
+    const [calculation, setCalculation] = useState(null);
 
-    let collecting1 = true;
-    let value1 = "";
-    let value2 = "";
     let result = 0;
-    let calculation = "";
+    
+    const enterNumber = (number) => {
 
-    const enterZero = (e) => {
+        if((firstValue === null || firstValue === "0") && collectingFirstValue === true){
+            setFirstValue(number);
+            setCurrentInput(number)
+            return;
+        }
 
-        console.log(value1)
-        console.log(value2)
-        if(value1 === "" && collecting1 === true){
-            value1 = "0"
-        }
-        if(value2 === "" && collecting1 === false){
-            value2 = "0"
+        if((secondValue === null || secondValue === "0") && collectingFirstValue === false){
+            setSecondValue(number);
+            setCurrentInput(number);
+            return;
         }
     
-        if(collecting1 === true && value1 !== "" && value1 !== "0"){
-            value1 += "0"
-            setInputValue(value1);
+        if(collectingFirstValue === true){
+            let newValue = firstValue + number;
+            setFirstValue(newValue);
+            setCurrentInput(newValue)
+        }else{
+            let newValue = secondValue + number;
+            setSecondValue(newValue);
+            setCurrentInput(newValue)
         }
-        if(collecting1 === false && value2 !== "" && value2 !== "0"){
-            value2 += "0"
-            setInputValue(value2);
-        }
-    
     }
-    
-    // document.addEventListener("keyup", function numEnter(){
-    //     if(e.key === 48){
-    //         enterZero()
-    //     }
-    // });
-    
-    const enterOne = (e) => {
 
-        if(value1 === "0" && collecting1 === true){
-            value1 = "1";
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "1";
-            setInputValue(value2);
-            return;
+    const equation = (calculation) => {
+    
+        if(collectingFirstValue === true && firstValue !== "0"){
+            setCollectingFirstValue(false);
         }
     
-        if(collecting1 === true){
-            value1 += "1"
-            setInputValue(value1);
-        }else{
-            value2 += "1"
-            setInputValue(value2);
-        }
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 49){
-    //         enterOne()
-    //     }
-    // });
-    
-    const enterTwo = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "2"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "2"
-            setInputValue(value2);
-            return;
+        if(collectingFirstValue === false && secondValue !== null){
+            setCalculation(calculation)
+            enterEqual(calculation);
         }
     
-        if(collecting1 === true){
-            value1 += "2"
-            setInputValue(value1);
-        }else{
-            value2 += "2"
-            setInputValue(value2);
-        }
+        console.log(calculation)
     
     }
     
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 50){
-    //         enterTwo()
-    //     }
-    // });
+    const enterEqual = (calculation) => {
     
-    const enterThree = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "3"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "3"
-            setInputValue(value2);
-            return;
+        if(calculation === "+" && collectingFirstValue === false && secondValue !==""){
+            result = parseFloat(firstValue, 10) + parseFloat(secondValue, 10);
         }
     
-        if(collecting1 === true){
-            value1 += "3"
-            setInputValue(value1);
-        }else{
-            value2 += "3"
-            setInputValue(value2);
+        if(calculation === "-" && collectingFirstValue === false && secondValue !==""){
+            result = parseFloat(firstValue, 10) - parseFloat(secondValue, 10);
         }
     
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 51){
-    //         enterThree()
-    //     }
-    // });
-    
-    const enterFour = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "4"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "4"
-            setInputValue(value2);
-            return;
+        if(calculation === "*" && collectingFirstValue === false && secondValue !==""){
+            result = parseFloat(firstValue, 10) * parseFloat(secondValue, 10);
         }
     
-        if(collecting1 === true){
-            value1 += "4"
-            setInputValue(value1);
-        }else{
-            value2 += "4"
-            setInputValue(value2);
+        if(calculation === "/" && collectingFirstValue === false && secondValue !==""){
+            result = parseFloat(firstValue, 10) / parseFloat(secondValue, 10);
         }
     
-    }
+        setCurrentInput(result);
     
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 52){
-    //         enterFour()
-    //     }
-    // });
-    
-    const enterFive = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "5"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "5"
-            setInputValue(value2);
-            return;
-        }
-    
-        if(collecting1 === true){
-            value1 += "5"
-            setInputValue(value1);
-        }else{
-            value2 += "5"
-            setInputValue(value2);
-        }
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 53){
-    //         enterFive();
-    //     }
-    // });
-    
-    const enterSix = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "6"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "6"
-            setInputValue(value2);
-            return;
-        }
-    
-        if(collecting1 === true){
-            value1 += "6"
-            setInputValue(value1);
-        }else{
-            value2 += "6"
-            setInputValue(value2);
-        }
-        
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 54){
-    //         enterSix()
-    //     }
-    // });
-    
-    const enterSeven = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "7"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "7"
-            setInputValue(value2);
-            return;
-        }
-    
-        if(collecting1 === true){
-            value1 += "7"
-            setInputValue(value1);
-        }else{
-            value2 += "7"
-            setInputValue(value2);
-        }
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 55){
-    //         enterSeven()
-    //     }
-    // });
-    
-    const enterEight = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "8"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "8"
-            setInputValue(value2);
-            return;
-        }
-    
-        if(collecting1 === true){
-            value1 += "8"
-            setInputValue(value1);
-        }else{
-            value2 += "8"
-            setInputValue(value2);
-        }
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 56){
-    //         enterEight()
-    //     }
-    // });
-    
-    const enterNine = (e) => {
-    
-        if(value1 === "0" && collecting1 === true){
-            value1 = "9"
-            setInputValue(value1);
-            return;
-        }
-        if(value2 === "0" && collecting1 === false){
-            value2 = "9"
-            setInputValue(value2);
-            return;
-        }
-    
-        if(collecting1 === true){
-            value1 += "9"
-            setInputValue(value1);
-        }else{
-            value2 += "9"
-            setInputValue(value2);
-        }
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 57){
-    //         enterNine()
-    //     }
-    // });
-    
-    const enterPlus = (e) => {
-    
-        calculation = "+";
-    
-        if(collecting1 === true && value1 !== "0"){
-            collecting1 = false;
-        }
-    
-        if(collecting1 === false && value2 !==""){
-            enterEqual();
-        }
-    
-        console.log("Value1:" + value1);
-        console.log("Value2:" + value2);
-        console.log("Result:" + result);
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 187){
-    //         enterPlus()
-    //     }
-    // });
-    
-    const enterMinus = (e) => {
-    
-        calculation = "-";
-    
-        if(collecting1 === true && value1 !== "0"){
-            collecting1 = false;
-        }
-    
-        if(collecting1 === false && value2 !==""){
-            enterEqual();
-        }
-    
-        console.log("Value1:" + value1);
-        console.log("Value2:" + value2);
-        console.log("Result:" + result);
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 189){
-    //         enterMinus()
-    //     }
-    // });
-    
-    const enterMultiply = (e) => {
-    
-        calculation = "*";
-    
-        if(collecting1 === true){
-            collecting1 = false;
-        }
-    
-        if(collecting1 === false && value2 !==""){
-            enterEqual();
-        }
-    
-        console.log("Value1:" + value1);
-        console.log("Value2:" + value2);
-        console.log("Result:" + result);
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 88){
-    //         enterMultiply()
-    //     }  
-    // });
-    
-    const enterDivide = (e) => {
-    
-        calculation = "/";
-    
-        if(collecting1 === true && value1 !== "0"){
-            collecting1 = false;
-        }
-    
-        if(collecting1 === false && value2 !==""){
-            enterEqual();
-        }
-    
-        console.log("Value1:" + value1);
-        console.log("Value2:" + value2);
-        console.log("Result:" + result);
-    
-    }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 191){
-    //         enterDivide()
-    //     }
-    // });
-    
-    const enterEqual = (e) => {
-    
-        if(calculation === "+" && collecting1 === false && value2 !==""){
-            result = parseFloat(value1, 10) + parseFloat(value2, 10);
-        }
-    
-        if(calculation === "-" && collecting1 === false && value2 !==""){
-            result = parseFloat(value1, 10) - parseFloat(value2, 10);
-        }
-    
-        if(calculation === "*" && collecting1 === false && value2 !==""){
-            result = parseFloat(value1, 10) * parseFloat(value2, 10);
-        }
-    
-        if(calculation === "/" && collecting1 === false && value2 !==""){
-            result = parseFloat(value1, 10) / parseFloat(value2, 10);
-        }
-        
-        console.log("Value1:" + value1);
-        console.log("Value2:" + value2);
-        console.log("Result:" + result);
-    
-        e = result;
-    
-        value1 = result;
-        value2 = "";
+        setFirstValue(result);
+        setSecondValue(null);
         result = 0;
     }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 13){
-    //         enterEqual()
-    //     }
-    // });
     
     const enterClear = (e) => {
         e = "0"
-        collecting1 = true;
-        value1 = "";
-        value2 = "";
+        collectingFirstValue = true;
+        firstValue = "";
+        secondValue = "";
         result = 0;
         calculation = "";
     }
-    
-    // document.addEventListener("keyup", function numEnter(e){
-    //     if(e.key === 8 || e.key === 46){
-    //         enterClear()
-    //     }
-    // });
 
-    // const [cart, setCart] = useState([]);
-
-    useEffect(() => {
-        const fetchData =  (req, res) => {
-            try{
-                // const response = await PlannerAPI.get(`/?`);
-            }catch(err){
-                console.log(err);
-            }
+    const keyPress = (e) => {
+        if(e.key === 48){
+            enterEqual("0")
         }
-        fetchData();
-    }, []);
-
+        if(e.key === 49){
+            enterEqual("1")
+        }
+        if(e.key === 50){
+            enterEqual("2")
+        }
+        if(e.key === 51){
+            enterEqual("3")
+        }
+        if(e.key === 52){
+            enterEqual("4")
+        }
+        if(e.key === 53){
+            enterEqual("5")
+        }
+        if(e.key === 54){
+            enterEqual("6")
+        }
+        if(e.key === 55){
+            enterEqual("7")
+        }
+        if(e.key === 56){
+            enterEqual("8")
+        }
+        if(e.key === 57){
+            enterEqual("9")
+        }
+        if(e.key === 187){
+            equation("+")
+        }
+        if(e.key === 189){
+            equation("-")
+        }
+        if(e.key === 88){
+            equation("*")
+        }
+        if(e.key === 191){
+            equation("/")
+        }
+        if(e.key === 13){
+            enterEqual()
+        }
+        if(e.key === 8 || e.key === 46){
+            enterClear()
+        }
+    };
 
     return(
         <div className="main-body">
@@ -469,26 +146,26 @@ const CalculatorC = () => {
 
                     <div>
                         <div className="grid input-div">
-                            <input className="input-box" value={inputValue} type="text" readOnly/>
+                            <input className="input-box" value={currentInput} type="text" readOnly/>
                         </div>
 
                         <div className="calculator">
-                            <div onClick={() => enterOne(1)} className="button-box one">1</div>
-                            <div onClick={() => enterTwo(2)} className="button-box two">2</div>
-                            <div onClick={() => enterThree(3)} className="button-box three">3</div>
-                            <div onClick={() => enterPlus} className="button-box plus">+</div>
-                            <div onClick={() => enterFour(4)} className="button-box four">4</div>
-                            <div onClick={() => enterFive(5)} className="button-box five">5</div>
-                            <div onClick={() => enterSix(6)} className="button-box six">6</div>
-                            <div onClick={() => enterMinus} className="button-box minus">-</div>
-                            <div onClick={() => enterSeven(7)} className="button-box seven">7</div>
-                            <div onClick={() => enterEight(8)} className="button-box eight">8</div>
-                            <div onClick={() => enterNine(9)} className="button-box nine">9</div>
-                            <div onClick={() => enterMultiply} className="button-box multiply">x</div>
-                            <div onClick={() => enterZero(0)} className="button-box zero">0</div>
+                            <div onClick={() => enterNumber("1")} className="button-box one">1</div>
+                            <div onClick={() => enterNumber("2")} className="button-box two">2</div>
+                            <div onClick={() => enterNumber("3")} className="button-box three">3</div>
+                            <div onClick={() => equation("+")} className="button-box plus">+</div>
+                            <div onClick={() => enterNumber("4")} className="button-box four">4</div>
+                            <div onClick={() => enterNumber("5")} className="button-box five">5</div>
+                            <div onClick={() => enterNumber("6")} className="button-box six">6</div>
+                            <div onClick={() => equation("-")} className="button-box minus">-</div>
+                            <div onClick={() => enterNumber("7")} className="button-box seven">7</div>
+                            <div onClick={() => enterNumber("8")} className="button-box eight">8</div>
+                            <div onClick={() => enterNumber("9")} className="button-box nine">9</div>
+                            <div onClick={() => equation("*")} className="button-box multiply">x</div>
+                            <div onClick={() => enterNumber("0")} className="button-box zero">0</div>
                             <div onClick={() => enterEqual} className="button-box equal">=</div>
-                            <div onClick={() => enterClear} className="button-box clear">C</div>
-                            <div onClick={() => enterDivide} className="button-box divide">/</div>
+                            <div onClick={() => enterClear()} className="button-box clear">C</div>
+                            <div onClick={() => equation("/")} className="button-box divide">/</div>
                         </div>
                     </div>
                 </div>
