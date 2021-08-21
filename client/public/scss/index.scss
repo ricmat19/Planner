@@ -114,3 +114,206 @@ body{
 .modal-title-div{
   grid-template-columns: auto auto;
 }
+
+.title{
+  margin: 5px 0;
+}
+
+.input-box{
+  text-align: right;
+  font-weight: bold;
+  font-size: 25px;
+  width: auto;
+}
+
+.calculator{
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  gap: 3px;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-box{
+  display: inline-block;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  height: 80px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 25px;
+}
+
+.button-box:hover{
+  background-color: #30323b;
+  color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+input[type=number] {
+-moz-appearance: textfield;
+}
+
+$solid-border: black 3px solid;
+
+.container{
+    margin: 15px;
+}
+
+.month-row{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin-top: 10px;
+}
+
+.forward-div{
+    display: grid;
+    justify-items: end;
+}
+
+.month-back, .month-forward{
+    width: 35px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #e9e9e9;
+}
+
+.month-title{
+    text-align: center;
+    font-size: 30px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.day-names, .day-boxes{
+    display: grid;
+    grid-template-columns: repeat(7, 50px);
+    gap: 3px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.day{
+    display: inline-block;
+    text-align: center;
+}
+
+.day-name{
+    border-bottom: $solid-border;
+    padding: 5px 0;
+    margin: 5px 0;
+}
+
+.day-name:hover{
+    border-bottom: $solid-border;
+    padding: 5px 0;
+    margin: 5px 0;
+}
+
+.day-box{
+    border: $solid-border;
+    border-radius: 10px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.day-box:hover{
+    background-color: #9ea6c7;
+}
+
+.day-today{
+    background-color: #30323b;
+    color: white;
+}
+
+.day-today:hover{
+    background-color: #424c75;
+    color: white;
+}
+
+.center-num{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+$solid-border: black 3px solid;
+
+.map{
+    height: 500px;
+    width: 500px;
+    border: $solid-border;
+    margin: 10px 5px 5px 5px;
+}
+
+.point-title{
+    text-align: center;
+    font-size: 20px;
+    text-decoration: underline;
+    margin-bottom: 5px;
+}
+
+$solid-border: black 3px solid;
+
+.container{
+    width: 400px;
+}
+
+.input-div{
+    grid-template-columns: auto 50px;
+}
+
+.to-do-button{
+    border-radius: 10px;
+    border: $solid-border;
+    cursor: pointer;
+    outline: none;
+}
+
+.to-do-button:hover{
+    background-color: #ffffff;
+}
+
+.to-do-list{
+    width: 100%;
+    max-height:400px;
+    overflow: auto;
+    padding: 10px;
+}
+
+.to-do-item{
+    width: 100%;
+    grid-template-columns: auto 25px;
+    margin: 3px 0;
+    padding: 3px 0;
+    word-wrap: break-word;
+    word-break: break-all;
+    gap: 15px;
+    border-bottom: $solid-border;
+}
+
+.to-do-delete{
+    text-align: center;
+    cursor: pointer;
+    background-color: #30323b;
+    color: white;
+    border: $solid-border;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

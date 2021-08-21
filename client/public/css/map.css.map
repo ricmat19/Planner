@@ -1,8 +1,8 @@
 {
     "version": 3,
-    "mappings": "AAEA,AAAA,IAAI,AAAA,CACA,MAAM,CAAE,KAAK,CACb,KAAK,CAAE,KAAK,CACZ,MAAM,CALK,KAAK,CAAC,GAAG,CAAC,KAAK,CAM1B,MAAM,CAAE,gBAAgB,CAC3B,AAED,AAAA,YAAY,AAAA,CACR,UAAU,CAAE,MAAM,CAClB,SAAS,CAAE,IAAI,CACf,eAAe,CAAE,SAAS,CAC1B,aAAa,CAAE,GAAG,CACrB",
+    "mappings": "",
     "sources": [
-        "../scss/map.scss"
+        "../../client/public/scss/map.scss"
     ],
     "names": [],
     "file": "map.css"
