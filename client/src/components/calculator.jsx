@@ -8,7 +8,7 @@ const CalculatorC = () => {
     const [secondValue, setSecondValue] = useState(null);
     const [currentInput, setCurrentInput] = useState(0);
     const [collectingFirstValue, setCollectingFirstValue] = useState(true);
-    const [calculation, setCalculation] = useState(null);
+    const [equation, setEquation] = useState(null);
 
     let result = 0;
     
@@ -37,22 +37,28 @@ const CalculatorC = () => {
         }
     }
 
-    const equation = (calculation) => {
-    
+    const equationType = (calculation) => {
+        console.log(calculation)
         if(collectingFirstValue === true && firstValue !== "0"){
             setCollectingFirstValue(false);
         }
     
         if(collectingFirstValue === false && secondValue !== null){
-            setCalculation(calculation)
             enterEqual(calculation);
         }
-    
-        console.log(calculation)
-    
+        setEquation(calculation)
     }
     
     const enterEqual = (calculation) => {
+
+        console.log(firstValue)
+        console.log(secondValue)
+        console.log(calculation)
+        console.log(equation)
+
+        if(calculation === undefined){
+            calculation = equation;
+        }
     
         if(calculation === "+" && collectingFirstValue === false && secondValue !==""){
             result = parseFloat(firstValue, 10) + parseFloat(secondValue, 10);
@@ -71,20 +77,21 @@ const CalculatorC = () => {
         }
     
         setCurrentInput(result);
+        console.log(result)
     
         setFirstValue(result);
         setSecondValue(null);
         result = 0;
     }
     
-    const enterClear = (e) => {
-        e = "0"
-        collectingFirstValue = true;
-        firstValue = "";
-        secondValue = "";
-        result = 0;
-        calculation = "";
+    const enterClear = () => {
+        setCurrentInput(0)
+        setCollectingFirstValue(true);
+        setFirstValue(null)
+        setSecondValue(null)
+        setEquation(null)
     }
+    
 
     const keyPress = (e) => {
         if(e.key === 48){
@@ -153,19 +160,19 @@ const CalculatorC = () => {
                             <div onClick={() => enterNumber("1")} className="button-box one">1</div>
                             <div onClick={() => enterNumber("2")} className="button-box two">2</div>
                             <div onClick={() => enterNumber("3")} className="button-box three">3</div>
-                            <div onClick={() => equation("+")} className="button-box plus">+</div>
+                            <div onClick={() => equationType("+")} className="button-box plus">+</div>
                             <div onClick={() => enterNumber("4")} className="button-box four">4</div>
                             <div onClick={() => enterNumber("5")} className="button-box five">5</div>
                             <div onClick={() => enterNumber("6")} className="button-box six">6</div>
-                            <div onClick={() => equation("-")} className="button-box minus">-</div>
+                            <div onClick={() => equationType("-")} className="button-box minus">-</div>
                             <div onClick={() => enterNumber("7")} className="button-box seven">7</div>
                             <div onClick={() => enterNumber("8")} className="button-box eight">8</div>
                             <div onClick={() => enterNumber("9")} className="button-box nine">9</div>
-                            <div onClick={() => equation("*")} className="button-box multiply">x</div>
+                            <div onClick={() => equationType("*")} className="button-box multiply">x</div>
                             <div onClick={() => enterNumber("0")} className="button-box zero">0</div>
-                            <div onClick={() => enterEqual} className="button-box equal">=</div>
+                            <div onClick={() => enterEqual()} className="button-box equal">=</div>
                             <div onClick={() => enterClear()} className="button-box clear">C</div>
-                            <div onClick={() => equation("/")} className="button-box divide">/</div>
+                            <div onClick={() => equationType("/")} className="button-box divide">/</div>
                         </div>
                     </div>
                 </div>
