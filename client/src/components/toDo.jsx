@@ -80,12 +80,13 @@ const ToDoC = () => {
                     </div>
                     <div className="grid to-do-list">
                     {toDoList.map((toDo, index) => {
+                        console.log(toDo)
                         return(
                             <div className="grid to-do-item" key={index}>
                                 <div className="to-do-item-name">
                                     {toDo}
                                 </div> 
-                                <div id={highestKey} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
+                                <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
                             </div>
                         );
                     })}
