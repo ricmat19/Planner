@@ -6,7 +6,8 @@ const ToDoC = () => {
 
     const [input, setInput] = useState("");
     let toDoArray = [];
-    const [toDoList, setToDoList] = useState([]);
+    const [toDoLists, setToDoLists] = useState([]);
+    const [toDos, setToDos] = useState([]);
     let highestKey = localStorage.length;
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const ToDoC = () => {
                 toDoArray.push(localStorage.getItem(i));
             }
         }
-        setToDoList(toDoArray)
+        setToDos(toDoArray)
     }
 
     function addToDo(){
@@ -50,7 +51,7 @@ const ToDoC = () => {
         if (input !== ""){
             toDoArray.push(input);
             localStorage.setItem(newKey, input);
-            setToDoList(toDoArray)
+            setToDos(toDoArray)
             getStorageSize()
             console.log(highestKey)
         }
@@ -72,26 +73,28 @@ const ToDoC = () => {
     return(
         <div className="main-body">
             <div className="grid grid-center">
-                <div className="grid grid-center container">
-                    <div className="title">My To-Do's</div>
-                    <div className="grid input-div">
-                        <input onChange={e => setInput(e.target.value)} className="input-box" placeholder="Add to do..." type="text"/>
-                        <button onClick={() => addToDo()} className="to-do-button"><img src="../images/pencil-alt-solid.svg"/></button>
+                {toDos.map(toDoSet => {
+                    <div className="grid grid-center container">
+                        <div className="title">My To-Do's</div>
+                        <div className="grid input-div">
+                            <input onChange={e => setInput(e.target.value)} className="input-box" placeholder="Add to do..." type="text"/>
+                            <button onClick={() => addToDo()} className="to-do-button"><img src="../images/pencil-alt-solid.svg"/></button>
+                        </div>
+                        <div className="grid to-do-list">
+                        {toDos.map((toDo, index) => {
+                            console.log(toDo)
+                            return(
+                                <div className="grid to-do-item" key={index}>
+                                    <div className="to-do-item-name">
+                                        {toDo}
+                                    </div> 
+                                    <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
+                                </div>
+                            );
+                        })}
+                        </div>
                     </div>
-                    <div className="grid to-do-list">
-                    {toDoList.map((toDo, index) => {
-                        console.log(toDo)
-                        return(
-                            <div className="grid to-do-item" key={index}>
-                                <div className="to-do-item-name">
-                                    {toDo}
-                                </div> 
-                                <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
-                            </div>
-                        );
-                    })}
-                    </div>
-                </div>
+                })}
             </div>
         </div>
     )

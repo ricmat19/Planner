@@ -105,22 +105,22 @@ const CalendarC = () => {
 
             if(i === currentDay && currentMonth === thisMonth && currentYear === thisYear){
 
-                boxSet.push('<div class="day day-box day-today"><div class="center-num">' + i + '</div></div>');
+                boxSet.push(<div class="day day-box day-today"><div class="center-num">{i}</div></div>);
 
             }else{
 
-                boxSet.push('<div class="day day-box"><div class="center-num">' + i + '</div></div>');
+                boxSet.push(<div class="day day-box"><div class="center-num">{i}</div></div>);
 
             }
         }
         setDayBoxes(boxSet)
     }
 
-    document.addEventListener("keyup", function backArrow(){
-        // if(e.keyCode === 37){
-        //     goBack();
-        // }
-    });
+    // document.addEventListener("keyup", function backArrow(){
+    //     if(e.keyCode === 37){
+    //         goBack();
+    //     }
+    // });
 
     const monthBack = () => {
 
@@ -140,11 +140,11 @@ const CalendarC = () => {
 
     };
 
-    document.addEventListener("keyup", function forwardArrow(){
-        // if(e.keyCode === 39){
-        //     goForward();
-        // }
-    });
+    // document.addEventListener("keyup", function forwardArrow(){
+    //     if(e.keyCode === 39){
+    //         goForward();
+    //     }
+    // });
 
     const monthForward = () => {
 
