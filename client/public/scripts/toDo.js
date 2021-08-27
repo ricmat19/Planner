@@ -1,86 +1,86 @@
-let inputText = document.querySelector(".input-box");
-let toDoList = document.querySelector(".to-do-list");
-let addButton = document.querySelector(".to-do-button");
-let toDoKey = 0;
-let highestKey = 0;
+// let inputText = document.querySelector(".input-box");
+// let toDoList = document.querySelector(".to-do-list");
+// let addButton = document.querySelector(".to-do-button");
+// let toDoKey = 0;
+// let highestKey = 0;
 
-addButton.addEventListener("click", addToDo);
+// addButton.addEventListener("click", addToDo);
 
-inputText.addEventListener("keyup", function enterToDo(){
-    if(event.keyCode === 13){
-        addToDo();
-    }
-});
+// inputText.addEventListener("keyup", function enterToDo(){
+//     if(event.keyCode === 13){
+//         addToDo();
+//     }
+// });
 
-function getStorageSize(){
+// function getStorageSize(){
 
-    for(let i = 0; i <= localStorage.length; i++){
+//     for(let i = 0; i <= localStorage.length; i++){
 
-        if(parseInt(localStorage.key(i), 10) >= highestKey){
+//         if(parseInt(localStorage.key(i), 10) >= highestKey){
 
-            highestKey = localStorage.key(i);
+//             highestKey = localStorage.key(i);
 
-        }
+//         }
 
-    }
+//     }
 
-}
+// }
 
-function getToDos(){
+// function getToDos(){
 
-    getStorageSize()
+//     getStorageSize()
 
-    for(let i = 1; i <= highestKey; i++){
+//     for(let i = 1; i <= highestKey; i++){
 
-        if(localStorage.getItem(i) !== null){
+//         if(localStorage.getItem(i) !== null){
 
-            toDoList.innerHTML += '<div class="grid to-do-item"><div class="to-do-item-name">' + localStorage.getItem(i) + '</div><div id ="' + i + '" class="to-do-delete">X</div></div>';
+//             toDoList.innerHTML += '<div class="grid to-do-item"><div class="to-do-item-name">' + localStorage.getItem(i) + '</div><div id ="' + i + '" class="to-do-delete">X</div></div>';
 
-        }
+//         }
 
-    }
+//     }
 
-    toDoKey = highestKey;
+//     toDoKey = highestKey;
 
-}
+// }
 
-getToDos();
+// getToDos();
 
-function addToDo(){
+// function addToDo(){
 
-    toDoItem = document.querySelector(".to-do-item");
+//     toDoItem = document.querySelector(".to-do-item");
 
-    if (inputText.value !== ""){
+//     if (inputText.value !== ""){
 
-        toDoKey++;
+//         toDoKey++;
 
-        toDoList.innerHTML += '<div class="grid to-do-item"><div class="to-do-item-name">' + inputText.value + '</div><div id ="' + toDoKey + '" class="to-do-delete">X</div></div>';
+//         toDoList.innerHTML += '<div class="grid to-do-item"><div class="to-do-item-name">' + inputText.value + '</div><div id ="' + toDoKey + '" class="to-do-delete">X</div></div>';
 
-        localStorage.setItem(toDoKey, inputText.value);
-    }
+//         localStorage.setItem(toDoKey, inputText.value);
+//     }
 
-    inputText.value = "";
+//     inputText.value = "";
 
-};
+// };
 
-toDoList.addEventListener("click", function deleteToDo(e){
+// toDoList.addEventListener("click", function deleteToDo(e){
     
-    let elementClicked = e.target;
+//     let elementClicked = e.target;
 
-    if(elementClicked.classList[0] === "to-do-delete"){
+//     if(elementClicked.classList[0] === "to-do-delete"){
 
-        let removedToDo = elementClicked.parentElement;
+//         let removedToDo = elementClicked.parentElement;
 
-        removedToDo.remove();
+//         removedToDo.remove();
 
-        let elementRemoved = elementClicked.getAttribute('id');
+//         let elementRemoved = elementClicked.getAttribute('id');
 
-        console.log(elementRemoved);
+//         console.log(elementRemoved);
 
-        localStorage.removeItem(elementRemoved);
-    }
+//         localStorage.removeItem(elementRemoved);
+//     }
         
-});
+// });
 
 
 

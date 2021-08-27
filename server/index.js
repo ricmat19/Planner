@@ -1,9 +1,9 @@
 //requires the express framework for this file
 const express = require("express");
+const cors = require("cors");
 //creates a variable to hold the express framework
 const app = express();
-const hb = require('express-handlebars');
-const mysql = require("mysql");
+const plannerRouter = require('./routes/planner');
 
 //insures that the .env file is only run in a development environment and not a production environment
 if(process.env.NODE_ENV !== 'production'){
@@ -11,29 +11,18 @@ if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
 }
 
-const db = mysql.createConnection({
-    user: process.env.MYSQLUSER,
-    host: process.env.MSQLHOST,
-    password: process.env.MSQLPASSWORD,
-    database: process.env.MSQLDATABASE,
-});
+//allows for different domains to communicate
+app.use(cors());
 
-app.post('/addToDo', (req, res) => {
-    db.query("INSERT INTO todos (list, toDo, dueDate, imgRef, info) VALUES ()", (err, result) => {
-        if(err){
-            console.log(err);
-        }
-        console.log(result)
-    })
-})
+//Middleware: Puts the json data in a pages body in a req object, parses the data
+app.use(express.json());
 
 //uses the Express use() method
 //the use() method is used to implement middleware on the server
 //middleware used to give the server access to programs front-end files
 app.use(express.static('public'));
 
-// app.engine('handlebars', hb());
-// app.set('view engine', 'handlebars');
+app.use(express.urlencoded({extended: false}));
 
 app.get('/calculator', (req, res) => {
     res.render('calculator', 
@@ -56,12 +45,7 @@ app.get('/map', (req, res) => {
     js: "scripts/map.js"}); 
 })
 
-app.get('/todo', (req, res) => {
-    res.render('todo', 
-    {title: "To Do",
-    css: "css/todo.css",
-    js: "scripts/todo.js"}); 
-})
+app.use(plannerRouter);
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port

@@ -14,6 +14,18 @@ body{
     display: grid;
 }
 
+.grid-center{
+  justify-items: center;
+  align-items: center;
+}
+
+.align-horizontal{
+  // grid-template-columns: repeat(auto-fit, minmax(0px, 350px));
+  // white-space: nowrap;
+  display: flex;
+  overflow-x: auto;
+}
+
 .nav-div{
   grid-template-columns: auto auto auto;
   text-align: center;
@@ -31,11 +43,6 @@ body{
 .nav-item-anchor{
   text-decoration: none;
   color: black;
-}
-
-.grid-center{
-    justify-items: center;
-    align-items: center;
 }
 
 .container{
@@ -123,7 +130,6 @@ body{
   text-align: right;
   font-weight: bold;
   font-size: 25px;
-  width: auto;
 }
 
 .calculator{
@@ -270,11 +276,12 @@ $solid-border: black 3px solid;
 $solid-border: black 3px solid;
 
 .container{
-    width: 400px;
+    width: 300px;
 }
 
 .input-div{
     grid-template-columns: auto 50px;
+    gap: 15px;
 }
 
 .to-do-button{
@@ -316,4 +323,23 @@ $solid-border: black 3px solid;
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.add-list-button{
+  width: 350px;
+  border-radius: 10px;
+  border: black 3px solid;
+  cursor: pointer;
+  outline: none;
+  text-align: left;
+  font-weight: bold;
+  font-size: 25px;
+  display: grid;
+  grid-template-columns: 50px auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-list-image{
+  width: 50px;
 }

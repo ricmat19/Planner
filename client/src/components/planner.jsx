@@ -13,7 +13,10 @@ const ToDoC = () => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                getToDos();
+                const response = await PlannerAPI.get(`/planner`);
+                setToDoLists(response.data.data);
+
+                // getToDos();
             }catch(err){
                 console.log(err);
             }
@@ -27,53 +30,57 @@ const ToDoC = () => {
     //     }
     // });
 
-    function getStorageSize(){
-        for(let i = 0; i <= localStorage.length; i++){
-            if(parseInt(localStorage.key(i), 10) >= highestKey){
-                highestKey = parseInt(localStorage.key(i));
-            }
-        }
-    }
+    // function getStorageSize(){
+    //     for(let i = 0; i <= localStorage.length; i++){
+    //         if(parseInt(localStorage.key(i), 10) >= highestKey){
+    //             highestKey = parseInt(localStorage.key(i));
+    //         }
+    //     }
+    // }
 
     function getToDos(){
-        getStorageSize();
-        for(let i = 1; i <= localStorage.length; i++){
-            if(localStorage.getItem(i) !== null){
-                toDoArray.push(localStorage.getItem(i));
-            }
-        }
-        setToDos(toDoArray)
+        // getStorageSize();
+        // for(let i = 1; i <= localStorage.length; i++){
+        //     if(localStorage.getItem(i) !== null){
+        //         toDoArray.push(localStorage.getItem(i));
+        //     }
+        // }
+        // setToDos(toDoArray)
     }
 
+    const createList = (e) => {
+        
+    };
+
     function addToDo(){
-        getToDos()
-        let newKey = highestKey + 1;
-        if (input !== ""){
-            toDoArray.push(input);
-            localStorage.setItem(newKey, input);
-            setToDos(toDoArray)
-            getStorageSize()
-            console.log(highestKey)
-        }
-        setInput("");
+        // getToDos()
+        // let newKey = highestKey + 1;
+        // if (input !== ""){
+        //     toDoArray.push(input);
+        //     localStorage.setItem(newKey, input);
+        //     setToDos(toDoArray)
+        //     getStorageSize()
+        //     console.log(highestKey)
+        // }
+        // setInput("");
     };
 
     const deleteToDo = (e) => {
-        let elementClicked = e.target;
-        console.log(elementClicked)
-        if(elementClicked.classList[0] === "to-do-delete"){
-            let removedToDo = elementClicked.parentElement;
-            removedToDo.remove();
-            let elementRemoved = elementClicked.getAttribute('id');
-            localStorage.removeItem(elementRemoved);
-        }
-        getToDos()  
+        // let elementClicked = e.target;
+        // console.log(elementClicked)
+        // if(elementClicked.classList[0] === "to-do-delete"){
+        //     let removedToDo = elementClicked.parentElement;
+        //     removedToDo.remove();
+        //     let elementRemoved = elementClicked.getAttribute('id');
+        //     localStorage.removeItem(elementRemoved);
+        // }
+        // getToDos()  
     };
 
     return(
         <div className="main-body">
-            <div className="grid grid-center">
-                {toDos.map(toDoSet => {
+            <div className="grid grid-center align-horizontal">
+                {/* {toDos.map(toDoSet => { */}
                     <div className="grid grid-center container">
                         <div className="title">My To-Do's</div>
                         <div className="grid input-div">
@@ -82,7 +89,6 @@ const ToDoC = () => {
                         </div>
                         <div className="grid to-do-list">
                         {toDos.map((toDo, index) => {
-                            console.log(toDo)
                             return(
                                 <div className="grid to-do-item" key={index}>
                                     <div className="to-do-item-name">
@@ -94,7 +100,13 @@ const ToDoC = () => {
                         })}
                         </div>
                     </div>
-                })}
+                {/* })} */}
+                    <div className="grid grid-center add-list">
+                        <button onClick={() => createList()} className="add-list-button">
+                            <img className="add-list-image" src="../images/plus-solid.svg"/>
+                            <div>Add a List</div>
+                        </button>
+                    </div>
             </div>
         </div>
     )

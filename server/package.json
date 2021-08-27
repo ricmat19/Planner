@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/ricmat19/Goal-Planner#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.2",
+    "multer": "^1.4.3",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
