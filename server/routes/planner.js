@@ -4,7 +4,7 @@ const db = require("../database");
 
 router.get('/planner', async (req, res) => {
     try{
-        const planner = await db.query("SELECT * FROM planner");
+        const planner = await db.query("SELECT * FROM todos");
     
         res.status(200).json({
             status: "success",
@@ -18,9 +18,25 @@ router.get('/planner', async (req, res) => {
     }
 })
 
+router.post('/planner/add-list', async (req, res) => {
+    try{
+        const list = await db.query("INSERT INTO lists (list) values ($1) RETURNING *", [req.body.list]);
+
+        res.status(201).json({
+            status: "success",
+            results: list.rows,
+            data:{
+                list: list.rows,
+            }
+        })
+    }catch(err){
+        console.log(err);
+    }
+})
+
 router.post('/planner/add-toDo', async (req, res) => {
     try{
-        const todo = await db.query("INSERT INTO planner (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
+        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
 
         res.status(201).json({
             status: "success",
@@ -36,7 +52,7 @@ router.post('/planner/add-toDo', async (req, res) => {
 
 router.put('/todo/update-toDo', async (req, res) => {
     try{
-        const todo = await db.query("INSERT INTO planner (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
+        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
 
         res.status(201).json({
             status: "success",
@@ -52,7 +68,7 @@ router.put('/todo/update-toDo', async (req, res) => {
 
 router.delete('/todo/delete-toDo', async (req, res) => {
     try{
-        const todo = await db.query("INSERT INTO planner (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
+        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
 
         res.status(201).json({
             status: "success",
