@@ -5,6 +5,7 @@ const db = require("../database");
 router.get('/planner', async (req, res) => {
     try{
         const planner = await db.query("SELECT * FROM todos");
+        console.log(planner)
     
         res.status(200).json({
             status: "success",
