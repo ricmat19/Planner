@@ -8,12 +8,10 @@ const ToDoC = (props) => {
     const{creatToDo} = useContext(PlannerContext);
 
     const [input, setInput] = useState("");
-    let toDoArray = [];
     const [listModal, setListModal] = useState("modal");
     const [toDoModal, setToDoModal] = useState("modal");
     const [toDoList, setToDoList] = useState([]);
     const [toDos, setToDos] = useState([]);
-    let highestKey = localStorage.length;
 
     const [list, setList] = useState("");
     const [toDo, setToDo] = useState("");
@@ -30,35 +28,36 @@ const ToDoC = (props) => {
         setListModal("modal modal-active");
     };
 
-    const displayToDoModal = () =>{
+    const displayToDoModal = () => {
         setToDoModal("modal modal-active");
     }
 
-    const modalRef = useRef();
+    const toDoRef = useRef();
     const listRef = useRef();
 
     useEffect(() => {
         const fetchData = async (req, res) => {
-            // try{
+            try{
                 const response = await PlannerAPI.get(`/planner`);
                 setToDoList(response.data.data);
                 console.log(response.data.data)
 
-                // document.addEventListener("mousedown", (event) => {
-                //     if(modalRef.current !== null){
-                //         if(!modalRef.current.contains(event.target)){
-                //             setToDoModal("modal");
-                //         }
-                //         if(!listRef.current.contains(event.target)){
-                //             setToDoModal("modal");
-                //         }
-                //     }
-                // })
+                document.addEventListener("mousedown", (event) => {
+                    // if(toDoRef.current !== null){
+                        if(!toDoRef.current.contains(event.target)){
+                            setToDoModal("modal");
+                        }
+                        if(!listRef.current.contains(event.target)){
+                            setListModal("modal");
+                            console.log(event.target)
+                        }
+                    // }
+                })
 
-                // getToDos();
-            // }catch(err){
-            //     console.log(err);
-            // }
+                getToDos();
+            }catch(err){
+                console.log(err);
+            }
         }
         fetchData();
     }, []);
@@ -169,9 +168,9 @@ const ToDoC = (props) => {
             {/* Create ToDo */}
             <div className={toDoModal}>
                 <form>
-                    <div ref={modalRef} className="modal-content">
+                    <div ref={toDoRef} className="modal-content">
                         <div>
-                            <input className="modal-header title todo" value={toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo"/>
+                            <input className="modal-header title" value={toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo"/>
                         </div>
                         <div className="toDo-modal-grid">
                             <label>in list</label>
@@ -202,7 +201,9 @@ const ToDoC = (props) => {
                         <div className="title">My To-Do's</div>
                         <div className="grid input-div">
                             <input onChange={e => setInput(e.target.value)} className="input-box" placeholder="Add to do..." type="text"/>
-                            <button onClick={displayToDoModal} className="to-do-button"><img src="../images/pencil-alt-solid.svg"/></button>
+                            <button onClick={displayToDoModal} className="to-do-button">
+                                <img src="../images/pencil-alt-solid.svg"/>
+                            </button>
                         </div>
                         <div className="grid to-do-list">
                         {toDos.map((toDo, index) => {
