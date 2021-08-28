@@ -1,18 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../database");
+const multer = require('multer');
+
+const upload = multer({dest: 'images/'});
 
 router.get('/planner', async (req, res) => {
     try{
-        const planner = await db.query("SELECT * FROM todos");
-        console.log(planner)
+        const toDos = await db.query("SELECT todo FROM todos", [], function (err) {
+            if (err) {
+                console.log(err)
+            }
+        })
+        console.log(toDos)
+
     
         res.status(200).json({
             status: "success",
-            results: planner.rows,
-            data:{
-                planner: planner.rows,
-            }
+            // results: toDos.rows,
+            // data:{
+            //     toDos: toDos.rows,
+            // }
         })
     }catch(err){
         console.log(err);
@@ -21,7 +29,7 @@ router.get('/planner', async (req, res) => {
 
 router.post('/planner/add-list', async (req, res) => {
     try{
-        const list = await db.query("INSERT INTO lists (list) values ($1) RETURNING *", [req.body.list]);
+        const list = await db.query(`INSERT INTO todos (list) VALUES (?)`, [req.body.list]);
 
         res.status(201).json({
             status: "success",
@@ -35,9 +43,10 @@ router.post('/planner/add-list', async (req, res) => {
     }
 })
 
-router.post('/planner/add-toDo', async (req, res) => {
+router.post('/planner/add-toDo', upload.single('imgRef'), async (req, res) => {
     try{
-        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
+        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values (?, ?, ?, ?, ?)", 
+        [req.body.list, req.body.toDo, req.body.dueDate, req.file.filename, req.body.info]);
 
         res.status(201).json({
             status: "success",

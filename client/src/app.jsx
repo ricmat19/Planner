@@ -1,12 +1,13 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import { PlannerContextProvider } from './plannerContext';
 import Calculator from "./routes/calculator";
 import Calendar from "./routes/calendar";
 import Planner from "./routes/planner";
 
 const App = () =>{
     return (
-        // <CollectionContextProvider>
+        <PlannerContextProvider>
             <div>
                 <Router>
                     <Route exact path="/calculator" component={Calculator}/>
@@ -14,7 +15,7 @@ const App = () =>{
                     <Route exact path="/planner" component={Planner}/>
                 </Router>
             </div>
-        // </CollectionContextProvider>
+        </PlannerContextProvider>
     )
 }
 
