@@ -43,8 +43,12 @@ router.post('/planner/add-list', async (req, res) => {
 
 router.post('/planner/add-toDo', upload.single('imgRef'), async (req, res) => {
     try{
-        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values (?, ?, ?, ?, ?)", 
-        [req.body.list, req.body.toDo, req.body.dueDate, req.file.filename, req.body.info]);
+        // const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values (?, ?, ?, ?, ?)", 
+        // [req.body.list, req.body.toDo, req.body.dueDate, req.file.filename, req.body.info]);
+
+        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, info) values (?, ?, ?, ?)", 
+        [req.body.list, req.body.toDo, req.body.dueDate, req.body.info]);
+
 
         res.status(201).json({
             status: "success",
@@ -58,9 +62,14 @@ router.post('/planner/add-toDo', upload.single('imgRef'), async (req, res) => {
     }
 })
 
-router.put('/todo/update-toDo', async (req, res) => {
+router.put('/todo/edit-toDo', async (req, res) => {
     try{
-        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
+        // const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
+
+
+
+        const todo = await db.query("UPDATE todos SET list=?, todo=?, dueDate=?, info=? WHERE id=?", 
+        [req.body.list, req.body.toDo, req.body.dueDate, req.body.info, req.body.id]);
 
         res.status(201).json({
             status: "success",

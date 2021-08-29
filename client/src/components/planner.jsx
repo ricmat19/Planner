@@ -10,6 +10,8 @@ const ToDoC = (props) => {
     const [input, setInput] = useState("");
     const [listModal, setListModal] = useState("modal");
     const [toDoModal, setToDoModal] = useState("modal");
+    const [editModal, setEditModal] = useState("modal");
+    const [editModalInputs, setEditModalInputs] = useState({});
     const listArray = [];
     const [toDoList, setToDoList] = useState([]);
     const toDosArray = [];
@@ -17,6 +19,7 @@ const ToDoC = (props) => {
 
     const [modalList, setModalList] = useState('')
 
+    const [id, setId] = useState("");
     const [list, setList] = useState("");
     const [toDo, setToDo] = useState("");
     const [dueDate, setDueDate] = useState("");
@@ -38,8 +41,18 @@ const ToDoC = (props) => {
         setList(list)
     }
 
+    const displayEditModal = (id, list, toDo, dueDate, info) => {
+        setEditModal("modal modal-active");
+        setId(id);
+        setList(list);
+        setToDo(toDo);
+        setDueDate(dueDate);
+        setInfo(info);
+    }
+
     const toDoRef = useRef();
     const listRef = useRef();
+    const editRef = useRef();
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -55,15 +68,17 @@ const ToDoC = (props) => {
                 let uniqueList = [...new Set(listArray)];
                 setToDoList(uniqueList);
                 setToDos(toDosArray);
-                console.log(toDos)
 
                 document.addEventListener("mousedown", (event) => {
-                    if(toDoRef.current !== null && listRef.current !== null){
+                    if(toDoRef.current !== null && listRef.current !== null && editRef.current !== null){
                         if(!toDoRef.current.contains(event.target)){
                             setToDoModal("modal");
                         }
                         if(!listRef.current.contains(event.target)){
                             setListModal("modal");
+                        }
+                        if(!editRef.current.contains(event.target)){
+                            setEditModal("modal");
                         }
                     }
                 })
@@ -149,6 +164,22 @@ const ToDoC = (props) => {
         }
     }
 
+    const editToDo = async (e) => {
+        e.preventDefault()
+        try{
+            const update = await PlannerAPI.put(`/todo/edit-toDo`,{
+                id: id,
+                list: list,
+                toDo: toDo,
+                dueDate: dueDate,
+                info: info
+            });
+            console.log(update)
+        }catch(err){
+            console.log(err);
+        }
+    };
+
     const deleteToDo = async (id) => {
         try{
             const response = await PlannerAPI.delete(`/todo/delete-toDo/${id}`);
@@ -182,11 +213,12 @@ const ToDoC = (props) => {
             <div className={toDoModal}>
                 <form>
                     <div ref={toDoRef} className="modal-content">
-                        <div>
+                        <div className="toDo-modal-grid">
+                            <label>To Do</label>
                             <input className="modal-header title" ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
                         </div>
                         <div className="toDo-modal-grid">
-                            <label>in list</label>
+                            <label>List</label>
                             <div>{modalList}</div>
                         </div>
                         <div className="toDo-modal-grid">
@@ -197,10 +229,10 @@ const ToDoC = (props) => {
                             <label>Due Date</label>
                             <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
                         </div>
-                        <div className="toDo-modal-grid">
+                        {/* <div className="toDo-modal-grid">
                             <label>Attachment</label>
                             <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
-                        </div>
+                        </div> */}
                         <div>
                             <button onClick={createToDo}>Save</button>
                         </div>
@@ -208,6 +240,44 @@ const ToDoC = (props) => {
                 </form>
             </div>
 
+            {/* Edit ToDo */}
+            <div className={editModal}>
+                <form>
+                    <div ref={editRef} className="modal-content">
+                        <div className="toDo-modal-grid">
+                            <label>To Do</label>
+                            <input className="modal-header title" value={toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
+                        </div>
+                        <div className="toDo-modal-grid">
+                            <label>List</label>
+                            <select value={list} onChange={e => setList(e.target.value)}>
+                                {toDoList.map(list => {
+                                    return(
+                                        <option key={list}>{list}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                        <div className="toDo-modal-grid">
+                            <label>Description</label>
+                            <textarea className="modal-header info" value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
+                        </div>
+                        <div className="toDo-modal-grid">
+                            <label>Due Date</label>
+                            <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
+                        </div>
+                        {/* <div className="toDo-modal-grid">
+                            <label>Attachment</label>
+                            <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
+                        </div> */}
+                        <div>
+                            <button onClick={editToDo}>Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {/* To Do Lists */}
             <div className="grid grid-center align-horizontal">
                 {toDoList.map(list => {
                     return(
@@ -223,10 +293,13 @@ const ToDoC = (props) => {
                                 if(list === toDo.list){
                                     return(
                                         <div key={index} className="grid to-do-item">
+                                            <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info)} className="edit-toDo">
+                                                <img src="../images/wrench-solid.svg"/>
+                                            </div>
                                             <div className="to-do-item-name">
                                                 {toDo.todo}
                                             </div> 
-                                            <div onClick={() => deleteToDo(toDo.id)} className="to-do-delete">X</div>
+                                            <div onClick={() => deleteToDo(toDo.id)} className="delete-toDo">X</div>
                                         </div>
                                     );
                                 }
@@ -235,6 +308,8 @@ const ToDoC = (props) => {
                         </div>
                     );
                 })}
+                
+                {/* Add List */}
                 <div className="grid grid-center container add-list-container">
                     <button onClick={displayListModal} className="add-list-button">
                         <img className="add-list-image" src="../images/plus-solid.svg"/>
