@@ -50,7 +50,8 @@ const ToDoC = (props) => {
                 }
                 let uniqueList = [...new Set(listArray)];
                 setToDoList(uniqueList);
-                // setToDos(toDosArray);
+                setToDos(toDosArray);
+                console.log(toDos)
 
                 document.addEventListener("mousedown", (event) => {
                     // if(toDoRef.current !== null){
@@ -218,14 +219,16 @@ const ToDoC = (props) => {
                             </div>
                             <div className="grid to-do-list">
                             {toDos.map((toDo, index) => {
-                                return(
-                                    <div className="grid to-do-item" key={index}>
-                                        <div className="to-do-item-name">
-                                            {toDo}
-                                        </div> 
-                                        <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
-                                    </div>
-                                );
+                                if(list === toDo.list){
+                                    return(
+                                        <div key={index} className="grid to-do-item">
+                                            <div className="to-do-item-name">
+                                                {toDo.todo}
+                                            </div> 
+                                            <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
+                                        </div>
+                                    );
+                                }
                             })}
                             </div>
                         </div>
