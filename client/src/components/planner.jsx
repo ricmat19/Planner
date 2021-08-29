@@ -57,16 +57,19 @@ const ToDoC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const response = await PlannerAPI.get(`/planner`);
+                const listResponse = await PlannerAPI.get(`/lists`);
+                const toDosResponse = await PlannerAPI.get(`/toDos`);
 
-                for(let i=0; i < response.data.data.toDos.length; i++){
-                    toDosArray.push(response.data.data.toDos[i])
+                console.log(listResponse.data.data.lists[0].list)
 
-                    listArray.push(response.data.data.toDos[i].list)
-                        
+                for(let i=0; i < listResponse.data.data.lists.length; i++){
+                    listArray.push(listResponse.data.data.lists[i].list)
                 }
-                let uniqueList = [...new Set(listArray)];
-                setToDoList(uniqueList);
+                setToDoList(listArray);
+
+                for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
+                    toDosArray.push(toDosResponse.data.data.toDos[i])
+                }
                 setToDos(toDosArray);
 
                 document.addEventListener("mousedown", (event) => {
@@ -83,37 +86,12 @@ const ToDoC = (props) => {
                     }
                 })
 
-                getToDos();
             }catch(err){
                 console.log(err);
             }
         }
         fetchData();
     }, []);
-
-    // inputText.addEventListener("keyup", function enterToDo(){
-    //     if(event.keyCode === 13){
-    //         addToDo();
-    //     }
-    // });
-
-    // function getStorageSize(){
-    //     for(let i = 0; i <= localStorage.length; i++){
-    //         if(parseInt(localStorage.key(i), 10) >= highestKey){
-    //             highestKey = parseInt(localStorage.key(i));
-    //         }
-    //     }
-    // }
-
-    function getToDos(){
-        // getStorageSize();
-        // for(let i = 1; i <= localStorage.length; i++){
-        //     if(localStorage.getItem(i) !== null){
-        //         toDoArray.push(localStorage.getItem(i));
-        //     }
-        // }
-        // setToDos(toDoArray)
-    }
 
     const createList = async (e) => { 
         e.preventDefault()
@@ -219,7 +197,7 @@ const ToDoC = (props) => {
                         </div>
                         <div className="toDo-modal-grid">
                             <label>List</label>
-                            <div>{modalList}</div>
+                            <div className="modal-header">{modalList}</div>
                         </div>
                         <div className="toDo-modal-grid">
                             <label>Description</label>
@@ -250,7 +228,7 @@ const ToDoC = (props) => {
                         </div>
                         <div className="toDo-modal-grid">
                             <label>List</label>
-                            <select value={list} onChange={e => setList(e.target.value)}>
+                            <select className="modal-header" value={list} onChange={e => setList(e.target.value)}>
                                 {toDoList.map(list => {
                                     return(
                                         <option key={list}>{list}</option>
@@ -279,6 +257,7 @@ const ToDoC = (props) => {
 
             {/* To Do Lists */}
             <div className="grid grid-center align-horizontal">
+                {console.log(toDoList)}
                 {toDoList.map(list => {
                     return(
                         <div key={list} className="grid grid-center container">

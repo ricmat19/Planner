@@ -5,10 +5,27 @@ const multer = require('multer');
 
 const upload = multer({dest: 'images/'});
 
-router.get('/planner', async (req, res) => {
+router.get('/lists', async (req, res) => {
     try{
+        const lists = await db.query("SELECT * FROM lists", function (err, result, fields) {
+            if (err) throw err;
 
-        let selection;
+            res.status(200).json({
+                status: "success",
+                results: result,
+                data:{
+                    lists: result,
+                }
+            })
+        });
+
+    }catch(err){
+        console.log(err);
+    }
+})
+
+router.get('/toDos', async (req, res) => {
+    try{
         const toDos = await db.query("SELECT * FROM todos", function (err, result, fields) {
             if (err) throw err;
 
@@ -20,6 +37,7 @@ router.get('/planner', async (req, res) => {
                 }
             })
         });
+
     }catch(err){
         console.log(err);
     }
@@ -27,15 +45,27 @@ router.get('/planner', async (req, res) => {
 
 router.post('/planner/add-list', async (req, res) => {
     try{
-        const list = await db.query(`INSERT INTO todos (list) VALUES (?)`, [req.body.list]);
 
-        res.status(201).json({
-            status: "success",
-            results: list.rows,
-            data:{
-                list: list.rows,
+        const currentList = await db.query("SELECT list FROM lists");
+
+        let uniqueList = true;
+        for(let i=0; i< currentList.length; i++){
+            if(currentList[i] === req.body.list){
+                uniqueList = false;
             }
-        })
+        }
+
+        if(uniqueList === true){
+            const list = await db.query(`INSERT INTO lists (list) VALUES (?)`, [req.body.list]);
+
+            res.status(201).json({
+                status: "success",
+                results: list.rows,
+                data:{
+                    list: list.rows,
+                }
+            })
+        }
     }catch(err){
         console.log(err);
     }
