@@ -16,7 +16,7 @@ body{
 
 .grid-center{
   justify-items: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .align-horizontal{
@@ -178,7 +178,7 @@ input[type=number] {
 $solid-border: black 3px solid;
 
 .container{
-    margin: 15px;
+    margin: 5px;
 }
 
 .month-row{
@@ -282,8 +282,8 @@ $solid-border: black 3px solid;
 $solid-border: black 3px solid;
 
 .input-div{
-    grid-template-columns: auto 50px;
-    gap: 15px;
+  max-height: 50px;
+  width: 50px;
 }
 
 .to-do-button{
@@ -328,9 +328,9 @@ $solid-border: black 3px solid;
 }
 
 .add-list-button{
-  width: 350px;
-  border-radius: 10px;
-  border: black 3px solid;
+  width: 300px;
+  border-radius: none;
+  border: none;
   cursor: pointer;
   outline: none;
   text-align: left;
@@ -383,7 +383,7 @@ $solid-border: black 3px solid;
   outline: none;
 }
 
-input{
+input, select{
   border-style: none;
   padding: 10px;
   border-radius: 10px;
@@ -417,4 +417,9 @@ button{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: bold;
   cursor: pointer;
+}
+
+.add-list-container{
+  min-width: 300px;
+  padding: 0;
 }

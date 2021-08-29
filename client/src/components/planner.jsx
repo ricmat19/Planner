@@ -15,6 +15,8 @@ const ToDoC = (props) => {
     const toDosArray = [];
     const [toDos, setToDos] = useState([]);
 
+    const [modalList, setModalList] = useState('')
+
     const [list, setList] = useState("");
     const [toDo, setToDo] = useState("");
     const [dueDate, setDueDate] = useState("");
@@ -30,8 +32,10 @@ const ToDoC = (props) => {
         setListModal("modal modal-active");
     };
 
-    const displayToDoModal = () => {
+    const displayToDoModal = (list) => {
         setToDoModal("modal modal-active");
+        setModalList(list)
+        setList(list)
     }
 
     const toDoRef = useRef();
@@ -99,7 +103,6 @@ const ToDoC = (props) => {
     const createList = async (e) => { 
         e.preventDefault()
         try{
-            console.log(list)
             const response = await PlannerAPI.post("/planner/add-list",{
                 list,
             });
@@ -181,11 +184,18 @@ const ToDoC = (props) => {
                 <form>
                     <div ref={toDoRef} className="modal-content">
                         <div>
-                            <input className="modal-header title" value={toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo"/>
+                            <input className="modal-header title" ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
                         </div>
                         <div className="toDo-modal-grid">
                             <label>in list</label>
-                            <input className="modal-header list" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list"/>
+                            <div>{modalList}</div>
+                            {/* <select className="modal-header list" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list">
+                            {toDoList.map(list => {
+                                return(
+                                    <option>{list}</option>
+                                )
+                            })}
+                            </select> */}
                         </div>
                         <div className="toDo-modal-grid">
                             <label>Description</label>
@@ -212,8 +222,7 @@ const ToDoC = (props) => {
                         <div key={list} className="grid grid-center container">
                             <div className="title">{list}</div>
                             <div className="grid input-div">
-                                <input onChange={e => setInput(e.target.value)} className="input-box" placeholder="Add to do..." type="text"/>
-                                <button onClick={displayToDoModal} className="to-do-button">
+                                <button onClick={() => displayToDoModal(list)} className="to-do-button">
                                     <img src="../images/pencil-alt-solid.svg"/>
                                 </button>
                             </div>
@@ -234,12 +243,12 @@ const ToDoC = (props) => {
                         </div>
                     );
                 })}
-                    <div className="grid grid-center add-list">
-                        <button onClick={displayListModal} className="add-list-button">
-                            <img className="add-list-image" src="../images/plus-solid.svg"/>
-                            <div>Add a List</div>
-                        </button>
-                    </div>
+                <div className="grid grid-center container add-list-container">
+                    <button onClick={displayListModal} className="add-list-button">
+                        <img className="add-list-image" src="../images/plus-solid.svg"/>
+                        <div>Add a List</div>
+                    </button>
+                </div>
             </div>
         </div>
     )
