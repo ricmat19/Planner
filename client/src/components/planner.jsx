@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState, useParams} from 'react';
 import PlannerAPI from '../plannerAPI.js';
 import {PlannerContext} from '../plannerContext';
 
@@ -58,14 +58,14 @@ const ToDoC = (props) => {
                 console.log(toDos)
 
                 document.addEventListener("mousedown", (event) => {
-                    // if(toDoRef.current !== null){
+                    if(toDoRef.current !== null && listRef.current !== null){
                         if(!toDoRef.current.contains(event.target)){
                             setToDoModal("modal");
                         }
                         if(!listRef.current.contains(event.target)){
                             setListModal("modal");
                         }
-                    // }
+                    }
                 })
 
                 getToDos();
@@ -149,16 +149,15 @@ const ToDoC = (props) => {
         }
     }
 
-    const deleteToDo = (e) => {
-        // let elementClicked = e.target;
-        // console.log(elementClicked)
-        // if(elementClicked.classList[0] === "to-do-delete"){
-        //     let removedToDo = elementClicked.parentElement;
-        //     removedToDo.remove();
-        //     let elementRemoved = elementClicked.getAttribute('id');
-        //     localStorage.removeItem(elementRemoved);
-        // }
-        // getToDos()  
+    const deleteToDo = async (id) => {
+        try{
+            const response = await PlannerAPI.delete(`/todo/delete-toDo/${id}`);
+            setToDos(toDos.filter(toDo => {
+               return toDo.id !== id;
+            }))
+        }catch(err){
+            console.log(err);
+        }
     };
 
     return(
@@ -189,13 +188,6 @@ const ToDoC = (props) => {
                         <div className="toDo-modal-grid">
                             <label>in list</label>
                             <div>{modalList}</div>
-                            {/* <select className="modal-header list" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list">
-                            {toDoList.map(list => {
-                                return(
-                                    <option>{list}</option>
-                                )
-                            })}
-                            </select> */}
                         </div>
                         <div className="toDo-modal-grid">
                             <label>Description</label>
@@ -234,7 +226,7 @@ const ToDoC = (props) => {
                                             <div className="to-do-item-name">
                                                 {toDo.todo}
                                             </div> 
-                                            <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
+                                            <div onClick={() => deleteToDo(toDo.id)} className="to-do-delete">X</div>
                                         </div>
                                     );
                                 }

@@ -74,16 +74,11 @@ router.put('/todo/update-toDo', async (req, res) => {
     }
 })
 
-router.delete('/todo/delete-toDo', async (req, res) => {
+router.delete('/todo/delete-toDo/:id', async (req, res) => {
     try{
-        const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
-
-        res.status(201).json({
-            status: "success",
-            results: todo.rows,
-            data:{
-                todo: todo.rows,
-            }
+        const deleteItem = await db.query("DELETE FROM todos WHERE id = ?", [req.params.id]);
+        res.status(204).json({
+            status: "success"
         })
     }catch(err){
         console.log(err);
