@@ -7,21 +7,19 @@ const upload = multer({dest: 'images/'});
 
 router.get('/planner', async (req, res) => {
     try{
-        const toDos = await db.query("SELECT todo FROM todos", [], function (err) {
-            if (err) {
-                console.log(err)
-            }
-        })
-        console.log(toDos)
 
-    
-        res.status(200).json({
-            status: "success",
-            // results: toDos.rows,
-            // data:{
-            //     toDos: toDos.rows,
-            // }
-        })
+        let selection;
+        const toDos = await db.query("SELECT * FROM todos", function (err, result, fields) {
+            if (err) throw err;
+
+            res.status(200).json({
+                status: "success",
+                results: result,
+                data:{
+                    toDos: result,
+                }
+            })
+        });
     }catch(err){
         console.log(err);
     }

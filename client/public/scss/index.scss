@@ -20,10 +20,12 @@ body{
 }
 
 .align-horizontal{
-  // grid-template-columns: repeat(auto-fit, minmax(0px, 350px));
-  // white-space: nowrap;
   display: flex;
   overflow-x: auto;
+}
+
+.container{
+  min-width: 300px;
 }
 
 .nav-div{
@@ -123,6 +125,10 @@ body{
 }
 
 .title{
+  margin: 5px 0;
+}
+
+.list-input{
   margin: 5px 0;
 }
 
@@ -274,10 +280,6 @@ $solid-border: black 3px solid;
 }
 
 $solid-border: black 3px solid;
-
-.container{
-    width: 300px;
-}
 
 .input-div{
     grid-template-columns: auto 50px;

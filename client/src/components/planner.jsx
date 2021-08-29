@@ -10,7 +10,9 @@ const ToDoC = (props) => {
     const [input, setInput] = useState("");
     const [listModal, setListModal] = useState("modal");
     const [toDoModal, setToDoModal] = useState("modal");
+    const listArray = [];
     const [toDoList, setToDoList] = useState([]);
+    const toDosArray = [];
     const [toDos, setToDos] = useState([]);
 
     const [list, setList] = useState("");
@@ -39,8 +41,16 @@ const ToDoC = (props) => {
         const fetchData = async (req, res) => {
             try{
                 const response = await PlannerAPI.get(`/planner`);
-                setToDoList(response.data.data);
-                console.log(response.data.data)
+
+                for(let i=0; i < response.data.data.toDos.length; i++){
+                    toDosArray.push(response.data.data.toDos[i])
+
+                    listArray.push(response.data.data.toDos[i].list)
+                        
+                }
+                let uniqueList = [...new Set(listArray)];
+                setToDoList(uniqueList);
+                // setToDos(toDosArray);
 
                 document.addEventListener("mousedown", (event) => {
                     // if(toDoRef.current !== null){
@@ -49,7 +59,6 @@ const ToDoC = (props) => {
                         }
                         if(!listRef.current.contains(event.target)){
                             setListModal("modal");
-                            console.log(event.target)
                         }
                     // }
                 })
@@ -156,8 +165,9 @@ const ToDoC = (props) => {
                 <form>
                     <div ref={listRef} className="modal-content">
                         <div>
-                            <input className="modal-header title" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list"/>
+                            <label className="title">List</label>
                         </div>
+                        <input className="modal-header" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list"/>
                         <div>
                             <button onClick={createList}>Save</button>
                         </div>
@@ -196,29 +206,31 @@ const ToDoC = (props) => {
             </div>
 
             <div className="grid grid-center align-horizontal">
-                {/* {toDos.map(toDoSet => { */}
-                    <div className="grid grid-center container">
-                        <div className="title">My To-Do's</div>
-                        <div className="grid input-div">
-                            <input onChange={e => setInput(e.target.value)} className="input-box" placeholder="Add to do..." type="text"/>
-                            <button onClick={displayToDoModal} className="to-do-button">
-                                <img src="../images/pencil-alt-solid.svg"/>
-                            </button>
+                {toDoList.map(list => {
+                    return(
+                        <div key={list} className="grid grid-center container">
+                            <div className="title">{list}</div>
+                            <div className="grid input-div">
+                                <input onChange={e => setInput(e.target.value)} className="input-box" placeholder="Add to do..." type="text"/>
+                                <button onClick={displayToDoModal} className="to-do-button">
+                                    <img src="../images/pencil-alt-solid.svg"/>
+                                </button>
+                            </div>
+                            <div className="grid to-do-list">
+                            {toDos.map((toDo, index) => {
+                                return(
+                                    <div className="grid to-do-item" key={index}>
+                                        <div className="to-do-item-name">
+                                            {toDo}
+                                        </div> 
+                                        <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
+                                    </div>
+                                );
+                            })}
+                            </div>
                         </div>
-                        <div className="grid to-do-list">
-                        {toDos.map((toDo, index) => {
-                            return(
-                                <div className="grid to-do-item" key={index}>
-                                    <div className="to-do-item-name">
-                                        {toDo}
-                                    </div> 
-                                    <div id={index} onClick={e => deleteToDo(e)} className="to-do-delete">X</div>
-                                </div>
-                            );
-                        })}
-                        </div>
-                    </div>
-                {/* })} */}
+                    );
+                })}
                     <div className="grid grid-center add-list">
                         <button onClick={displayListModal} className="add-list-button">
                             <img className="add-list-image" src="../images/plus-solid.svg"/>
