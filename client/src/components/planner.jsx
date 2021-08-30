@@ -58,9 +58,7 @@ const ToDoC = (props) => {
         const fetchData = async (req, res) => {
             try{
                 const listResponse = await PlannerAPI.get(`/lists`);
-                const toDosResponse = await PlannerAPI.get(`/toDos`);
-
-                console.log(listResponse.data.data.lists[0].list)
+                const toDosResponse = await PlannerAPI.get(`/planner`);
 
                 for(let i=0; i < listResponse.data.data.lists.length; i++){
                     listArray.push(listResponse.data.data.lists[i].list)
@@ -145,7 +143,7 @@ const ToDoC = (props) => {
     const editToDo = async (e) => {
         e.preventDefault()
         try{
-            const update = await PlannerAPI.put(`/todo/edit-toDo`,{
+            const update = await PlannerAPI.put(`/planner/edit-toDo`,{
                 id: id,
                 list: list,
                 toDo: toDo,
@@ -158,9 +156,20 @@ const ToDoC = (props) => {
         }
     };
 
+    const deleteList = async (list) => {
+        try{
+            const response = await PlannerAPI.delete(`/planner/delete-list/${list}`);
+            setToDoList(toDoList.filter(list => {
+               return list.list !== list;
+            }))
+        }catch(err){
+            console.log(err);
+        }
+    };
+
     const deleteToDo = async (id) => {
         try{
-            const response = await PlannerAPI.delete(`/todo/delete-toDo/${id}`);
+            const response = await PlannerAPI.delete(`/planner/delete-toDo/${id}`);
             setToDos(toDos.filter(toDo => {
                return toDo.id !== id;
             }))
@@ -257,10 +266,10 @@ const ToDoC = (props) => {
 
             {/* To Do Lists */}
             <div className="grid grid-center align-horizontal">
-                {console.log(toDoList)}
                 {toDoList.map(list => {
                     return(
                         <div key={list} className="grid grid-center container">
+                            <div onClick={() => deleteList(list)} className="delete-list">X</div>
                             <div className="title">{list}</div>
                             <div className="grid input-div">
                                 <button onClick={() => displayToDoModal(list)} className="to-do-button">

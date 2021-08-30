@@ -24,7 +24,7 @@ router.get('/lists', async (req, res) => {
     }
 })
 
-router.get('/toDos', async (req, res) => {
+router.get('/planner', async (req, res) => {
     try{
         const toDos = await db.query("SELECT * FROM todos", function (err, result, fields) {
             if (err) throw err;
@@ -92,11 +92,9 @@ router.post('/planner/add-toDo', upload.single('imgRef'), async (req, res) => {
     }
 })
 
-router.put('/todo/edit-toDo', async (req, res) => {
+router.put('/planner/edit-toDo', async (req, res) => {
     try{
         // const todo = await db.query("INSERT INTO todos (list, todo, dueDate, imgRef, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.list, req.body.todo, req.body.dueDate, req.body.imgRef, req.body.info]);
-
-
 
         const todo = await db.query("UPDATE todos SET list=?, todo=?, dueDate=?, info=? WHERE id=?", 
         [req.body.list, req.body.toDo, req.body.dueDate, req.body.info, req.body.id]);
@@ -113,7 +111,21 @@ router.put('/todo/edit-toDo', async (req, res) => {
     }
 })
 
-router.delete('/todo/delete-toDo/:id', async (req, res) => {
+router.delete('/planner/delete-list/:list', async (req, res) => {
+    try{
+        const deleteList = await db.query("DELETE FROM lists WHERE list=? ", [req.params.list]);
+        
+        const deleteListItems = await db.query("DELETE FROM todos WHERE list=?", [req.params.list]);
+
+        res.status(204).json({
+            status: "success"
+        })
+    }catch(err){
+        console.log(err);
+    }
+})
+
+router.delete('/planner/delete-toDo/:id', async (req, res) => {
     try{
         const deleteItem = await db.query("DELETE FROM todos WHERE id = ?", [req.params.id]);
         res.status(204).json({
