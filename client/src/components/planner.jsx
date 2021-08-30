@@ -72,11 +72,11 @@ const ToDoC = (props) => {
 
                 document.addEventListener("mousedown", (event) => {
                     if(toDoRef.current !== null && listRef.current !== null && editRef.current !== null){
-                        if(!toDoRef.current.contains(event.target)){
-                            setToDoModal("modal");
-                        }
                         if(!listRef.current.contains(event.target)){
                             setListModal("modal");
+                        }
+                        if(!toDoRef.current.contains(event.target)){
+                            setToDoModal("modal");
                         }
                         if(!editRef.current.contains(event.target)){
                             setEditModal("modal");
@@ -99,6 +99,9 @@ const ToDoC = (props) => {
             });
 
             listInput.current.value = "";
+
+            setListModal("modal");
+
         }catch(err){
             console.log(err);
         }
@@ -135,6 +138,8 @@ const ToDoC = (props) => {
             dueDateInput.current.value = "";
             infoInput.current.value = "";
 
+            setToDoModal("modal");
+
         }catch(err){
             console.log(err);
         }
@@ -150,7 +155,9 @@ const ToDoC = (props) => {
                 dueDate: dueDate,
                 info: info
             });
-            console.log(update)
+            
+            setEditModal("modal");
+            
         }catch(err){
             console.log(err);
         }
