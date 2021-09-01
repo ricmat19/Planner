@@ -8,7 +8,11 @@ const ToDoC = (props) => {
     const{creatToDo} = useContext(PlannerContext);
 
     const [input, setInput] = useState("");
+    const [deletedList, setDeletedList] = useState("");
+    const [deleteListModal, setDeleteListModal] = useState("modal");
     const [listModal, setListModal] = useState("modal");
+    const [deletedToDo, setDeletedToDo] = useState("");
+    const [deleteToDoModal, setDeleteToDoModal] = useState("modal");
     const [toDoModal, setToDoModal] = useState("modal");
     const [editModal, setEditModal] = useState("modal");
     const [editModalInputs, setEditModalInputs] = useState({});
@@ -31,8 +35,18 @@ const ToDoC = (props) => {
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
 
+    const displayDeleteListModal = (list) => {
+        setDeletedList(list)
+        setDeleteListModal("modal modal-active");
+    };
+
     const displayListModal = () => {
         setListModal("modal modal-active");
+    };
+
+    const displayDeleteToDoModal = (id) => {
+        setDeletedToDo(id)
+        setDeleteToDoModal("modal modal-active");
     };
 
     const displayToDoModal = (list) => {
@@ -50,8 +64,10 @@ const ToDoC = (props) => {
         setInfo(info);
     }
 
-    const toDoRef = useRef();
+    const deleteListRef = useRef();
     const listRef = useRef();
+    const deleteToDoRef = useRef();
+    const toDoRef = useRef();
     const editRef = useRef();
 
     useEffect(() => {
@@ -71,7 +87,7 @@ const ToDoC = (props) => {
                 setToDos(toDosArray);
 
                 document.addEventListener("mousedown", (event) => {
-                    if(toDoRef.current !== null && listRef.current !== null && editRef.current !== null){
+                    if(toDoRef.current !== null && listRef.current !== null && editRef.current !== null && deleteListRef.current !== null && deleteToDoRef.current !== null){
                         if(!listRef.current.contains(event.target)){
                             setListModal("modal");
                         }
@@ -80,6 +96,12 @@ const ToDoC = (props) => {
                         }
                         if(!editRef.current.contains(event.target)){
                             setEditModal("modal");
+                        }
+                        if(!deleteListRef.current.contains(event.target)){
+                            setDeleteListModal("modal");
+                        }
+                        if(!deleteToDoRef.current.contains(event.target)){
+                            setDeleteToDoModal("modal");
                         }
                     }
                 })
@@ -188,6 +210,34 @@ const ToDoC = (props) => {
     return(
         <div className="main-body">
 
+            {/* Delete List */}
+            <div className={deleteListModal}>
+                <form>
+                    <div ref={deleteListRef} className="modal-content">
+                        <div>
+                            <label className="">Are you sure you want to delete this list?</label>
+                        </div>
+                        <div>
+                            <button onClick={() => deleteList(deletedList)}>Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {/* Delete To Do */}
+            <div className={deleteToDoModal}>
+                <form>
+                    <div ref={deleteToDoRef} className="modal-content">
+                        <div>
+                            <label className="">Are you sure you want to delete this to do?</label>
+                        </div>
+                        <div>
+                            <button onClick={() => deleteToDo(deletedToDo)}>Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             {/* Create List */}
             <div className={listModal}>
                 <form>
@@ -276,7 +326,7 @@ const ToDoC = (props) => {
                 {toDoList.map(list => {
                     return(
                         <div key={list} className="grid grid-center container">
-                            <div onClick={() => deleteList(list)} className="delete-list">X</div>
+                            <div onClick={() => displayDeleteListModal(list)} className="delete-list">X</div>
                             <div className="title">{list}</div>
                             <div className="grid input-div">
                                 <button onClick={() => displayToDoModal(list)} className="to-do-button">
@@ -294,7 +344,7 @@ const ToDoC = (props) => {
                                             <div className="to-do-item-name">
                                                 {toDo.todo}
                                             </div> 
-                                            <div onClick={() => deleteToDo(toDo.id)} className="delete-toDo">X</div>
+                                            <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
                                         </div>
                                     );
                                 }
