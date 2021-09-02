@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useRef, useState, useParams} from 'react';
 import PlannerAPI from '../plannerAPI.js';
 import {PlannerContext} from '../plannerContext';
+import NavbarC from './home.jsx';
+import CalculatorC from './calculator';
+import CalendarC from './calendar';
 
 
 const ToDoC = (props) => {
@@ -206,7 +209,6 @@ const ToDoC = (props) => {
             console.log(err);
         }
     };
-
     return(
         <div className="main-body">
 
@@ -330,7 +332,7 @@ const ToDoC = (props) => {
                             <div className="title">{list}</div>
                             <div className="grid input-div">
                                 <button onClick={() => displayToDoModal(list)} className="to-do-button">
-                                    <img src="../images/pencil-alt-solid.svg"/>
+                                    <img className="nav-buttons" src="../images/pencil-alt-solid.svg"/>
                                 </button>
                             </div>
                             <div className="grid to-do-list">

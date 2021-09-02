@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef} from 'react';
 import PlannerAPI from '../plannerAPI.js';
 
 
-const CalendarC = () => {
+const CalendarC = (props) => {
 
     const [monthTitle, setMonthTitle] = useState('');
     const [dayBoxes, setDayBoxes] = useState([]);
@@ -395,35 +395,33 @@ const CalendarC = () => {
     return(
         <div className="main-body">
             <div className="grid grid-center">
-                <div className="container">
-                    <div className="grid grid-center">
-                        <div className="grid-center title">My Calendar</div>
+                <div className="grid grid-center">
+                    <div className="grid-center title">My Calendar</div>
+                </div>
+                <div className="month-row">
+                    <div className="back-div">
+                        <button onClick={() => monthBack()} className="month-back">
+                            <img src="../images/angle-left-solid.svg"/>
+                        </button>
                     </div>
-                    <div className="month-row">
-                        <div className="back-div">
-                            <button onClick={() => monthBack()} className="month-back">
-                                <img src="../images/angle-left-solid.svg"/>
-                            </button>
-                        </div>
-                        <div className="month-title">{monthTitle}</div>
-                        <div className="forward-div">
-                            <button onClick={() => monthForward()} className="month-forward">
-                                <img src="../images/angle-right-solid.svg"/>
-                            </button>
-                        </div>
+                    <div className="month-title">{monthTitle}</div>
+                    <div className="forward-div">
+                        <button onClick={() => monthForward()} className="month-forward">
+                            <img src="../images/angle-right-solid.svg"/>
+                        </button>
                     </div>
-                    <div className="day-names">
-                        <div className="day day-name">Sun</div>
-                        <div className="day day-name">Mon</div>
-                        <div className="day day-name">Tue</div>
-                        <div className="day day-name">Wed</div>
-                        <div className="day day-name">Thur</div>
-                        <div className="day day-name">Fri</div>
-                        <div className="day day-name">Sat</div>
-                    </div>
-                    <div className="day-boxes">
-                        {dayBoxes}
-                    </div>
+                </div>
+                <div className="day-names">
+                    <div className="day day-name">Sun</div>
+                    <div className="day day-name">Mon</div>
+                    <div className="day day-name">Tue</div>
+                    <div className="day day-name">Wed</div>
+                    <div className="day day-name">Thur</div>
+                    <div className="day day-name">Fri</div>
+                    <div className="day day-name">Sat</div>
+                </div>
+                <div className="day-boxes">
+                    {dayBoxes}
                 </div>
                 <div className="grid grid-center modal">
                     <div className="grid grid-center modal-content container">

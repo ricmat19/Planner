@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PlannerAPI from '../plannerAPI.js';
 
 
@@ -146,36 +146,28 @@ const CalculatorC = () => {
 
     return(
         <div className="main-body">
-            <div className="grid grid-center">
-                <div className="container">
+            <div className="title">Calculator</div>
+            <div className="grid calculator-input-div">
+                <input className="input-box" value={currentInput} type="text" readOnly/>
+            </div>
 
-                    <div className="title">My Calculator</div>
-
-                    <div>
-                        <div className="grid calculator-input-div">
-                            <input className="input-box" value={currentInput} type="text" readOnly/>
-                        </div>
-
-                        <div className="calculator">
-                            <div onClick={() => enterNumber("1")} className="button-box one">1</div>
-                            <div onClick={() => enterNumber("2")} className="button-box two">2</div>
-                            <div onClick={() => enterNumber("3")} className="button-box three">3</div>
-                            <div onClick={() => equationType("+")} className="button-box plus">+</div>
-                            <div onClick={() => enterNumber("4")} className="button-box four">4</div>
-                            <div onClick={() => enterNumber("5")} className="button-box five">5</div>
-                            <div onClick={() => enterNumber("6")} className="button-box six">6</div>
-                            <div onClick={() => equationType("-")} className="button-box minus">-</div>
-                            <div onClick={() => enterNumber("7")} className="button-box seven">7</div>
-                            <div onClick={() => enterNumber("8")} className="button-box eight">8</div>
-                            <div onClick={() => enterNumber("9")} className="button-box nine">9</div>
-                            <div onClick={() => equationType("*")} className="button-box multiply">x</div>
-                            <div onClick={() => enterNumber("0")} className="button-box zero">0</div>
-                            <div onClick={() => enterEqual()} className="button-box equal">=</div>
-                            <div onClick={() => enterClear()} className="button-box clear">C</div>
-                            <div onClick={() => equationType("/")} className="button-box divide">/</div>
-                        </div>
-                    </div>
-                </div>
+            <div className="calculator">
+                <div onClick={() => enterNumber("1")} className="button-box one">1</div>
+                <div onClick={() => enterNumber("2")} className="button-box two">2</div>
+                <div onClick={() => enterNumber("3")} className="button-box three">3</div>
+                <div onClick={() => equationType("+")} className="button-box plus">+</div>
+                <div onClick={() => enterNumber("4")} className="button-box four">4</div>
+                <div onClick={() => enterNumber("5")} className="button-box five">5</div>
+                <div onClick={() => enterNumber("6")} className="button-box six">6</div>
+                <div onClick={() => equationType("-")} className="button-box minus">-</div>
+                <div onClick={() => enterNumber("7")} className="button-box seven">7</div>
+                <div onClick={() => enterNumber("8")} className="button-box eight">8</div>
+                <div onClick={() => enterNumber("9")} className="button-box nine">9</div>
+                <div onClick={() => equationType("*")} className="button-box multiply">x</div>
+                <div onClick={() => enterNumber("0")} className="button-box zero">0</div>
+                <div onClick={() => enterEqual()} className="button-box equal">=</div>
+                <div onClick={() => enterClear()} className="button-box clear">C</div>
+                <div onClick={() => equationType("/")} className="button-box divide">/</div>
             </div>
         </div>
     )
