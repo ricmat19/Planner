@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState, useParams} from 'react';
 import PlannerAPI from '../plannerAPI.js';
 import {PlannerContext} from '../plannerContext';
-import NavbarC from './home.jsx';
-import CalculatorC from './calculator';
-import CalendarC from './calendar';
+import DeleteListC from './deleteList';
+import DeleteToDoC from './deleteToDo';
+import CreateListC from './createList';
+import CreateToDoC from './createToDo';
+import EditToDoC from './editToDo.jsx';
 
 
 const ToDoC = (props) => {
@@ -116,99 +118,6 @@ const ToDoC = (props) => {
         fetchData();
     }, []);
 
-    const createList = async (e) => { 
-        e.preventDefault()
-        try{
-            const response = await PlannerAPI.post("/planner/add-list",{
-                list,
-            });
-
-            listInput.current.value = "";
-
-            setListModal("modal");
-
-        }catch(err){
-            console.log(err);
-        }
-    };
-
-    const createToDo = async (e) =>{
-        e.preventDefault()
-        try{
-
-            let formData = new FormData();
-            
-            formData.append('list', list);
-            formData.append('toDo', toDo);
-            formData.append('dueDate', dueDate);
-            formData.append('imgRef', imgRef);
-            formData.append('info', info);
-
-            console.log(Array.from(formData))
-            console.log(formData)
-
-            const response = await PlannerAPI.post("/planner/add-toDo",
-                formData,
-                {
-                    headers: {"Content-Type": "multipart/form-data"}
-                }
-            )
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-
-            console.log(response)
-
-            listInput.current.value = "";
-            toDoInput.current.value = "";
-            dueDateInput.current.value = "";
-            infoInput.current.value = "";
-
-            setToDoModal("modal");
-
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-    const editToDo = async (e) => {
-        e.preventDefault()
-        try{
-            const update = await PlannerAPI.put(`/planner/edit-toDo`,{
-                id: id,
-                list: list,
-                toDo: toDo,
-                dueDate: dueDate,
-                info: info
-            });
-            
-            setEditModal("modal");
-            
-        }catch(err){
-            console.log(err);
-        }
-    };
-
-    const deleteList = async (list) => {
-        try{
-            const response = await PlannerAPI.delete(`/planner/delete-list/${list}`);
-            setToDoList(toDoList.filter(list => {
-               return list.list !== list;
-            }))
-        }catch(err){
-            console.log(err);
-        }
-    };
-
-    const deleteToDo = async (id) => {
-        try{
-            const response = await PlannerAPI.delete(`/planner/delete-toDo/${id}`);
-            setToDos(toDos.filter(toDo => {
-               return toDo.id !== id;
-            }))
-        }catch(err){
-            console.log(err);
-        }
-    };
     return(
         <div className="main-body">
 
@@ -216,12 +125,7 @@ const ToDoC = (props) => {
             <div className={deleteListModal}>
                 <form>
                     <div ref={deleteListRef} className="modal-content">
-                        <div>
-                            <label className="">Are you sure you want to delete this list?</label>
-                        </div>
-                        <div>
-                            <button onClick={() => deleteList(deletedList)}>Delete</button>
-                        </div>
+                        <DeleteListC deletedList={deletedList}/>
                     </div>
                 </form>
             </div>
@@ -230,12 +134,7 @@ const ToDoC = (props) => {
             <div className={deleteToDoModal}>
                 <form>
                     <div ref={deleteToDoRef} className="modal-content">
-                        <div>
-                            <label className="">Are you sure you want to delete this to do?</label>
-                        </div>
-                        <div>
-                            <button onClick={() => deleteToDo(deletedToDo)}>Delete</button>
-                        </div>
+                        <DeleteToDoC deletedToDo={deletedToDo}/>
                     </div>
                 </form>
             </div>
@@ -244,13 +143,7 @@ const ToDoC = (props) => {
             <div className={listModal}>
                 <form>
                     <div ref={listRef} className="modal-content">
-                        <div>
-                            <label className="title">List</label>
-                        </div>
-                        <input className="modal-header" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list"/>
-                        <div>
-                            <button onClick={createList}>Save</button>
-                        </div>
+                        <CreateListC/>
                     </div>
                 </form>
             </div>
@@ -259,29 +152,7 @@ const ToDoC = (props) => {
             <div className={toDoModal}>
                 <form>
                     <div ref={toDoRef} className="modal-content">
-                        <div className="toDo-modal-grid">
-                            <label>To Do</label>
-                            <input className="modal-header title" ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
-                        </div>
-                        <div className="toDo-modal-grid">
-                            <label>List</label>
-                            <div className="modal-header">{modalList}</div>
-                        </div>
-                        <div className="toDo-modal-grid">
-                            <label>Description</label>
-                            <textarea className="modal-header info" value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
-                        </div>
-                        <div className="toDo-modal-grid">
-                            <label>Due Date</label>
-                            <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
-                        </div>
-                        {/* <div className="toDo-modal-grid">
-                            <label>Attachment</label>
-                            <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
-                        </div> */}
-                        <div>
-                            <button onClick={createToDo}>Save</button>
-                        </div>
+                        <CreateToDoC list={list}/>
                     </div>
                 </form>
             </div>
@@ -290,35 +161,7 @@ const ToDoC = (props) => {
             <div className={editModal}>
                 <form>
                     <div ref={editRef} className="modal-content">
-                        <div className="toDo-modal-grid">
-                            <label>To Do</label>
-                            <input className="modal-header title" value={toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
-                        </div>
-                        <div className="toDo-modal-grid">
-                            <label>List</label>
-                            <select className="modal-header" value={list} onChange={e => setList(e.target.value)}>
-                                {toDoList.map(list => {
-                                    return(
-                                        <option key={list}>{list}</option>
-                                    )
-                                })}
-                            </select>
-                        </div>
-                        <div className="toDo-modal-grid">
-                            <label>Description</label>
-                            <textarea className="modal-header info" value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
-                        </div>
-                        <div className="toDo-modal-grid">
-                            <label>Due Date</label>
-                            <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
-                        </div>
-                        {/* <div className="toDo-modal-grid">
-                            <label>Attachment</label>
-                            <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
-                        </div> */}
-                        <div>
-                            <button onClick={editToDo}>Save</button>
-                        </div>
+                        <EditToDoC listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate}/>
                     </div>
                 </form>
             </div>
