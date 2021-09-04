@@ -2,27 +2,46 @@ import React, { useEffect, useRef, useState } from 'react';
 import PlannerAPI from '../plannerAPI.js';
 
 const EditToDoC = (props) => {
-    console.log(props)
 
     const [editModal, setEditModal] = useState("modal");
-    const [toDoList, setToDoList] = useState([]);
+    const [listCollection, setListCollection] = useState(props.listCollection);
 
-    const [id, setId] = useState(props.id);
-    const [list, setList] = useState(props.list);
-    const [toDo, setToDo] = useState(props.toDo);
-    const [dueDate, setDueDate] = useState(props.dueDate);
+    const [id, setId] = useState("")
+    const [list, setList] = useState("");
+    const [toDo, setToDo] = useState("");
+    const [dueDate, setDueDate] = useState("");
     // const [imgRef, setImgRef] = useState(null);
-    const [info, setInfo] = useState(props.info);
+    const [info, setInfo] = useState("");
 
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
 
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+                setListCollection(props.listCollection)
+                if(list === "" || id !== props.id){
+                    setId(props.id)
+                    setList(props.list)
+                    setToDo(props.toDo)
+                    setDueDate(props.dueDate)
+                    setInfo(props.info)
+                }
+
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchData();
+    });
+
     const editToDo = async (e) => {
         e.preventDefault()
         try{
+
             const update = await PlannerAPI.put(`/planner/edit-toDo`,{
-                id: id,
+                id: props.id,
                 list: list,
                 toDo: toDo,
                 dueDate: dueDate,
@@ -38,16 +57,16 @@ const EditToDoC = (props) => {
 
     return(
         <div className="main-body">
-            {console.log(props.toDo)}
+
             {/* Edit To Do */}
             <div className="toDo-modal-grid">
                 <label>To Do</label>
-                <input className="modal-header title" value={props.toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
+                <input className="modal-header title" value={toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
             </div>
             <div className="toDo-modal-grid">
                 <label>List</label>
-                <select className="modal-header" value={props.list} onChange={e => setList(e.target.value)}>
-                    {props.listCollection.map(list => {
+                <select className="modal-header" value={list} onChange={e => setList(e.target.value)}>
+                    {listCollection.map(list => {
                         return(
                             <option key={list}>{list}</option>
                         )
@@ -56,11 +75,11 @@ const EditToDoC = (props) => {
             </div>
             <div className="toDo-modal-grid">
                 <label>Description</label>
-                <textarea className="modal-header info" value={props.info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
+                <textarea className="modal-header info" value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
             </div>
             <div className="toDo-modal-grid">
                 <label>Due Date</label>
-                <input className="modal-header due-date" value={props.dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
+                <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
             </div>
             {/* <div className="toDo-modal-grid">
                 <label>Attachment</label>
