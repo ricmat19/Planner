@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef} from 'react';
-import PlannerAPI from '../plannerAPI.js';
+import React, { useEffect, useState } from 'react';
 
 
-const CalendarC = (props) => {
+const CalendarC = () => {
 
     const [monthTitle, setMonthTitle] = useState('');
     const [dayBoxes, setDayBoxes] = useState([]);

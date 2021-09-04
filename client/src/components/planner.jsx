@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState, useParams} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDrag, useDrop } from "react-dnd";
 import PlannerAPI from '../plannerAPI.js';
-import {PlannerContext} from '../plannerContext';
 import DeleteListC from './deleteList';
 import DeleteToDoC from './deleteToDo';
 import CreateListC from './createList';
@@ -8,11 +8,8 @@ import CreateToDoC from './createToDo';
 import EditToDoC from './editToDo.jsx';
 
 
-const ToDoC = (props) => {
+const ToDoC = () => {
 
-    const{creatToDo} = useContext(PlannerContext);
-
-    const [input, setInput] = useState("");
     const [deletedList, setDeletedList] = useState("");
     const [deleteListModal, setDeleteListModal] = useState("modal");
     const [listModal, setListModal] = useState("modal");
@@ -20,7 +17,6 @@ const ToDoC = (props) => {
     const [deleteToDoModal, setDeleteToDoModal] = useState("modal");
     const [toDoModal, setToDoModal] = useState("modal");
     const [editModal, setEditModal] = useState("modal");
-    const [editModalInputs, setEditModalInputs] = useState({});
     const listArray = [];
     const [toDoList, setToDoList] = useState([]);
     const toDosArray = [];
@@ -32,13 +28,8 @@ const ToDoC = (props) => {
     const [list, setList] = useState("");
     const [toDo, setToDo] = useState("");
     const [dueDate, setDueDate] = useState("");
-    const [imgRef, setImgRef] = useState("");
+    // const [imgRef, setImgRef] = useState("");
     const [info, setInfo] = useState("");
-
-    const listInput = useRef(null);
-    const toDoInput = useRef(null);
-    const dueDateInput = useRef(null);
-    const infoInput = useRef(null);
 
     const displayDeleteListModal = (list) => {
         setDeletedList(list)
@@ -78,6 +69,7 @@ const ToDoC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
+                console.log(toDos)
                 const listResponse = await PlannerAPI.get(`/lists`);
                 const toDosResponse = await PlannerAPI.get(`/planner`);
 
@@ -117,6 +109,28 @@ const ToDoC = (props) => {
         }
         fetchData();
     }, []);
+
+    // const [{ isOver }, drop] = useDrop(() => ({
+    //     accept: "div",
+    //     drop: (item) => moveToDo(item.id),
+    //     collect: (monitor) => ({
+    //         isOver: !!monitor.isOver(),
+    //     })
+    // }))
+
+    // const moveToDo = (id) => {
+    //     const toDoList = toDos.filter((toDo) => id === toDo.id);
+    //     setBoard((container) => [...container, pictureList[0]])
+    // }
+
+    const ToDos = (position, div) => {
+        const[{isDragging}, drag] = useDrag(() => ({
+            type: "div",
+            collection: (monitor) => ({
+                isDragging: !!monitor.isDragging(),
+            })
+        }))
+    }
 
     return(
         <div className="main-body">
@@ -182,7 +196,7 @@ const ToDoC = (props) => {
                             {toDos.map((toDo, index) => {
                                 if(list === toDo.list){
                                     return(
-                                        <div key={index} className="grid to-do-item">
+                                        <div key={index} className="grid to-do-item" draggable="true">
                                             <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info)} className="edit-toDo">
                                                 <img src="../images/wrench-solid.svg"/>
                                             </div>

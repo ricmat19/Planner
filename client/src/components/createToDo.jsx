@@ -4,15 +4,12 @@ import PlannerAPI from '../plannerAPI.js';
 const CreateToDoC = (props) => {
 
     const [toDoModal, setToDoModal] = useState("modal");
-    const [modalList, setModalList] = useState('')
 
-    const [list, setList] = useState("");
     const [toDo, setToDo] = useState("");
     const [dueDate, setDueDate] = useState("");
     const [imgRef, setImgRef] = useState("");
     const [info, setInfo] = useState("");
 
-    const listInput = useRef(null);
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);

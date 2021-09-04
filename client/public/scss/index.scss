@@ -27,9 +27,6 @@ body{
   padding: 80px 15px 0 15px;
 }
 
-.container{
-  min-width: 300px;
-}
 
 .nav-div{
   grid-template-columns: auto auto;
@@ -62,6 +59,8 @@ body{
     padding: 20px;
     background-color: #e9e9e9;
     color: black;
+    min-width: 300px;
+    margin: 5px;
 }
 
 .calculator-input-div{
@@ -185,10 +184,6 @@ input[type=number] {
 }
 
 $solid-border: black 3px solid;
-
-.container{
-    margin: 5px;
-}
 
 .month-row{
     display: grid;
@@ -322,6 +317,7 @@ $solid-border: black 3px solid;
     word-break: break-all;
     gap: 15px;
     border-bottom: $solid-border;
+    cursor: move;
 }
 
 .delete-toDo, .edit-toDo{

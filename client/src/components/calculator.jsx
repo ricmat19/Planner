@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../plannerAPI.js';
+import React, { useState } from 'react';
 
 
 const CalculatorC = () => {
