@@ -10,7 +10,7 @@ const App = () =>{
         <div>
             {/* <DndProvider backend={HTML5Backend}> */}
             <Router>
-                <Route exact path="/planner" component={Home}/>
+                <Route exact path="/" component={Home}/>
             </Router>
             {/* </DndProvider> */}
         </div>
