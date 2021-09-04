@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDrag, useDrop } from "react-dnd";
+// import { useDrag, useDrop } from "react-dnd";
+import {Droppable, Draggable, DragDropContext} from "react-beautiful-dnd";
 import PlannerAPI from '../plannerAPI.js';
 import DeleteListC from './deleteList';
 import DeleteToDoC from './deleteToDo';
@@ -123,13 +124,25 @@ const ToDoC = () => {
     //     setBoard((container) => [...container, pictureList[0]])
     // }
 
-    const ToDos = (position, div) => {
-        const[{isDragging}, drag] = useDrag(() => ({
-            type: "div",
-            collection: (monitor) => ({
-                isDragging: !!monitor.isDragging(),
-            })
-        }))
+    // const ToDos = (position, div) => {
+    //     const[{isDragging}, drag] = useDrag(() => ({
+    //         type: "div",
+    //         collection: (monitor) => ({
+    //             isDragging: !!monitor.isDragging(),
+    //         })
+    //     }))
+    // }
+
+    const handleOnDragEnd = (result) => {
+        console.log(result)
+        if(!result.destination){
+            return;
+        }
+        const items = Array.from(toDos);
+        const [reorderItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderItem);
+
+        setToDos(items)
     }
 
     return(
@@ -187,27 +200,42 @@ const ToDoC = () => {
                         <div key={list} className="grid grid-center container">
                             <div onClick={() => displayDeleteListModal(list)} className="delete-list">X</div>
                             <div className="title">{list}</div>
-                            <div className="grid input-div">
+                            <div className="grid input-div to-do-button-div">
                                 <button onClick={() => displayToDoModal(list)} className="to-do-button">
                                     <img className="nav-buttons" src="../images/pencil-alt-solid.svg"/>
                                 </button>
                             </div>
                             <div className="grid to-do-list">
-                            {toDos.map((toDo, index) => {
-                                if(list === toDo.list){
-                                    return(
-                                        <div key={index} className="grid to-do-item" draggable="true">
-                                            <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info)} className="edit-toDo">
-                                                <img src="../images/wrench-solid.svg"/>
+                                {/* <DragDropContext onDragEnd={handleOnDragEnd}>
+                                    <Droppable droppableId={list}>
+                                        {(provided) => {
+                                            <div className="to-do-div" {...provided.droppableProps} ref={provided.innerRef}> */}
+                                            <div className="to-do-div">{/* Alternative */}
+                                                {toDos.map((toDo, index) => {
+                                                    if(list === toDo.list){
+                                                        return(
+                                                            // <Draggable key={index} draggableId={index}>
+                                                            //     {(provided) => (
+                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
+                                                                    <div  key={index} className="grid to-do-item"> {/* Alternative */}
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info)} className="edit-toDo">
+                                                                            <img src="../images/wrench-solid.svg"/>
+                                                                        </div>
+                                                                        <div className="to-do-item-name">
+                                                                            {toDo.todo}
+                                                                        </div> 
+                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                                    </div>
+                                                            //      )}
+                                                            //  </Draggable>
+                                                        );
+                                                    }
+                                                })}
+                                                 {/* {provided.placeholder} */}
                                             </div>
-                                            <div className="to-do-item-name">
-                                                {toDo.todo}
-                                            </div> 
-                                            <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
-                                        </div>
-                                    );
-                                }
-                            })}
+                                         {/* }}
+                                     </Droppable>
+                                 </DragDropContext> */}
                             </div>
                         </div>
                     );
