@@ -22,6 +22,8 @@ const ToDoC = () => {
     const [toDoList, setToDoList] = useState([]);
     const toDosArray = [];
     const [toDos, setToDos] = useState([]);
+    const [currentDay, setCurrentDay] = useState();
+    const [currentMonth, setCurrentMonth] = useState();
 
     const [modalList, setModalList] = useState('')
 
@@ -70,6 +72,27 @@ const ToDoC = () => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
+
+                const currentDate = new Date();
+
+                const currentDay = currentDate.getDate();
+                const currentMonth = currentDate.getMonth() + 1;
+                const currentYear = currentDate.getFullYear();
+
+                let todayDayString = currentDay.toString()
+                if(todayDayString.length === 1){
+                    todayDayString = "0" + todayDayString;
+                }
+                let todayMonthString = currentMonth.toString()
+                if(todayMonthString.length === 1){
+                    todayMonthString = "0" + todayMonthString;
+                }
+                let todayYearString = currentYear.toString()
+
+                const currentDayString = `${todayYearString}-${todayMonthString}-${todayDayString}`;
+                setCurrentDay(currentDayString)
+                setCurrentMonth(todayMonthString)
+
                 const listResponse = await PlannerAPI.get(`/lists`);
                 for(let i=0; i < listResponse.data.data.lists.length; i++){
                     listArray.push(listResponse.data.data.lists[i].list)
@@ -210,12 +233,51 @@ const ToDoC = () => {
                                             <div className="to-do-div" {...provided.droppableProps} ref={provided.innerRef}> */}
                                             <div className="to-do-div">{/* Alternative */}
                                                 {toDos.map((toDo, index) => {
-                                                    if(list === toDo.list){
+                                                    console.log(toDo.dueDate)
+                                                    console.log(currentDay)
+                                                    if(list === toDo.list && toDo.dueDate === currentDay){
+                                                        return(
+                                                            // <Draggable key={index} draggableId={index}>
+                                                            //     {(provided) => (
+                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
+                                                                    <div  key={index} className="grid to-do-item due-today"> {/* Alternative */}
+                                                                        {console.log(currentMonth)}
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info)} className="edit-toDo">
+                                                                            <img src="../images/wrench-solid.svg"/>
+                                                                        </div>
+                                                                        <div className="to-do-item-name">
+                                                                            {toDo.todo}
+                                                                        </div> 
+                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                                    </div>
+                                                            //      )}
+                                                            //  </Draggable>
+                                                        );
+                                                    } else if(list === toDo.list && toDo.dueDate.slice(5, 7) === currentMonth){
+                                                        return(
+                                                            // <Draggable key={index} draggableId={index}>
+                                                            //     {(provided) => (
+                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
+                                                                    <div  key={index} className="grid to-do-item due-month"> {/* Alternative */}
+
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info)} className="edit-toDo">
+                                                                            <img src="../images/wrench-solid.svg"/>
+                                                                        </div>
+                                                                        <div className="to-do-item-name">
+                                                                            {toDo.todo}
+                                                                        </div> 
+                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                                    </div>
+                                                            //      )}
+                                                            //  </Draggable>
+                                                        );
+                                                    }else if (list === toDo.list){
                                                         return(
                                                             // <Draggable key={index} draggableId={index}>
                                                             //     {(provided) => (
                                                             //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
                                                                     <div  key={index} className="grid to-do-item"> {/* Alternative */}
+
                                                                         <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info)} className="edit-toDo">
                                                                             <img src="../images/wrench-solid.svg"/>
                                                                         </div>

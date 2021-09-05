@@ -323,10 +323,9 @@ $solid-border: black 3px solid;
 }
 
 .to-do-item{
-    width: 100%;
     grid-template-columns: 25px auto 25px;
-    margin: 3px 0;
-    padding: 3px 0;
+    margin: 5px;
+    padding: 5px;
     word-wrap: break-word;
     word-break: break-all;
     gap: 15px;
@@ -346,6 +345,16 @@ $solid-border: black 3px solid;
 
 .calender-to-do{
   text-align: left;
+}
+
+.due-today{
+  background-color: #fd4141;
+  border-radius: 5px;
+}
+
+.due-month{
+  background-color: #ffef60;
+  border-radius: 5px;
 }
 
 .delete-toDo, .edit-toDo{
