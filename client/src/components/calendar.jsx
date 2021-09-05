@@ -1,30 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import NewEventModalC from './newEventModal';
 import DeleteEventModalC from './deleteEventModal';
+import plannerAPI from '../plannerAPI';
 
 
 const CalendarC = () => {
 
     const [nav, setNav] = useState(0);
     const [clicked, setClicked] = useState();
-    // const [events, setEvents] = useState(localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : []);
-    const [events, setEvents] = useState();
+    const [toDos, setToDos] = useState();
     const [days, setDays] = useState([]);
     const [dateDisplay, setDateDisplay] = useState('')
-    // const className = `day ${day.value === 'padding' ? 'padding': ''} ${day.isCurrentDay ? 'currentDay' : ''}`;
 
-    const eventForDate = date => events.find(e => e.date === date);
+    let daysToDo = "";
+
+    const toDoForDate = (date) => {
+        for(let i = 0; i < toDos.length; i++){
+            if(toDos[i].dueDate === date){
+                return daysToDo = toDos[i].todo;
+            }
+        }
+    }
+
+    const toDosArray = [];
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                localStorage.setItem('events', JSON.stringify(events))
+                const toDosResponse = await plannerAPI.get(`/planner`);
+                for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
+                    toDosArray.push(toDosResponse.data.data.toDos[i])
+                }
+                setToDos(toDosArray);
             }catch(err){
                 console.log(err);
             }
         }
         fetchData();
-    }, [events]);
+    }, [toDos]);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -56,19 +69,27 @@ const CalendarC = () => {
 
                 const daysArray = [];
                 for(let i = 1; i <= paddingDays + daysInMonth; i++){
-                    const dayString = `${month + 1}/${i - paddingDays}/${year}`;
-                    console.log(dayString)
+                    let dayStringYear = year.toString();
+                    let dayStringMonth = month + 1;
+                    if(month.toString().length === 1){
+                        dayStringMonth = "0" + dayStringMonth.toString();
+                    }
+                    let dayStringDay = i - paddingDays;
+                    if(dayStringDay.toString().length === 1){
+                        dayStringDay = "0" + dayStringDay.toString();
+                    }
+                    const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
                     if(i > paddingDays){
                         daysArray.push({
                             value: i - paddingDays,
-                            // event: eventForDate(dayString),
+                            toDo: toDoForDate(dayString),
                             isCurrentDay: i - paddingDays === day && nav === 0,
                             date: dayString
                         })
                     }else{
                         daysArray.push({
                             value: 'padding',
-                            // event: null,
+                            toDo: null,
                             isCurrentDay: false,
                             date: ''
                         })
@@ -81,7 +102,7 @@ const CalendarC = () => {
             }
         }
         fetchData();
-    }, [events, nav]);
+    }, [toDos, nav]);
 
     return(
         <>
@@ -110,24 +131,19 @@ const CalendarC = () => {
                         <div className="day day-name">Sat</div>
                     </div>
                     <div className="day-boxes">
-                        {/* {days.map((day, index) => (
-                            <div className="day day-box" key={index} onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
-                                <div className="center-num">
-                                    {day.value === 'padding' ? '' : day.value}
-                                    {day.event && <div className='event'> {day.event.title}</div>}
-                                </div>
-                            </div>
-                        ))} */}
                         {days.map((day, index) => (
-                            <div>
-                                {day.value === 'padding' ? '' :
-                                    <div className="day day-box" key={index} onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                            <div key={index}>
+                                {day.value === 'padding' ? '' : day.toDo !== undefined ?
+                                    <div className="day day-box day-box-task" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
                                         <div className="center-num">
                                             {day.value}
-                                            {day.event && <div className='event'> {day.event.title}</div>}
                                         </div>
+                                    </div>:                                     
+                                <div className="day day-box" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                    <div className="center-num">
+                                        {day.value}
                                     </div>
-                                }
+                                </div>}
                             </div>
                         ))}
                     </div>

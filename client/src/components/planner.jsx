@@ -70,15 +70,13 @@ const ToDoC = () => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                console.log(toDos)
                 const listResponse = await PlannerAPI.get(`/lists`);
-                const toDosResponse = await PlannerAPI.get(`/planner`);
-
                 for(let i=0; i < listResponse.data.data.lists.length; i++){
                     listArray.push(listResponse.data.data.lists[i].list)
                 }
                 setToDoList(listArray);
 
+                const toDosResponse = await PlannerAPI.get(`/planner`);
                 for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
                     toDosArray.push(toDosResponse.data.data.toDos[i])
                 }
