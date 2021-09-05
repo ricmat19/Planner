@@ -27,7 +27,6 @@ body{
   padding: 80px 15px 0 15px;
 }
 
-
 .nav-div{
   grid-template-columns: auto auto;
   justify-content: right;
@@ -115,7 +114,7 @@ body{
 .modal{
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   height: 100%;
@@ -247,18 +246,8 @@ $solid-border: black 3px solid;
     cursor: pointer;
 }
 
-.day-today, .day-today:hover{
-  background-color: rgba(201, 0, 124, 1);
-  color: white;
-}
-
 .day-box:hover{
   background-color: rgba(201, 0, 124, .5);
-}
-
-.day-box-task{
-  background-color: rgba(110, 0, 124, .7);
-  color: white;
 }
 
 .day-box-task:hover{
@@ -266,7 +255,17 @@ $solid-border: black 3px solid;
   color: white;
 }
 
-.day-box-task-today{
+.day-today, .day-today:hover{
+  background-color: rgba(201, 0, 124, 1);
+  color: white;
+}
+
+.day-box-task{
+  background-color: rgba(110, 0, 124, .7);
+  color: white;
+}
+
+.day-box-task-today, .day-box-task-today:hover{
   background-color: rgba(110, 0, 124, 1);
   color: white;
 }
@@ -333,6 +332,20 @@ $solid-border: black 3px solid;
     gap: 15px;
     border-bottom: $solid-border;
     cursor: move;
+}
+
+.calendar-to-do-item{
+  width: 100%;
+  margin: 3px 0;
+  padding: 3px 0;
+  word-wrap: break-word;
+  word-break: break-all;
+  gap: 15px;
+  border-bottom: $solid-border;
+}
+
+.calender-to-do{
+  text-align: left;
 }
 
 .delete-toDo, .edit-toDo{
