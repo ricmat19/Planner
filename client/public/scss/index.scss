@@ -247,17 +247,28 @@ $solid-border: black 3px solid;
     cursor: pointer;
 }
 
-.day-box-task{
-  background-color: rgba(45, 26, 117, 0.5);
+.day-today, .day-today:hover{
+  background-color: rgba(201, 0, 124, 1);
+  color: white;
 }
 
 .day-box:hover{
   background-color: rgba(201, 0, 124, .5);
 }
 
-.day-today, .day-today:hover{
-    background-color: rgba(201, 0, 124, 1);
-    color: white;
+.day-box-task{
+  background-color: rgba(110, 0, 124, .7);
+  color: white;
+}
+
+.day-box-task:hover{
+  background-color: rgba(110, 0, 124, 1);
+  color: white;
+}
+
+.day-box-task-today{
+  background-color: rgba(110, 0, 124, 1);
+  color: white;
 }
 
 .center-num{

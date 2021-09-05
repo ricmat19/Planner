@@ -71,27 +71,35 @@ const CalendarC = () => {
                 for(let i = 1; i <= paddingDays + daysInMonth; i++){
                     let dayStringYear = year.toString();
                     let dayStringMonth = month + 1;
-                    if(month.toString().length === 1){
+                    if(dayStringMonth.toString().length === 1){
                         dayStringMonth = "0" + dayStringMonth.toString();
                     }
                     let dayStringDay = i - paddingDays;
                     if(dayStringDay.toString().length === 1){
                         dayStringDay = "0" + dayStringDay.toString();
                     }
+                    let todayDayString = day.toString()
+                    if(todayDayString.length === 1){
+                        todayDayString = "0" + todayDayString;
+                    }
                     const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
+                    const today = `${year}-${dayStringMonth}-${todayDayString}`;
                     if(i > paddingDays){
                         daysArray.push({
                             value: i - paddingDays,
                             toDo: toDoForDate(dayString),
                             isCurrentDay: i - paddingDays === day && nav === 0,
-                            date: dayString
+                            date: dayString,
+                            today: today
                         })
+
                     }else{
                         daysArray.push({
                             value: 'padding',
                             toDo: null,
                             isCurrentDay: false,
-                            date: ''
+                            date: '',
+                            today: ''
                         })
                     }
                 }
@@ -133,16 +141,26 @@ const CalendarC = () => {
                     <div className="day-boxes">
                         {days.map((day, index) => (
                             <div key={index}>
-                                {day.value === 'padding' ? '' : day.toDo !== undefined ?
+                                {day.value === 'padding' ? '' : day.toDo !== undefined && day.date === day.today ?
+                                    <div className="day day-box day-box-task-today" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                        <div className="center-num">
+                                            {day.value}
+                                        </div>
+                                    </div>: day.date === day.today ?
+                                    <div className="day day-box day-today" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                        <div className="center-num">
+                                            {day.value}
+                                        </div>
+                                    </div>: day.toDo !== undefined ?
                                     <div className="day day-box day-box-task" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
                                         <div className="center-num">
                                             {day.value}
                                         </div>
-                                    </div>:                                     
-                                <div className="day day-box" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
-                                    <div className="center-num">
-                                        {day.value}
-                                    </div>
+                                    </div>:                         
+                                    <div className="day day-box" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                        <div className="center-num">
+                                            {day.value}
+                                        </div>
                                 </div>}
                             </div>
                         ))}
