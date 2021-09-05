@@ -169,7 +169,7 @@ body{
 }
 
 .button-box:hover{
-  background-color: #30323b;
+  background-color: #c9007c;
   color: white;
 }
 
@@ -240,6 +240,7 @@ $solid-border: black 3px solid;
 }
 
 .day-box{
+    display: grid;
     border: $solid-border;
     border-radius: 10px;
     height: 50px;
@@ -247,16 +248,11 @@ $solid-border: black 3px solid;
 }
 
 .day-box:hover{
-    background-color: #9ea6c7;
+  background-color: rgba(201, 0, 124, .5);
 }
 
-.day-today{
-    background-color: #30323b;
-    color: white;
-}
-
-.day-today:hover{
-    background-color: #424c75;
+.day-today, .day-today:hover{
+    background-color: rgba(201, 0, 124, 1);
     color: white;
 }
 

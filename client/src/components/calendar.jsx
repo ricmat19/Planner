@@ -11,9 +11,7 @@ const CalendarC = () => {
     const [events, setEvents] = useState();
     const [days, setDays] = useState([]);
     const [dateDisplay, setDateDisplay] = useState('')
-    const [month, setMonth] = useState('');
     // const className = `day ${day.value === 'padding' ? 'padding': ''} ${day.isCurrentDay ? 'currentDay' : ''}`;
-    const className = "";
 
     const eventForDate = date => events.find(e => e.date === date);
 
@@ -35,7 +33,7 @@ const CalendarC = () => {
                 const date = new Date();
 
                 if(nav !== 0){
-                    date.setMonth(new Date().getMonth + nav);
+                    date.setMonth(new Date().getMonth() + nav);
                 }
 
                 const day = date.getDate();
@@ -43,7 +41,7 @@ const CalendarC = () => {
                 const year = date.getFullYear();
 
                 const firstMonthDay = new Date(year, month, 1);
-                const daysInMonth = new Date(year, month + 1, 0);
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
 
                 const dateString = firstMonthDay.toLocaleDateString('en-us', {
                     weekday: 'long',
@@ -52,24 +50,25 @@ const CalendarC = () => {
                     day: 'numeric',
                 });
                 
-                setDateDisplay(`${date.toLocaleDateString('en-us', {month: 'long'})} ${year}`)
+                setDateDisplay(`${date.toLocaleDateString('en-us', {month: 'long'})} ${year}`);
 
                 const paddingDays = weekdays.indexOf(dateString.split(', ')[0])
 
                 const daysArray = [];
                 for(let i = 1; i <= paddingDays + daysInMonth; i++){
                     const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+                    console.log(dayString)
                     if(i > paddingDays){
                         daysArray.push({
                             value: i - paddingDays,
-                            event: eventForDate(dayString),
+                            // event: eventForDate(dayString),
                             isCurrentDay: i - paddingDays === day && nav === 0,
                             date: dayString
                         })
                     }else{
                         daysArray.push({
                             value: 'padding',
-                            event: null,
+                            // event: null,
                             isCurrentDay: false,
                             date: ''
                         })
@@ -88,9 +87,6 @@ const CalendarC = () => {
         <>
             <div className="main-body">
                 <div className="grid grid-center">
-                    <div className="grid grid-center">
-                        <div className="grid-center title">My Calendar</div>
-                    </div>
                     <div className="month-row">
                         <div className="back-div">
                             <button onClick={() => setNav(nav - 1)} className="month-back">
@@ -114,10 +110,24 @@ const CalendarC = () => {
                         <div className="day day-name">Sat</div>
                     </div>
                     <div className="day-boxes">
+                        {/* {days.map((day, index) => (
+                            <div className="day day-box" key={index} onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                <div className="center-num">
+                                    {day.value === 'padding' ? '' : day.value}
+                                    {day.event && <div className='event'> {day.event.title}</div>}
+                                </div>
+                            </div>
+                        ))} */}
                         {days.map((day, index) => (
-                            <div className={className} key={index} onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
-                                {day.value === 'padding' ? '' : day.value}
-                                {day.event && <div className='event'> {day.event.title}</div>}
+                            <div>
+                                {day.value === 'padding' ? '' :
+                                    <div className="day day-box" key={index} onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                        <div className="center-num">
+                                            {day.value}
+                                            {day.event && <div className='event'> {day.event.title}</div>}
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         ))}
                     </div>
