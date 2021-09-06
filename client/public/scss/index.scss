@@ -28,7 +28,7 @@ body{
 }
 
 .nav-div{
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   justify-content: right;
   color: black;
   border-bottom: $solid-border;
@@ -352,6 +352,12 @@ $solid-border: black 3px solid;
   text-align: left;
 }
 
+.past-due{
+  background-color: rgb(92, 16, 69);
+  color: white;
+  border-radius: 5px;
+}
+
 .due-today{
   background-color: rgba(207, 37, 156, 1);
   color: white;
@@ -364,7 +370,7 @@ $solid-border: black 3px solid;
   border-radius: 5px;
 }
 
-.delete-toDo, .edit-toDo{
+.delete-toDo, .edit-toDo, .add-book{
     text-align: center;
     cursor: pointer;
     background-color: #000000;
@@ -376,7 +382,12 @@ $solid-border: black 3px solid;
     flex-direction: column;
 }
 
-.edit-toDo{
+.add-book{
+  width: 15px;
+  justify-self: start;
+}
+
+.edit-toDo, .add-book{
   padding: 2px
 }
 
@@ -481,4 +492,21 @@ button{
   justify-self: end;
   font-size: 20px;
   cursor: pointer;
+}
+
+.book-info-div{
+  grid-template-columns: 90px 300px;
+  text-align: left;
+}
+
+.book-title{
+  align-self: center;
+}
+
+.book-image{
+  width: 70px;
+}
+
+.book-search-results{
+  grid-template-columns: 90px auto 90px;
 }

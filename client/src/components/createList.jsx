@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import PlannerAPI from '../plannerAPI.js';
+import PlannerAPI from '../apis/plannerAPI';
 
 const CreateListC = () => {
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CalculatorC from './calculator';
 import CalendarC from './calendar';
+import BooksC from './books';
 import PlannerC from './planner';
 
 
@@ -18,6 +19,12 @@ const NavbarC = () => {
         setCalendarModal("modal modal-active");
     };
 
+    const [booksModal, setBooksModal] = useState("modal");
+    const booksRef = useRef();
+    const displayBooks = () => {
+        setBooksModal("modal modal-active");
+    };
+
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -28,6 +35,9 @@ const NavbarC = () => {
                         }
                         if(!calendarRef.current.contains(event.target)){
                             setCalendarModal("modal");
+                        }
+                        if(!booksRef.current.contains(event.target)){
+                            setBooksModal("modal");
                         }
                     }
                 })
@@ -51,8 +61,18 @@ const NavbarC = () => {
                     <CalendarC calendarModal={calendarModal} calendarRef={calendarRef}/>
                 </div>
             </div>
+            <div className={booksModal}>
+                <div ref={booksRef} className="modal-content">
+                    <BooksC calendarModal={booksModal} calendarRef={booksRef}/>
+                </div>
+            </div>
 
             <nav className="grid nav-div">
+                <span className="nav-item">
+                    <div className="nav-item-anchor" onClick={displayBooks}>
+                        <img src="../images/book-solid.svg"/>
+                    </div>
+                </span>
                 <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayCalendar}>
                         <img src="../images/calendar-alt-solid.svg"/>

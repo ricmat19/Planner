@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import { useDrag, useDrop } from "react-dnd";
 import {Droppable, Draggable, DragDropContext} from "react-beautiful-dnd";
-import PlannerAPI from '../plannerAPI.js';
+import PlannerAPI from '../apis/plannerAPI';
 import DeleteListC from './deleteList';
 import DeleteToDoC from './deleteToDo';
 import CreateListC from './createList';
@@ -254,7 +254,25 @@ const ToDoC = () => {
                                                             //      )}
                                                             //  </Draggable>
                                                         );
-                                                    } else if(list === toDo.list && toDo.dueDate.slice(5, 7) === currentMonth){
+                                                    } else if(list === toDo.list && toDo.dueDate < currentDay){
+                                                        return(
+                                                            // <Draggable key={index} draggableId={index}>
+                                                            //     {(provided) => (
+                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
+                                                                    <div  key={index} className="grid to-do-item past-due"> {/* Alternative */}
+
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position)} className="edit-toDo">
+                                                                            <img src="../images/wrench-solid.svg"/>
+                                                                        </div>
+                                                                        <div className="to-do-item-name">
+                                                                            {toDo.todo}
+                                                                        </div> 
+                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                                    </div>
+                                                            //      )}
+                                                            //  </Draggable>
+                                                        );
+                                                    }else if(list === toDo.list && toDo.dueDate.slice(5, 7) === currentMonth){
                                                         return(
                                                             // <Draggable key={index} draggableId={index}>
                                                             //     {(provided) => (
@@ -305,7 +323,7 @@ const ToDoC = () => {
                 {/* Add List */}
                 <div className="grid grid-center container add-list-container">
                     <button onClick={displayListModal} className="add-list-button">
-                        <img className="add-list-image" src="../images/plus-solid.svg"/>
+                        <img className="add-list-image" src="../images/plus-solid-black.svg"/>
                         <div>Add a List</div>
                     </button>
                 </div>
