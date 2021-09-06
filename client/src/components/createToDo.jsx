@@ -9,10 +9,12 @@ const CreateToDoC = (props) => {
     const [dueDate, setDueDate] = useState("");
     const [imgRef, setImgRef] = useState("");
     const [info, setInfo] = useState("");
+    const [position, setPosition] = useState(1);
 
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
+    const positionInput = useRef(null);
 
     const createToDo = async (e) =>{
         e.preventDefault()
@@ -25,6 +27,7 @@ const CreateToDoC = (props) => {
             formData.append('dueDate', dueDate);
             formData.append('imgRef', imgRef);
             formData.append('info', info);
+            formData.append('position', position);
 
             console.log(Array.from(formData))
             console.log(formData)
@@ -43,6 +46,7 @@ const CreateToDoC = (props) => {
             toDoInput.current.value = "";
             dueDateInput.current.value = "";
             infoInput.current.value = "";
+            positionInput.current.value = "";
 
             setToDoModal("modal");
 
@@ -71,6 +75,10 @@ const CreateToDoC = (props) => {
                 <label>Due Date</label>
                 <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
             </div>
+            {/* <div className="toDo-modal-grid">
+                <label>Position</label>
+                <input className="modal-header position" value={position} ref={positionInput} onChange={e => setPosition(e.target.value)} type="number" name="position" min="1"/>
+            </div> */}
             {/* <div className="toDo-modal-grid">
                 <label>Attachment</label>
                 <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>

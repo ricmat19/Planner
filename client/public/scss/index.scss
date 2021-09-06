@@ -89,7 +89,7 @@ body{
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #c9007c;
+    background: rgba(207, 37, 156, .7);
   }
 
 .title{
@@ -168,15 +168,15 @@ body{
 }
 
 .button-box:hover{
-  background-color: #c9007c;
+  background-color: rgba(207, 37, 156, .5);
   color: white;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
--webkit-appearance: none;
-margin: 0;
-}
+// input::-webkit-outer-spin-button,
+// input::-webkit-inner-spin-button {
+// -webkit-appearance: none;
+// margin: 0;
+// }
 
 input[type=number] {
 -moz-appearance: textfield;
@@ -247,26 +247,26 @@ $solid-border: black 3px solid;
 }
 
 .day-box:hover{
-  background-color: rgba(201, 0, 124, .5);
+  background-color: rgba(207, 37, 156, .5);
 }
 
 .day-box-task:hover{
-  background-color: rgba(110, 0, 124, 1);
+  background-color: rgba(207, 37, 156, .7);
   color: white;
 }
 
 .day-today, .day-today:hover{
-  background-color: rgba(201, 0, 124, 1);
+  background-color: rgba(207, 37, 156, .7);
   color: white;
 }
 
 .day-box-task{
-  background-color: rgba(110, 0, 124, .7);
-  color: white;
+  background-color: rgba(207, 37, 156, .2);
+  color: black;
 }
 
 .day-box-task-today, .day-box-task-today:hover{
-  background-color: rgba(110, 0, 124, 1);
+  background-color: rgba(207, 37, 156, 1);
   color: white;
 }
 
@@ -324,13 +324,18 @@ $solid-border: black 3px solid;
 
 .to-do-item{
     grid-template-columns: 25px auto 25px;
-    margin: 5px;
+    margin: 2px;
     padding: 5px;
     word-wrap: break-word;
     word-break: break-all;
     gap: 15px;
-    border-bottom: $solid-border;
+    border: $solid-border;
+    border-radius: 5px;
     cursor: move;
+}
+
+.to-do-item-name{
+  align-self: center;
 }
 
 .calendar-to-do-item{
@@ -348,12 +353,14 @@ $solid-border: black 3px solid;
 }
 
 .due-today{
-  background-color: #fd4141;
+  background-color: rgba(207, 37, 156, 1);
+  color: white;
   border-radius: 5px;
 }
 
 .due-month{
-  background-color: #ffef60;
+  background-color: rgba(207, 37, 156, .2);
+  color: black;
   border-radius: 5px;
 }
 

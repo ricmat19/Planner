@@ -12,10 +12,12 @@ const EditToDoC = (props) => {
     const [dueDate, setDueDate] = useState("");
     // const [imgRef, setImgRef] = useState(null);
     const [info, setInfo] = useState("");
+    const [position, setPosition] = useState("");
 
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
+    const positionInput = useRef(null);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -27,6 +29,7 @@ const EditToDoC = (props) => {
                     setToDo(props.toDo)
                     setDueDate(props.dueDate)
                     setInfo(props.info)
+                    setPosition(props.position)
                 }
 
             }catch(err){
@@ -45,7 +48,8 @@ const EditToDoC = (props) => {
                 list: list,
                 toDo: toDo,
                 dueDate: dueDate,
-                info: info
+                info: info,
+                position: position
             });
             
             setEditModal("modal");
@@ -81,6 +85,10 @@ const EditToDoC = (props) => {
                 <label>Due Date</label>
                 <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
             </div>
+            {/* <div className="toDo-modal-grid">
+                <label>Position</label>
+                <input className="modal-header due-date" value={position} ref={positionInput} onChange={e => setPosition(e.target.value)} type="number" name="position" min="1"/>
+            </div> */}
             {/* <div className="toDo-modal-grid">
                 <label>Attachment</label>
                 <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>

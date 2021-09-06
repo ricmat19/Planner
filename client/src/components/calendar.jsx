@@ -17,14 +17,6 @@ const CalendarC = () => {
 
     const daysToDosRef = useRef();
 
-    // const toDoForDate = (date) => {
-    //     for(let i = 0; i < toDos.length; i++){
-    //         if(toDos[i].dueDate === date){
-    //             return daysToDo = toDos[i].todo;
-    //         }
-    //     }
-    // }
-
     const toDoForDate = (date) => {
         let daysToDos = [];
         for(let i = 0; i < toDos.length; i++){
