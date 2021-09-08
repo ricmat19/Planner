@@ -6,6 +6,8 @@ const BooksC = () => {
 
     const [addBooksModal, setAddBooksModal] = useState("modal");
     const [books, setBooks] = useState([]);
+    const [apiKey, setAPIKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
+    const search = ""
 
     const addBooksRef = useRef();
 
@@ -16,7 +18,7 @@ const BooksC = () => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const booksResponse = await BooksAPI.get(`/planner`);
+                const response = await BooksAPI.get("https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=" + apiKey + "&maxResults=40")
 
                 setBooks([]);
 
@@ -48,11 +50,57 @@ const BooksC = () => {
                 <div onClick={displayaddBookModal} className="add-book">
                     <img src="../images/plus-solid-white.svg"/>
                 </div>
-                <div className="title">Books</div>
+                <div className="title">Book Collection</div>
                 {books.map(book => {
                         return(
                             <div key={book} className="grid grid-center container">
-                               
+                               <div className="book-result" key={book.id}>
+                                    <div className="grid book-search-results">
+                                        <div className="book-thumbnail">
+                                            <img className="book-image" src={book.volumeInfo.imageLinks !== undefined ? book.volumeInfo.imageLinks.thumbnail : ""} alt={BooksAPI.title}/>
+                                        </div>
+                                        <div className="book-labels-container">
+                                            <div className="grid book-info-div">
+                                                <div className="book-label">Title:</div>
+                                                <div className="book-info">{book.volumeInfo.title}</div>
+                                            </div>
+                                            <div className="grid book-info-div">
+                                                <div className="book-label">Author(s):</div>
+                                                <div className="book-info">
+                                                    {book.volumeInfo.authors && book.volumeInfo.authors.map((author, index) => (
+                                                        <div key={index}>
+                                                            {author}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="grid book-info-div">
+                                                <div className="book-label">Categories(s):</div>
+                                                <div className="book-info">
+                                                    {book.volumeInfo.categories && book.volumeInfo.categories.map((category, index) => (
+                                                        <div key={index}>
+                                                            {category}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="grid book-info-div">
+                                                <div className="book-label">Desc:</div>
+                                                <div className="book-info"><a href={book.volumeInfo.infoLink}>Info</a></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="book-price">
+                                                {book.saleInfo.listPrice !== undefined ?
+                                                book.saleInfo.listPrice.amount : "Unknown"}
+                                            </div>
+                                        </div>
+                                        <div className="add-button">
+                                            <button>Remove</button>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
                             </div>
                         );
                 })}

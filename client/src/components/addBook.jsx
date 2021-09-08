@@ -41,34 +41,64 @@ const AddBooksC = () => {
         <div className="main-body">
             <div className="grid grid-center">
                 <form>
-                    <div className="title">Search for a Book</div>
-                    <div>
-                        <input className="modal-header" ref={searchInput} onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search..."/>
-                    </div>
-                    <div>
-                        <button onClick={searchBooks}>Search</button>
+                    <div className="grid book-search-form">
+                        <div className="title">Search for a Book</div>
+                        <div className="grid">
+                            <input className="modal-header" ref={searchInput} onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search..."/>
+                        </div>
+                        <div>
+                            <button onClick={searchBooks}>Search</button>
+                        </div>
                     </div>
                 </form>
-                <div>
+                <div className="search-results-container">
                     {searchResults.map(result => (
-                        <div className="grid book-search-results" key={result.id}>
-                            <div>
-                                <img className="book-image" src={result.volumeInfo.imageLinks.thumbnail}/>
-                            </div>
-                            <div className="grid book-info-div">
-                                <div className="book-labels">
-                                    <div className="book-title">Title:</div>
+                        <div className="book-result" key={result.id}>
+                            <div className="grid book-search-results">
+                                <div className="book-thumbnail">
+                                    <img className="book-image" src={result.volumeInfo.imageLinks !== undefined ? result.volumeInfo.imageLinks.thumbnail : ""} alt={BooksAPI.title}/>
                                 </div>
-                                <div className="book-info">
-                                    <div className="book-title">{result.volumeInfo.title}</div>
+                                <div className="book-labels-container">
+                                    <div className="grid book-info-div">
+                                        <div className="book-label">Title:</div>
+                                        <div className="book-info">{result.volumeInfo.title}</div>
+                                    </div>
+                                    <div className="grid book-info-div">
+                                        <div className="book-label">Author(s):</div>
+                                        <div className="book-info">
+                                            {result.volumeInfo.authors && result.volumeInfo.authors.map((author, index) => (
+                                                <div key={index}>
+                                                    {author}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="grid book-info-div">
+                                        <div className="book-label">Categories(s):</div>
+                                        <div className="book-info">
+                                            {result.volumeInfo.categories && result.volumeInfo.categories.map((category, index) => (
+                                                <div key={index}>
+                                                    {category}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="grid book-info-div">
+                                        <div className="book-label">Desc:</div>
+                                        <div className="book-info"><a href={result.volumeInfo.infoLink}>Info</a></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="book-price">
+                                        {result.saleInfo.listPrice !== undefined ?
+                                        result.saleInfo.listPrice.amount : "Unknown"}
+                                    </div>
+                                </div>
+                                <div className="add-button">
+                                    <button>Add</button>
                                 </div>
                             </div>
-                            <div>
-                                <div className="book-price">
-                                    {result.saleInfo.listPrice !== undefined ?
-                                    result.saleInfo.listPrice.amount : "Unknown"}
-                                </div>
-                            </div>
+                            <hr/>
                         </div>
                     ))}
                 </div>

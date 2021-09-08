@@ -494,9 +494,16 @@ button{
   cursor: pointer;
 }
 
+.book-search-form{
+  margin: 15px;
+  width: 350px;
+  gap: 10px;
+}
+
 .book-info-div{
-  grid-template-columns: 90px 300px;
+  grid-template-columns: 150px 300px;
   text-align: left;
+  margin: 5px;
 }
 
 .book-title{
@@ -508,5 +515,16 @@ button{
 }
 
 .book-search-results{
-  grid-template-columns: 90px auto 90px;
+  grid-template-columns: 90px auto 90px 90px;
+}
+
+.search-results-container{
+  width: 100%;
+  max-height: 415px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.book-thumbnail{
+  align-self: center;
 }
