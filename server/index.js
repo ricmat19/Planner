@@ -4,6 +4,7 @@ const cors = require("cors");
 //creates a variable to hold the express framework
 const app = express();
 const plannerRouter = require('./routes/planner');
+const booksRouter = require('./routes/books');
 
 //insures that the .env file is only run in a development environment and not a production environment
 if(process.env.NODE_ENV !== 'production'){
@@ -46,6 +47,7 @@ app.get('/map', (req, res) => {
 })
 
 app.use(plannerRouter);
+app.use(booksRouter);
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port

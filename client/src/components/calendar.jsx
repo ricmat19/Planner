@@ -69,7 +69,8 @@ const CalendarC = () => {
             }
         }
         fetchData();
-    }, [toDos]);
+    }, []);
+    //toDos - Removed due to constant re-rendering
 
     useEffect(() => {
         const fetchData = async (req, res) => {

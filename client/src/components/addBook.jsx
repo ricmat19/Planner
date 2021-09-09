@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import BooksAPI from '../apis/booksAPI';
+import PlannerAPI from '../apis/plannerAPI';
+import BookSearchAPI from '../apis/bookSearchAPI';
 
 const AddBooksC = () => {
 
@@ -13,7 +14,7 @@ const AddBooksC = () => {
         e.preventDefault()
         try{
 
-            const response = await BooksAPI.get("https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=" + apiKey + "&maxResults=40")
+            const response = await BookSearchAPI.get("https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=" + apiKey + "&maxResults=40")
 
             setSearchResults(response.data.items);
             console.log(response.data.items)
@@ -37,6 +38,17 @@ const AddBooksC = () => {
         fetchData();
     }, []);
 
+    const saveBook = async (book) => { 
+        try{
+            const response = await PlannerAPI.post("/books/add-book",{
+                book,
+            });
+            console.log(response)
+        }catch(err){
+            console.log(err);
+        }
+    };
+
     return(
         <div className="main-body">
             <div className="grid grid-center">
@@ -56,7 +68,7 @@ const AddBooksC = () => {
                         <div className="book-result" key={result.id}>
                             <div className="grid book-search-results">
                                 <div className="book-thumbnail">
-                                    <img className="book-image" src={result.volumeInfo.imageLinks !== undefined ? result.volumeInfo.imageLinks.thumbnail : ""} alt={BooksAPI.title}/>
+                                    <img className="book-image" src={result.volumeInfo.imageLinks !== undefined ? result.volumeInfo.imageLinks.thumbnail : ""} alt={result.volumeInfo.title}/>
                                 </div>
                                 <div className="book-labels-container">
                                     <div className="grid book-info-div">
@@ -95,7 +107,7 @@ const AddBooksC = () => {
                                     </div>
                                 </div>
                                 <div className="add-button">
-                                    <button>Add</button>
+                                    <button onClick={e => saveBook(result.id)}>Add</button>
                                 </div>
                             </div>
                             <hr/>
