@@ -42,7 +42,8 @@ router.post('/books/add-book', async (req, res) => {
 
 router.delete('/books/remove-book/:book', async (req, res) => {
     try{
-        const deleteList = await db.query("DELETE FROM books WHERE book=? ", [req.params.book]);
+        console.log(req.params)
+        const removeBook = await db.query("DELETE FROM books WHERE book=? ", [req.params.book]);
 
         res.status(204).json({
             status: "success"
