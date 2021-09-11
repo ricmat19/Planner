@@ -28,7 +28,7 @@ body{
 }
 
 .nav-div{
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   justify-content: right;
   color: black;
   border-bottom: $solid-border;
@@ -531,4 +531,28 @@ button{
 
 .book-thumbnail{
   align-self: center;
+}
+
+.map-directions-container{
+  display: grid;
+  gap: 3px;
+}
+
+.map-direction-div{
+  display: grid;
+  grid-template-columns: 100px auto 150px;
+  gap: 10px;
+  align-items: center;
+}
+
+.map-modal-container{
+  display: grid;
+  padding: 20px;
+  grid-template-rows: 50px auto;
+  background-color: #e9e9e9;
+  gap: 10px;
+  border: $solid-border;
+  border-radius: 10px;
+  width: 700px;
+  height: 600px;
 }
