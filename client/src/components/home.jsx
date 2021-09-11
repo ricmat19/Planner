@@ -26,7 +26,7 @@ const NavbarC = () => {
         setBooksModal("modal modal-active");
     };
 
-    const [mapModal, setMapModal] = useState("modal");
+    const [mapModal, setMapModal] = useState("modal modal-active");
     const mapRef = useRef();
     const displayMap = () => {
         setMapModal("modal modal-active");
@@ -47,7 +47,7 @@ const NavbarC = () => {
                             setBooksModal("modal");
                         }
                         if(!mapRef.current.contains(event.target)){
-                            setMapModal("modal");
+                            setMapModal("modal modal-active");
                         }
                     }
                 })
