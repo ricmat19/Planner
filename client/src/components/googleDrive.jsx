@@ -1,25 +1,40 @@
-// import {google} from 'googleapis';
-// import path from 'path';
-// import fs from 'fs';
+import React, { useEffect, useRef, useState } from 'react';
+import PlannerAPI from '../apis/plannerAPI';
 
-// const GoogleDriveC = (props) => {
+const GoogleDriveC = () => {
 
-// const CLIENT_ID = process.env.REACT_APP_GOOGLE_DRIVE_CLIENT_ID;
-// const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_DRIVE_CLIENT_SECRET;
-// const REDIRECT_URI = process.env.REACT_APP_GOOGLE_DRIVE_REDIRECT_URI;
-// const REFRESH_TOKEN = process.env.REACT_APP_GOOGLE_DRIVE_REFRESH_TOKEN;
+    const [files, setFiles] = useState([]);
 
-// const oAuth2Client = new google.auth.OAuth2(
-//     CLIENT_ID,
-//     CLIENT_SECRET,
-//     REDIRECT_URI
-// )
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
 
-// oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+                const googleDriveResponse = await PlannerAPI.get(`/files`);
+                console.log(googleDriveResponse.data.data.files)
 
-//     return(
-//         <div></div>
-//     );
-// }
+                setFiles(googleDriveResponse.data.data.files)
 
-// export default GoogleDriveC;
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, []);
+
+    return(
+        <div className="main-body">
+            <div className="grid grid-center">
+                <div>Hello</div>
+                {files.map(file => {
+                    return(
+                        <div key={file.id}>
+                            {file.name}
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
+    );
+}
+
+export default GoogleDriveC;

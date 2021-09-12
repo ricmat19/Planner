@@ -4,6 +4,7 @@ import CalendarC from './calendar';
 import BooksC from './books';
 import PlannerC from './planner';
 import MapC from './map';
+import GoogleDriveC from './googleDrive';
 
 
 const NavbarC = () => {
@@ -32,6 +33,12 @@ const NavbarC = () => {
         setMapModal("modal modal-active");
     };
 
+    const [driveModal, setDriveModal] = useState("modal");
+    const driveRef = useRef();
+    const displayDrive = () => {
+        setDriveModal("modal modal-active");
+    };
+
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -48,6 +55,9 @@ const NavbarC = () => {
                         }
                         if(!mapRef.current.contains(event.target)){
                             setMapModal("modal");
+                        }
+                        if(!driveRef.current.contains(event.target)){
+                            setDriveModal("modal");
                         }
                     }
                 })
@@ -81,8 +91,18 @@ const NavbarC = () => {
                     <MapC mapModal={mapModal} mapRef={mapRef}/>
                 </div>
             </div>
+            <div className={driveModal}>
+                <div ref={driveRef} className="modal-content">
+                    <GoogleDriveC driveModal={driveModal} driveRef={driveRef}/>
+                </div>
+            </div>
 
             <nav className="grid nav-div">
+                <span className="nav-item">
+                    <div className="nav-item-anchor" onClick={displayDrive}>
+                        <img src="../images/folder-open-solid.svg"/>
+                    </div>
+                </span>
                 <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayMap}>
                         <img src="../images/map-marked-alt-solid.svg"/>
