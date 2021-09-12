@@ -26,7 +26,7 @@ const NavbarC = () => {
         setBooksModal("modal modal-active");
     };
 
-    const [mapModal, setMapModal] = useState("modal modal-active");
+    const [mapModal, setMapModal] = useState("modal");
     const mapRef = useRef();
     const displayMap = () => {
         setMapModal("modal modal-active");
@@ -47,7 +47,7 @@ const NavbarC = () => {
                             setBooksModal("modal");
                         }
                         if(!mapRef.current.contains(event.target)){
-                            setMapModal("modal modal-active");
+                            setMapModal("modal");
                         }
                     }
                 })
@@ -78,7 +78,7 @@ const NavbarC = () => {
             </div>
             <div className={mapModal}>
                 <div ref={mapRef}>
-                    <MapC calendarModal={mapModal} calendarRef={mapRef}/>
+                    <MapC mapModal={mapModal} mapRef={mapRef}/>
                 </div>
             </div>
 
