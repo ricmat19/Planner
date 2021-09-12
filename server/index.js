@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 const plannerRouter = require('./routes/planner');
 const booksRouter = require('./routes/books');
+const googleDriveRouter = require('./routes/googleDrive')
 
 //insures that the .env file is only run in a development environment and not a production environment
 if(process.env.NODE_ENV !== 'production'){
@@ -25,29 +26,9 @@ app.use(express.static('public'));
 
 app.use(express.urlencoded({extended: false}));
 
-app.get('/calculator', (req, res) => {
-    res.render('calculator', 
-    {title: "Calculator",
-    css: "css/calculator.css",
-    js: "scripts/calculator.js"}); 
-})
-
-app.get('/calendar', (req, res) => {
-    res.render('calendar', 
-    {title: "Calendar",
-    css: "css/calendar.css",
-    js: "scripts/calendar.js"}); 
-})
-
-app.get('/map', (req, res) => {
-    res.render('map', 
-    {title: "Map",
-    css: "css/map.css",
-    js: "scripts/map.js"}); 
-})
-
 app.use(plannerRouter);
 app.use(booksRouter);
+app.use(googleDriveRouter);
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port

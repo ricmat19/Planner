@@ -5,7 +5,7 @@ export const MapC = (props) => {
 
     const [start, setStart] = useState(process.env.REACT_APP_DIRECTION_ORIGIN)
 
-    const [end, setEnd] = useState("13011 sw 123 ave miami, fl 33186")
+    // const [end, setEnd] = useState("13011 sw 123 ave miami, fl 33186")
 
     const containerStyle = {
         position: 'relative',  
@@ -53,12 +53,12 @@ export const MapC = (props) => {
             //      lng: place.geometry.location.lng(),
             // });
 
-            setEnd(place.geometry.location);
+            // setEnd(place.geometry.location);
             
             request = {
                 origin: start,
                 waypoints: waypoints,
-                destination: end,
+                // destination: end,
                 travelMode: "DRIVING",
             };
 
@@ -70,7 +70,7 @@ export const MapC = (props) => {
 
         });
 
-        setEnd(end);
+        // setEnd(end);
     
         // for (let i = 1; i < coords.length - 1; i++) {
         //     waypoints.push({
@@ -82,7 +82,7 @@ export const MapC = (props) => {
         let request = {
             origin: start,
             waypoints: waypoints,
-            destination: end,
+            // destination: end,
             travelMode: "DRIVING",
         };
 
@@ -99,7 +99,7 @@ export const MapC = (props) => {
                 <div className="map-directions-container">
                     <div className="pac-card map-direction-div" id="pac-card">
                         <label>Destination</label>
-                        <input id="pac-input" type="text" onChange={e => setEnd(e.target.value)}/>
+                        {/* <input id="pac-input" type="text" onChange={e => setEnd(e.target.value)}/> */}
                     </div>
                 </div>
                 <Map
