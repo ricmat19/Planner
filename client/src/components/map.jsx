@@ -99,7 +99,7 @@ export const MapC = (props) => {
                 <div className="map-directions-container">
                     <div className="pac-card map-direction-div" id="pac-card">
                         <label>Destination</label>
-                        {/* <input id="pac-input" type="text" onChange={e => setEnd(e.target.value)}/> */}
+                        <input id="pac-input" type="text" onChange={e => setEnd(e.target.value)}/>
                     </div>
                 </div>
                 {/* <Map

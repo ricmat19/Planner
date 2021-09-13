@@ -80,12 +80,14 @@ router.get('/files', async (req, res) => {
     let files = {};
     try{
         await drive.files.list({
-            // pageSize: 10,
         }, (err, response) => {
             if (err) return console.log('The API returned an error: ' + err);
             files = response.data.files;
             if (files.length) {
-                console.log(files);
+                // files.map((file) => {
+                //     console.log(`${file.mimeType}`);
+                //   });
+                console.log(files)
             } else {
                 console.log('No files found.');
             }
