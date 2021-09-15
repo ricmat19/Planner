@@ -4,6 +4,7 @@ import PlannerAPI from '../apis/plannerAPI';
 const GoogleDriveC = () => {
 
     const [files, setFiles] = useState([]);
+    const [fileType, setFileType] = useState("");
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -29,6 +30,7 @@ const GoogleDriveC = () => {
                     if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
                         googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
                     }
+                    //Diagram
                     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
                         googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
                     }
@@ -43,20 +45,24 @@ const GoogleDriveC = () => {
         fetchData();
     }, []);
 
+    const displayFiles = (fileType) => {
+        setFileType(fileType)
+    }
+
     return(
         <div className="main-body">
             <div className="grid grid-center">
                 <div className="title">Google Drive</div>
                 <div className="grid google-drive-nav">
-                    <div className="sub-title">Sheets</div>
-                    <div className="sub-title">Docs</div>
-                    <div className="sub-title">Images</div>
-                    <div className="sub-title">Diagrams</div>
-                    <div className="sub-title">PDFs</div>
+                    <div className="sub-title" onClick={() => displayFiles("sheets")}>Sheets</div>
+                    <div className="sub-title" onClick={() => displayFiles("docs")}>Docs</div>
+                    <div className="sub-title" onClick={() => displayFiles("images")}>Images</div>
+                    <div className="sub-title" onClick={() => displayFiles("diagrams")}>Diagrams</div>
+                    <div className="sub-title" onClick={() => displayFiles("pdfs")}>PDFs</div>
                 </div>
                 <div className="grid file-grid">
                     {files.map(file => {
-                        if(file.mimeType === 'application/vnd.google-apps.spreadsheet'){
+                        if(file.mimeType === 'application/vnd.google-apps.spreadsheet' && fileType === "sheets"){
                             return(
                                 <div>
                                     <a href={file.url} target="_blank">
@@ -71,7 +77,7 @@ const GoogleDriveC = () => {
                                     </a>
                                 </div>
                             )
-                        }else if(file.mimeType === 'application/vnd.google-apps.document'){
+                        }else if(file.mimeType === 'application/vnd.google-apps.document' && fileType === "docs"){
                             return(
                                 <div>
                                     <a href={file.url} target="_blank">
@@ -86,7 +92,7 @@ const GoogleDriveC = () => {
                                     </a>
                                 </div>
                             )
-                        }else if(file.mimeType === 'application/vnd.google-apps.drawing'){
+                        }else if(file.mimeType === 'application/vnd.google-apps.drawing' && fileType === "images"){
                             return(
                                 <div>
                                     <a href={file.url} target="_blank">
@@ -101,7 +107,7 @@ const GoogleDriveC = () => {
                                     </a>
                                 </div>
                             )
-                        }else if(file.mimeType === 'application/pdf'){
+                        }else if(file.mimeType === 'application/pdf' && fileType === "pdfs"){
                             return(
                                 <div>
                                     <a href={file.url} target="_blank">
@@ -116,7 +122,7 @@ const GoogleDriveC = () => {
                                     </a>
                                 </div>
                             )
-                        }else if(file.mimeType === 'application/vnd.jgraph.mxfile'){
+                        }else if(file.mimeType === 'application/vnd.jgraph.mxfile' && fileType === "diagrams"){
                             return(
                                 <div>
                                     <a href={file.url} target="_blank">
@@ -124,18 +130,6 @@ const GoogleDriveC = () => {
                                             <div className="file-image-div">
                                                 <img src="../images/project-diagram-solid.svg"/>
                                             </div>
-                                            <div>
-                                                {file.name}
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            )
-                        }else{
-                            return(
-                                <div>
-                                    <a href={file.url} target="_blank">
-                                        <div key={file.id} className="file-div">
                                             <div>
                                                 {file.name}
                                             </div>

@@ -3,6 +3,10 @@ import PlannerAPI from '../apis/plannerAPI';
 
 const EditToDoC = (props) => {
 
+    const [fileURL, setFileURL] = useState("");
+    const [files, setFiles] = useState([]);
+    const [selectedFile, setSelectedFile] = useState("");
+
     const [editModal, setEditModal] = useState("modal");
     const [listCollection, setListCollection] = useState(props.listCollection);
 
@@ -22,6 +26,7 @@ const EditToDoC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
+                console.log(props)
                 setListCollection(props.listCollection)
                 if(list === "" || id !== props.id){
                     setId(props.id)
@@ -29,19 +34,54 @@ const EditToDoC = (props) => {
                     setToDo(props.toDo)
                     setDueDate(props.dueDate)
                     setInfo(props.info)
+                    setFileURL(props.file)
                     setPosition(props.position)
                 }
+
+                const googleDriveResponse = await PlannerAPI.get(`/files`);
+
+                for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
+                    //SpreadSheet
+                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
+                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/spreadsheets/d/" + googleDriveResponse.data.data.files[i].id;
+                    }
+                    //Document
+                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.document'){
+                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/document/d/" + googleDriveResponse.data.data.files[i].id;
+                    }
+                    //Drawing
+                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.drawing'){
+                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/drawings/d/" + googleDriveResponse.data.data.files[i].id;
+                    }
+                    //PDF
+                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
+                        googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
+                    }
+                    //Diagram
+                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
+                        googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
+                    }
+                }
+
+                setFiles(googleDriveResponse.data.data.files)
 
             }catch(err){
                 console.log(err);
             }
         }
         fetchData();
-    });
+    }, []);
 
     const editToDo = async (e) => {
         e.preventDefault()
         try{
+
+            let fileURL = "";
+            for(let i = 0; i < files.length; i++){
+                if(files[i].name === selectedFile){
+                    fileURL = files[i].url;
+                }
+            }
 
             const update = await PlannerAPI.put(`/planner/edit-toDo`,{
                 id: props.id,
@@ -49,6 +89,7 @@ const EditToDoC = (props) => {
                 toDo: toDo,
                 dueDate: dueDate,
                 info: info,
+                file: fileURL,
                 position: position
             });
             
@@ -84,6 +125,18 @@ const EditToDoC = (props) => {
             <div className="toDo-modal-grid">
                 <label>Due Date</label>
                 <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
+            </div>
+            <div className="toDo-modal-grid link-file-div">
+                <label>File</label>
+                <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                    {files.map((file, index) => {
+                        return(
+                            <option key={index}>{file.name}</option>
+                        )
+                    })}
+                </select>
+                <a className="file-link" href={fileURL}>File</a>
+                {console.log(fileURL)}
             </div>
             {/* <div className="toDo-modal-grid">
                 <label>Position</label>

@@ -34,6 +34,7 @@ const ToDoC = () => {
     // const [imgRef, setImgRef] = useState("");
     const [info, setInfo] = useState("");
     const [position, setPosition] = useState("")
+    const [file, setFile] = useState("")
 
     const displayDeleteListModal = (list) => {
         setDeletedList(list)
@@ -55,7 +56,7 @@ const ToDoC = () => {
         setList(list)
     }
 
-    const displayEditModal = (id, list, toDo, dueDate, info, position) => {
+    const displayEditModal = (id, list, toDo, dueDate, info, position, file) => {
         setEditModal("modal modal-active");
         setId(id);
         setList(list);
@@ -63,6 +64,7 @@ const ToDoC = () => {
         setDueDate(dueDate);
         setInfo(info);
         setPosition(position)
+        setFile(file)
     }
 
     const deleteListRef = useRef();
@@ -213,7 +215,7 @@ const ToDoC = () => {
             <div className={editModal}>
                 <form>
                     <div ref={editRef} className="modal-content">
-                        <EditToDoC listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} position={position}/>
+                        <EditToDoC listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} position={position} file={file}/>
                     </div>
                 </form>
             </div>
@@ -243,7 +245,7 @@ const ToDoC = () => {
                                                             //     {(provided) => (
                                                             //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
                                                                     <div  key={index} className="grid to-do-item due-today"> {/* Alternative */}
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position)} className="edit-toDo">
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
                                                                             <img src="../images/wrench-solid.svg"/>
                                                                         </div>
                                                                         <div className="to-do-item-name">
@@ -261,7 +263,7 @@ const ToDoC = () => {
                                                             //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
                                                                     <div  key={index} className="grid to-do-item past-due"> {/* Alternative */}
 
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position)} className="edit-toDo">
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
                                                                             <img src="../images/wrench-solid.svg"/>
                                                                         </div>
                                                                         <div className="to-do-item-name">
@@ -279,7 +281,7 @@ const ToDoC = () => {
                                                             //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
                                                                     <div  key={index} className="grid to-do-item due-month"> {/* Alternative */}
 
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position)} className="edit-toDo">
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
                                                                             <img src="../images/wrench-solid.svg"/>
                                                                         </div>
                                                                         <div className="to-do-item-name">
@@ -297,7 +299,7 @@ const ToDoC = () => {
                                                             //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
                                                                     <div  key={index} className="grid to-do-item"> {/* Alternative */}
 
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position)} className="edit-toDo">
+                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
                                                                             <img src="../images/wrench-solid.svg"/>
                                                                         </div>
                                                                         <div className="to-do-item-name">

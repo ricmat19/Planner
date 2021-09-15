@@ -588,9 +588,21 @@ button{
   min-width: 50px;
 }
 
+.google-drive-modal{
+  max-width: 600px;
+}
+
 .google-drive-nav{
   justify-content: center;
   // grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   grid-template-columns: auto auto auto auto auto;
   gap: 20px;
+}
+
+.link-file-div{
+  grid-template-columns: 100px 1fr 50px;
+}
+
+.file-link{
+  text-align: center;
 }
