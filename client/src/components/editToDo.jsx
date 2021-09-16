@@ -3,7 +3,6 @@ import PlannerAPI from '../apis/plannerAPI';
 
 const EditToDoC = (props) => {
 
-    const [fileURL, setFileURL] = useState("");
     const [files, setFiles] = useState([]);
     const [selectedFile, setSelectedFile] = useState("");
 
@@ -17,6 +16,7 @@ const EditToDoC = (props) => {
     // const [imgRef, setImgRef] = useState(null);
     const [info, setInfo] = useState("");
     const [position, setPosition] = useState("");
+    const [file, setFile] = useState("");
 
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
@@ -26,7 +26,7 @@ const EditToDoC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                console.log(props)
+                console.log(props.file)
                 setListCollection(props.listCollection)
                 if(list === "" || id !== props.id){
                     setId(props.id)
@@ -34,7 +34,7 @@ const EditToDoC = (props) => {
                     setToDo(props.toDo)
                     setDueDate(props.dueDate)
                     setInfo(props.info)
-                    setFileURL(props.file)
+                    setFile(props.file)
                     setPosition(props.position)
                 }
 
@@ -70,7 +70,7 @@ const EditToDoC = (props) => {
             }
         }
         fetchData();
-    }, []);
+    }, [props]);
 
     const editToDo = async (e) => {
         e.preventDefault()
@@ -135,8 +135,7 @@ const EditToDoC = (props) => {
                         )
                     })}
                 </select>
-                <a className="file-link" href={fileURL}>File</a>
-                {console.log(fileURL)}
+                <a className="file-link" href={file} target="_blank">File</a>
             </div>
             {/* <div className="toDo-modal-grid">
                 <label>Position</label>

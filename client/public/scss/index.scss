@@ -570,11 +570,11 @@ button{
 }
 
 .file-grid{
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 300px 300px 300px;
+  justify-content: center;
 }
 
 .file-div{
-  max-width: 300px;
   display: grid;
   justify-content: center;
   justify-items: center;
@@ -589,7 +589,7 @@ button{
 }
 
 .google-drive-modal{
-  max-width: 600px;
+  width: fit-content;
 }
 
 .google-drive-nav{

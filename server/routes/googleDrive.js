@@ -87,7 +87,7 @@ router.get('/files', async (req, res) => {
                 // files.map((file) => {
                 //     console.log(`${file.mimeType}`);
                 //   });
-                console.log(files)
+                // console.log(files)
             } else {
                 console.log('No files found.');
             }

@@ -262,7 +262,6 @@ const ToDoC = () => {
                                                             //     {(provided) => (
                                                             //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
                                                                     <div  key={index} className="grid to-do-item past-due"> {/* Alternative */}
-
                                                                         <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
                                                                             <img src="../images/wrench-solid.svg"/>
                                                                         </div>
