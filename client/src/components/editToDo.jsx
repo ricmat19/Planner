@@ -26,7 +26,6 @@ const EditToDoC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                console.log(props.file)
                 setListCollection(props.listCollection)
                 if(list === "" || id !== props.id){
                     setId(props.id)

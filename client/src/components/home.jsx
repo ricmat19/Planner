@@ -5,6 +5,7 @@ import BooksC from './books';
 import PlannerC from './planner';
 import MapC from './map';
 import GoogleDriveC from './googleDrive';
+import EventsC from './events';
 
 
 const NavbarC = () => {
@@ -39,6 +40,12 @@ const NavbarC = () => {
         setDriveModal("modal modal-active");
     };
 
+    const [eventsModal, setEventsModal] = useState("modal");
+    const eventsRef = useRef();
+    const displayEvents = () => {
+        setEventsModal("modal modal-active");
+    };
+
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -58,6 +65,9 @@ const NavbarC = () => {
                         }
                         if(!driveRef.current.contains(event.target)){
                             setDriveModal("modal");
+                        }
+                        if(!eventsRef.current.contains(event.target)){
+                            setEventsModal("modal");
                         }
                     }
                 })
@@ -96,8 +106,18 @@ const NavbarC = () => {
                     <GoogleDriveC driveModal={driveModal} driveRef={driveRef}/>
                 </div>
             </div>
+            <div className={eventsModal}>
+                <div ref={eventsRef} className="modal-content google-drive-modal">
+                    <EventsC eventsModal={eventsModal} eventsRef={eventsRef}/>
+                </div>
+            </div>
 
             <nav className="grid nav-div">
+                <span className="nav-item">
+                    <div className="nav-item-anchor" onClick={displayEvents}>
+                        <img src="../images/calendar-check-solid.svg"/>
+                    </div>
+                </span>
                 <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayDrive}>
                         <img src="../images/folder-open-solid.svg"/>

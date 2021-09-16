@@ -11,7 +11,6 @@ const GoogleDriveC = () => {
             try{
 
                 const googleDriveResponse = await PlannerAPI.get(`/files`);
-                console.log(googleDriveResponse.data.data.files)
 
                 for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
                     //SpreadSheet
