@@ -125,17 +125,31 @@ const EditToDoC = (props) => {
                 <label>Due Date</label>
                 <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
             </div>
-            <div className="toDo-modal-grid link-file-div">
-                <label>File</label>
-                <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
-                    {files.map((file, index) => {
-                        return(
-                            <option key={index}>{file.name}</option>
-                        )
-                    })}
-                </select>
-                <a className="file-link" href={file} target="_blank">File</a>
-            </div>
+            {file ? 
+                <div className="toDo-modal-grid link-div-file">
+                    <label>File</label>
+                    <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                        {files.map((file, index) => {
+                            return(
+                                <option key={index}>{file.name}</option>
+                            )
+                        })}
+                    </select>
+                    <a className="file-link" href={file} target="_blank">File</a>
+                </div>
+            :
+                <div className="toDo-modal-grid link-div-no-file">
+                    <label>File</label>
+                    <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                        {files.map((file, index) => {
+                            return(
+                                <option key={index}>{file.name}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+            }
+
             {/* <div className="toDo-modal-grid">
                 <label>Position</label>
                 <input className="modal-header due-date" value={position} ref={positionInput} onChange={e => setPosition(e.target.value)} type="number" name="position" min="1"/>

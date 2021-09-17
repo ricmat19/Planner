@@ -599,8 +599,12 @@ button{
   gap: 20px;
 }
 
-.link-file-div{
+.link-div-file{
   grid-template-columns: 100px 1fr 50px;
+}
+
+.link-div-no-file{
+  grid-template-columns: 100px 1fr;
 }
 
 .file-link{

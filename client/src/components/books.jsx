@@ -108,7 +108,7 @@ const BooksC = () => {
                                             </div>
                                             <div className="grid book-info-div">
                                                 <div className="book-label">Desc:</div>
-                                                <div className="book-info"><a href={book.volumeInfo.infoLink}>Info</a></div>
+                                                <div className="book-info"><a href={book.volumeInfo.infoLink} target="_blank">Info</a></div>
                                             </div>
                                         </div>
                                         <div>

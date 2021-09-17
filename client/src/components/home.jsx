@@ -113,11 +113,11 @@ const NavbarC = () => {
             </div>
 
             <nav className="grid nav-div">
-                <span className="nav-item">
+                {/* <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayEvents}>
                         <img src="../images/calendar-check-solid.svg"/>
                     </div>
-                </span>
+                </span> */}
                 <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayDrive}>
                         <img src="../images/folder-open-solid.svg"/>

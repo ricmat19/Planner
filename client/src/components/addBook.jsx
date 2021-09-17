@@ -26,18 +26,6 @@ const AddBooksC = () => {
         }
     };
 
-    useEffect(() => {
-        const fetchData = async (req, res) => {
-            try{
-
-
-            }catch(err){
-                console.log(err);
-            }
-        }
-        fetchData();
-    }, []);
-
     const saveBook = async (book) => { 
         try{
             const response = await PlannerAPI.post("/books/add-book",{
@@ -97,7 +85,7 @@ const AddBooksC = () => {
                                     </div>
                                     <div className="grid book-info-div">
                                         <div className="book-label">Desc:</div>
-                                        <div className="book-info"><a href={result.volumeInfo.infoLink}>Info</a></div>
+                                        <div className="book-info"><a href={result.volumeInfo.infoLink} target="_blank">Info</a></div>
                                     </div>
                                 </div>
                                 <div>
