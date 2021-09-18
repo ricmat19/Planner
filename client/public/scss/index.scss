@@ -611,13 +611,13 @@ button{
   text-align: center;
 }
 
-.github-repo-div{
-  display: grid;
-  grid-template-columns: auto auto auto;
+.repo-list{
+  margin-top: 10px;
 }
 
-.min-width{
-  min-width: 110px;
+.github-repo-div{
+  display: grid;
+  grid-template-columns: 130px 120px auto;
 }
 
 .align-left{
@@ -626,4 +626,15 @@ button{
 
 .align-right{
   text-align: right;
+}
+
+.github-nav{
+  justify-content: center;
+  grid-template-columns: auto auto;
+  gap: 20px;
+}
+
+.github-user-info-div{
+  display: grid;
+  grid-template-columns: auto auto;
 }
