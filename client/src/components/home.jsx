@@ -7,6 +7,7 @@ import MapC from './map';
 import GoogleDriveC from './googleDrive';
 // import EventsC from './events';
 import GitHubC from './github';
+import RecipeC from './recipe';
 
 
 const NavbarC = () => {
@@ -53,6 +54,12 @@ const NavbarC = () => {
         setGithubModal("modal modal-active");
     };
 
+    const [recipeModal, setRecipeModal] = useState("modal");
+    const recipeRef = useRef();
+    const displayRecipe = () => {
+        setRecipeModal("modal modal-active");
+    };
+
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -78,6 +85,9 @@ const NavbarC = () => {
                         // }
                         if(!githubRef.current.contains(event.target)){
                             setGithubModal("modal");
+                        }
+                        if(!recipeRef.current.contains(event.target)){
+                            setRecipeModal("modal");
                         }
                     }
                 })
@@ -126,8 +136,18 @@ const NavbarC = () => {
                     <GitHubC githubModal={githubModal} githubRef={githubRef}/>
                 </div>
             </div>
+            <div className={recipeModal}>
+                <div ref={recipeRef} className="modal-content">
+                    <RecipeC recipeModal={recipeModal} recipeRef={recipeRef}/>
+                </div>
+            </div>
 
             <nav className="grid nav-div">
+                <span className="nav-item">
+                    <div className="nav-item-anchor" onClick={displayRecipe}>
+                        <img src="../images/utensils-solid.svg"/>
+                    </div>
+                </span>
                 <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayGitHub}>
                         <img src="../images/github-square-brands.svg"/>

@@ -28,7 +28,7 @@ body{
 }
 
 .nav-div{
-  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto;
   justify-content: right;
   align-items: center;
   color: black;
@@ -502,7 +502,7 @@ button{
   cursor: pointer;
 }
 
-.book-search-form{
+.book-search-form, .recipe-search-form{
   margin: 15px;
   width: 350px;
   gap: 10px;
@@ -607,7 +607,7 @@ button{
   grid-template-columns: 100px 1fr;
 }
 
-.file-link{
+.file-link, .repo-link, .book-link, .recipe-link{
   text-align: center;
 }
 

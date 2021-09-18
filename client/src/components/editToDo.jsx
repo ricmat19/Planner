@@ -1,31 +1,46 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PlannerAPI from '../apis/plannerAPI';
+import GitHubAPI from '../apis/githubAPI';
+import BookSelectAPI from '../apis/bookSelectAPI';
 
 const EditToDoC = (props) => {
 
-    const [files, setFiles] = useState([]);
-    const [selectedFile, setSelectedFile] = useState("");
-
+    const [apiKey, setAPIKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
+    const [username, setUsername] = useState(process.env.REACT_APP_GITHUB_USERNAME);
     const [editModal, setEditModal] = useState("modal");
     const [listCollection, setListCollection] = useState(props.listCollection);
 
     const [id, setId] = useState("")
     const [list, setList] = useState("");
+
     const [toDo, setToDo] = useState("");
     const [dueDate, setDueDate] = useState("");
     // const [imgRef, setImgRef] = useState(null);
     const [info, setInfo] = useState("");
-    const [position, setPosition] = useState("");
+
+    const [files, setFiles] = useState([]);
     const [file, setFile] = useState("");
+
+    const [repos, setRepos] = useState([]);
+    const [repo, setRepo] = useState("");
+
+    const [books, setBooks] = useState([]);
+    const [book, setBook] = useState("");
+
+    const [recipes, setRecipes] = useState([]);
+    const [recipe, setRecipe] = useState("");
+
+    // const [position, setPosition] = useState("");
 
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
-    const positionInput = useRef(null);
+    // const positionInput = useRef(null);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
+
                 setListCollection(props.listCollection)
                 if(list === "" || id !== props.id){
                     setId(props.id)
@@ -34,11 +49,13 @@ const EditToDoC = (props) => {
                     setDueDate(props.dueDate)
                     setInfo(props.info)
                     setFile(props.file)
-                    setPosition(props.position)
+                    setRepo(props.repo)
+                    setBook(props.book)
+                    setRecipe(props.recipe)
+                    // setPosition(props.position)
                 }
 
                 const googleDriveResponse = await PlannerAPI.get(`/files`);
-
                 for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
                     //SpreadSheet
                     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
@@ -61,8 +78,24 @@ const EditToDoC = (props) => {
                         googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
                     }
                 }
-
                 setFiles(googleDriveResponse.data.data.files)
+
+                const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
+                setRepos(githubRepoResponse.data);
+
+                let bookCollection = [];
+                const booksResponse = await PlannerAPI.get(`/books`);
+                for(let i=0; i < booksResponse.data.data.books.length; i++){
+                    bookCollection.push(booksResponse.data.data.books[i].book)
+                }
+
+                let bookVolumeResponse = []
+                for(let i=0; i < bookCollection.length; i++){
+                    const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
+                    bookVolumeResponse.push(bookVolume.data)
+                }
+
+                setBooks(bookVolumeResponse);
 
             }catch(err){
                 console.log(err);
@@ -81,7 +114,7 @@ const EditToDoC = (props) => {
 
             let fileURL = "";
             for(let i = 0; i < files.length; i++){
-                if(files[i].name === selectedFile){
+                if(files[i].name === file){
                     fileURL = files[i].url;
                 }
             }
@@ -93,7 +126,10 @@ const EditToDoC = (props) => {
                 dueDate: dueDate,
                 info: info,
                 file: fileURL,
-                position: position
+                repo: repo,
+                book: book,
+                recipe: recipe,
+                // position: position
             });
             
             setEditModal("modal");
@@ -132,7 +168,7 @@ const EditToDoC = (props) => {
             {file ? 
                 <div className="toDo-modal-grid link-div-file">
                     <label>File</label>
-                    <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                    <select className="modal-header" value={file} onChange={e => setFile(e.target.value)}>
                         <option value="" disabled>Select a File...</option>
                         {files.map((file, index) => {
                             return(
@@ -145,11 +181,89 @@ const EditToDoC = (props) => {
             :
                 <div className="toDo-modal-grid link-div-no-file">
                     <label>File</label>
-                    <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                    <select className="modal-header" value={file} onChange={e => setFile(e.target.value)}>
                         <option value="" disabled>Select a File...</option>
                         {files.map((file, index) => {
                             return(
                                 <option key={index}>{file.name}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+            }
+            {repo ? 
+                <div className="toDo-modal-grid link-div-file">
+                    <label>Repo</label>
+                    <select className="modal-header" value={repo} onChange={e => setRepo(e.target.value)}>
+                        <option value="" disabled>Select a Repo...</option>
+                        {repos.map((repo, index) => {
+                            return(
+                                <option key={index}>{repo.name}</option>
+                            )
+                        })}
+                    </select>
+                    <a className="repo-link" href={repo} target="_blank">Repo</a>
+                </div>
+            :
+                <div className="toDo-modal-grid link-div-no-file">
+                    <label>Repo</label>
+                    <select className="modal-header" value={repo} onChange={e => setRepo(e.target.value)}>
+                        <option value="" disabled>Select a Repo...</option>
+                        {repos.map((repo, index) => {
+                            return(
+                                <option key={index}>{repo.name}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+            }
+            {book ? 
+                <div className="toDo-modal-grid link-div-file">
+                    <label>Book</label>
+                    <select className="modal-header" value={book} onChange={e => setBook(e.target.value)}>
+                        <option value="" disabled>Select a Book...</option>
+                        {books.map((book, index) => {
+                            return(
+                                <option key={index}>{book.volumeInfo.title}</option>
+                            )
+                        })}
+                    </select>
+                    <a className="book-link" href={book} target="_blank">Book</a>
+                </div>
+            :
+                <div className="toDo-modal-grid link-div-no-file">
+                    <label>Book</label>
+                    <select className="modal-header" value={book} onChange={e => setBook(e.target.value)}>
+                        <option value="" disabled>Select a Book...</option>
+                        {books.map((book, index) => {
+                            return(
+                                <option key={index}>{book.volumeInfo.title}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+            }
+            {recipe ? 
+                <div className="toDo-modal-grid link-div-file">
+                    <label>Recipe</label>
+                    <select className="modal-header" value={recipe} onChange={e => setRecipe(e.target.value)}>
+                        <option value="" disabled>Select a Recipe...</option>
+                        {recipes.map((recipe, index) => {
+                            return(
+                                <option key={index}>{recipe.name}</option>
+                            )
+                        })}
+                    </select>
+                    <a className="recipe-link" href={recipe} target="_blank">Recipe</a>
+                </div>
+            :
+                <div className="toDo-modal-grid link-div-no-file">
+                    <label>Recipe</label>
+                    <select className="modal-header" value={recipe} onChange={e => setRecipe(e.target.value)}>
+                        <option value="" disabled>Select a Recipe...</option>
+                        {recipes.map((recipe, index) => {
+                            return(
+                                <option key={index}>{recipe.name}</option>
                             )
                         })}
                     </select>

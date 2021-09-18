@@ -1,30 +1,43 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PlannerAPI from '../apis/plannerAPI';
+import GitHubAPI from '../apis/githubAPI';
+import BookSelectAPI from '../apis/bookSelectAPI';
 
 const CreateToDoC = (props) => {
 
-    const [files, setFiles] = useState([]);
-    const [selectedFile, setSelectedFile] = useState("");
-
+    const [apiKey, setAPIKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
+    const [username, setUsername] = useState(process.env.REACT_APP_GITHUB_USERNAME);
     const [toDoModal, setToDoModal] = useState("modal");
 
     const [toDo, setToDo] = useState("");
     const [dueDate, setDueDate] = useState("");
-    const [imgRef, setImgRef] = useState("");
+    // const [imgRef, setImgRef] = useState("");
     const [info, setInfo] = useState("");
-    const [position, setPosition] = useState(1);
+
+    const [files, setFiles] = useState([]);
+    const [file, setFile] = useState("");
+
+    const [repos, setRepos] = useState([]);
+    const [repo, setRepo] = useState("");
+
+    const [books, setBooks] = useState([]);
+    const [book, setBook] = useState("");
+
+    const [recipes, setRecipes] = useState([]);
+    const [recipe, setRecipe] = useState("");
+
+    // const [position, setPosition] = useState(1);
 
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
-    const positionInput = useRef(null);
+    // const positionInput = useRef(null);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
 
                 const googleDriveResponse = await PlannerAPI.get(`/files`);
-
                 for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
                     //SpreadSheet
                     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
@@ -47,8 +60,24 @@ const CreateToDoC = (props) => {
                         googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
                     }
                 }
-
                 setFiles(googleDriveResponse.data.data.files)
+
+                const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
+                setRepos(githubRepoResponse.data);
+
+                let bookCollection = [];
+                const booksResponse = await PlannerAPI.get(`/books`);
+                for(let i=0; i < booksResponse.data.data.books.length; i++){
+                    bookCollection.push(booksResponse.data.data.books[i].book)
+                }
+
+                let bookVolumeResponse = []
+                for(let i=0; i < bookCollection.length; i++){
+                    const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
+                    bookVolumeResponse.push(bookVolume.data)
+                }
+
+                setBooks(bookVolumeResponse);
 
             }catch(err){
                 console.log(err);
@@ -67,7 +96,7 @@ const CreateToDoC = (props) => {
 
             let fileURL = "";
             for(let i = 0; i < files.length; i++){
-                if(files[i].name === selectedFile){
+                if(files[i].name === file){
                     fileURL = files[i].url;
                 }
             }
@@ -77,10 +106,13 @@ const CreateToDoC = (props) => {
             formData.append('list', props.list);
             formData.append('toDo', toDo);
             formData.append('dueDate', dueDate);
-            formData.append('imgRef', imgRef);
+            // formData.append('imgRef', imgRef);
             formData.append('info', info);
             formData.append('fileURL', fileURL);
-            formData.append('position', position);
+            formData.append('repo', repo);
+            formData.append('book', book);
+            formData.append('recipe', recipe);
+            // formData.append('position', position);
 
             console.log(Array.from(formData))
             console.log(formData)
@@ -99,7 +131,7 @@ const CreateToDoC = (props) => {
             toDoInput.current.value = "";
             dueDateInput.current.value = "";
             infoInput.current.value = "";
-            positionInput.current.value = "";
+            // positionInput.current.value = "";
 
             setToDoModal("modal");
 
@@ -129,11 +161,44 @@ const CreateToDoC = (props) => {
             </div>
             <div className="toDo-modal-grid">
                 <label>File</label>
-                <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                <select className="modal-header" value={file} onChange={e => setFile(e.target.value)}>
                     <option value="" disabled>Select a File...</option>
                     {files.map((file, index) => {
                         return(
                             <option key={index}>{file.name}</option>
+                        )
+                    })}
+                </select>
+            </div>
+            <div className="toDo-modal-grid">
+                <label>Repo</label>
+                <select className="modal-header" value={repo} onChange={e => setRepo(e.target.value)}>
+                    <option value="" disabled>Select a Repo...</option>
+                    {repos.map((repo, index) => {
+                        return(
+                            <option key={index}>{repo.name}</option>
+                        )
+                    })}
+                </select>
+            </div>
+            <div className="toDo-modal-grid">
+                <label>Book</label>
+                <select className="modal-header" value={book} onChange={e => setBook(e.target.value)}>
+                    <option value="" disabled>Select a Book...</option>
+                    {books.map((book, index) => {
+                        return(
+                            <option key={index}>{book.volumeInfo.title}</option>
+                        )
+                    })}
+                </select>
+            </div>
+            <div className="toDo-modal-grid">
+                <label>Recipe</label>
+                <select className="modal-header" value={recipe} onChange={e => setRecipe(e.target.value)}>
+                    <option value="" disabled>Select a Recipe...</option>
+                    {recipes.map((recipe, index) => {
+                        return(
+                            <option key={index}>{recipe.name}</option>
                         )
                     })}
                 </select>
