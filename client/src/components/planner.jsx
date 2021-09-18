@@ -107,9 +107,22 @@ const ToDoC = () => {
                 for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
                     toDosArray.push(toDosResponse.data.data.toDos[i])
                 }
-                // toDosArray.sort((a, b) => (a.position > b.position) ? 1 : -1)
                 toDosArray.sort((a, b) => (a.dueDate > b.dueDate) ? 1 : -1)
-                setToDos(toDosArray);
+
+                const newToDoArray = [];
+                const noDueDateArray = [];
+                for(let i=0; i < toDosArray.length; i++){
+                    if(toDosArray[i].dueDate === ""){
+                        noDueDateArray.push(toDosArray[i]);
+                    }else{
+                        newToDoArray.push(toDosArray[i]);
+                    }
+                }
+                for(let i=0; i < noDueDateArray.length; i++){
+                    newToDoArray.push(noDueDateArray[i]);
+                }
+
+                setToDos(newToDoArray);
 
                 document.addEventListener("mousedown", (event) => {
                     if(toDoRef.current !== null && listRef.current !== null && editRef.current !== null && deleteListRef.current !== null && deleteToDoRef.current !== null){
@@ -256,7 +269,7 @@ const ToDoC = () => {
                                                             //      )}
                                                             //  </Draggable>
                                                         );
-                                                    } else if(list === toDo.list && toDo.dueDate < currentDay){
+                                                    } else if(list === toDo.list && toDo.dueDate < currentDay && toDo.dueDate !== ""){
                                                         return(
                                                             // <Draggable key={index} draggableId={index}>
                                                             //     {(provided) => (

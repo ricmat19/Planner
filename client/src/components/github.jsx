@@ -43,7 +43,6 @@ const GitHubC = () => {
                     <div className="sub-title" onClick={displayUser}>User</div>
             </div>
             <div className="repo-list">
-                {console.log(user)}
                 {userDisplay ?
                     <div>
                         <div className="github-user-info-div">

@@ -61,6 +61,10 @@ const CreateToDoC = (props) => {
         e.preventDefault()
         try{
 
+            if(toDo === ""){
+                return;
+            }
+
             let fileURL = "";
             for(let i = 0; i < files.length; i++){
                 if(files[i].name === selectedFile){
@@ -106,7 +110,6 @@ const CreateToDoC = (props) => {
 
     return(
         <div className="main-body">
-
             {/* Create To Do */}
             <div className="toDo-modal-grid">
                 <label>To Do</label>
@@ -127,6 +130,7 @@ const CreateToDoC = (props) => {
             <div className="toDo-modal-grid">
                 <label>File</label>
                 <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                    <option value="" disabled>Select a File...</option>
                     {files.map((file, index) => {
                         return(
                             <option key={index}>{file.name}</option>
@@ -143,7 +147,7 @@ const CreateToDoC = (props) => {
                 <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
             </div> */}
             <div>
-                <button onClick={createToDo}>Save</button>
+                <button type="submit" onClick={createToDo}>Save</button>
             </div>
         </div>
     )

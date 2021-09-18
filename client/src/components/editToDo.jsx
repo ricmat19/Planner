@@ -75,6 +75,10 @@ const EditToDoC = (props) => {
         e.preventDefault()
         try{
 
+            if(toDo === ""){
+                return;
+            }
+
             let fileURL = "";
             for(let i = 0; i < files.length; i++){
                 if(files[i].name === selectedFile){
@@ -129,6 +133,7 @@ const EditToDoC = (props) => {
                 <div className="toDo-modal-grid link-div-file">
                     <label>File</label>
                     <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                        <option value="" disabled>Select a File...</option>
                         {files.map((file, index) => {
                             return(
                                 <option key={index}>{file.name}</option>
@@ -141,6 +146,7 @@ const EditToDoC = (props) => {
                 <div className="toDo-modal-grid link-div-no-file">
                     <label>File</label>
                     <select className="modal-header file" value={selectedFile} onChange={e => setSelectedFile(e.target.value)}>
+                        <option value="" disabled>Select a File...</option>
                         {files.map((file, index) => {
                             return(
                                 <option key={index}>{file.name}</option>
