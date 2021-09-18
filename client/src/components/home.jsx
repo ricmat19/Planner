@@ -5,7 +5,8 @@ import BooksC from './books';
 import PlannerC from './planner';
 import MapC from './map';
 import GoogleDriveC from './googleDrive';
-import EventsC from './events';
+// import EventsC from './events';
+import GitHubC from './github';
 
 
 const NavbarC = () => {
@@ -40,10 +41,16 @@ const NavbarC = () => {
         setDriveModal("modal modal-active");
     };
 
-    const [eventsModal, setEventsModal] = useState("modal");
-    const eventsRef = useRef();
-    const displayEvents = () => {
-        setEventsModal("modal modal-active");
+    // const [eventsModal, setEventsModal] = useState("modal");
+    // const eventsRef = useRef();
+    // const displayEvents = () => {
+    //     setEventsModal("modal modal-active");
+    // };
+
+    const [githubModal, setGithubModal] = useState("modal");
+    const githubRef = useRef();
+    const displayGitHub = () => {
+        setGithubModal("modal modal-active");
     };
 
     useEffect(() => {
@@ -66,8 +73,11 @@ const NavbarC = () => {
                         if(!driveRef.current.contains(event.target)){
                             setDriveModal("modal");
                         }
-                        if(!eventsRef.current.contains(event.target)){
-                            setEventsModal("modal");
+                        // if(!eventsRef.current.contains(event.target)){
+                        //     setEventsModal("modal");
+                        // }
+                        if(!githubRef.current.contains(event.target)){
+                            setGithubModal("modal");
                         }
                     }
                 })
@@ -106,13 +116,23 @@ const NavbarC = () => {
                     <GoogleDriveC driveModal={driveModal} driveRef={driveRef}/>
                 </div>
             </div>
-            <div className={eventsModal}>
+            {/* <div className={eventsModal}>
                 <div ref={eventsRef} className="modal-content google-drive-modal">
                     <EventsC eventsModal={eventsModal} eventsRef={eventsRef}/>
+                </div>
+            </div> */}
+            <div className={githubModal}>
+                <div ref={githubRef} className="modal-content">
+                    <GitHubC githubModal={githubModal} githubRef={githubRef}/>
                 </div>
             </div>
 
             <nav className="grid nav-div">
+                <span className="nav-item">
+                    <div className="nav-item-anchor" onClick={displayGitHub}>
+                        <img src="../images/github-square-brands.svg"/>
+                    </div>
+                </span>
                 {/* <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayEvents}>
                         <img src="../images/calendar-check-solid.svg"/>

@@ -610,3 +610,20 @@ button{
 .file-link{
   text-align: center;
 }
+
+.github-repo-div{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.min-width{
+  min-width: 110px;
+}
+
+.align-left{
+  text-align: left;
+}
+
+.align-right{
+  text-align: right;
+}
