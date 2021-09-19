@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import PlannerAPI from '../apis/plannerAPI';
 import GitHubAPI from '../apis/githubAPI';
 import BookSelectAPI from '../apis/bookSelectAPI';
+import RecipeAPI from'../apis/recipeAPI';
 
 const EditToDoC = (props) => {
 
-    const [apiKey, setAPIKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
+    const [googleBooksKey, setGoogleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
+    const [recipeKey, setRecipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
     const [username, setUsername] = useState(process.env.REACT_APP_GITHUB_USERNAME);
     const [editModal, setEditModal] = useState("modal");
     const [listCollection, setListCollection] = useState(props.listCollection);
@@ -56,30 +58,30 @@ const EditToDoC = (props) => {
                 }
 
                 if(props.editModal === "modal modal-active"){
-                    const googleDriveResponse = await PlannerAPI.get(`/files`);
-                    for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
-                        //SpreadSheet
-                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
-                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/spreadsheets/d/" + googleDriveResponse.data.data.files[i].id;
-                        }
-                        //Document
-                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.document'){
-                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/document/d/" + googleDriveResponse.data.data.files[i].id;
-                        }
-                        //Drawing
-                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.drawing'){
-                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/drawings/d/" + googleDriveResponse.data.data.files[i].id;
-                        }
-                        //PDF
-                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
-                            googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
-                        }
-                        //Diagram
-                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
-                            googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
-                        }
-                    }
-                    setFiles(googleDriveResponse.data.data.files)
+                    // const googleDriveResponse = await PlannerAPI.get(`/files`);
+                    // for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
+                    //     //SpreadSheet
+                    //     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
+                    //         googleDriveResponse.data.data.files[i].url = "https://docs.google.com/spreadsheets/d/" + googleDriveResponse.data.data.files[i].id;
+                    //     }
+                    //     //Document
+                    //     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.document'){
+                    //         googleDriveResponse.data.data.files[i].url = "https://docs.google.com/document/d/" + googleDriveResponse.data.data.files[i].id;
+                    //     }
+                    //     //Drawing
+                    //     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.drawing'){
+                    //         googleDriveResponse.data.data.files[i].url = "https://docs.google.com/drawings/d/" + googleDriveResponse.data.data.files[i].id;
+                    //     }
+                    //     //PDF
+                    //     if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
+                    //         googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
+                    //     }
+                    //     //Diagram
+                    //     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
+                    //         googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
+                    //     }
+                    // }
+                    // setFiles(googleDriveResponse.data.data.files)
 
                     const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
                     setRepos(githubRepoResponse.data);
@@ -92,11 +94,23 @@ const EditToDoC = (props) => {
 
                     let bookVolumeResponse = []
                     for(let i=0; i < bookCollection.length; i++){
-                        const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
+                        const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + googleBooksKey)
                         bookVolumeResponse.push(bookVolume.data)
                     }
-
                     setBooks(bookVolumeResponse);
+
+                    let recipes = [];
+                    const recipesResponse = await PlannerAPI.get(`/recipes`);
+                    for(let i=0; i < recipesResponse.data.data.recipes.length; i++){
+                        recipes.push(recipesResponse.data.data.recipes[i].recipe)
+                    }
+    
+                    const recipeArray = [];
+                    for(let i=0; i < recipes.length; i++){
+                        const recipeInfo = await RecipeAPI.get("https://api.spoonacular.com/recipes/" + recipes[i] + "/information?apiKey=" + recipeKey)
+                        recipeArray.push(recipeInfo)
+                    }
+                    setRecipes(recipeArray);
                 }
 
             }catch(err){
@@ -252,7 +266,7 @@ const EditToDoC = (props) => {
                         <option value="" disabled>Select a Recipe...</option>
                         {recipes.map((recipe, index) => {
                             return(
-                                <option key={index}>{recipe.name}</option>
+                                <option key={index}>{recipe.data.title}</option>
                             )
                         })}
                     </select>
@@ -265,7 +279,7 @@ const EditToDoC = (props) => {
                         <option value="" disabled>Select a Recipe...</option>
                         {recipes.map((recipe, index) => {
                             return(
-                                <option key={index}>{recipe.name}</option>
+                                <option key={index}>{recipe.data.title}</option>
                             )
                         })}
                     </select>

@@ -8,6 +8,7 @@ import GoogleDriveC from './googleDrive';
 // import EventsC from './events';
 import GitHubC from './github';
 import RecipesC from './recipes';
+import JobC from './jobs';
 
 
 const NavbarC = () => {
@@ -56,8 +57,14 @@ const NavbarC = () => {
 
     const [recipeModal, setRecipeModal] = useState("modal");
     const recipeRef = useRef();
-    const displayRecipe = () => {
+    const displayRecipes = () => {
         setRecipeModal("modal modal-active");
+    };
+
+    const [jobModal, setJobModal] = useState("modal");
+    const jobRef = useRef();
+    const displayJobs = () => {
+        setJobModal("modal modal-active");
     };
 
     useEffect(() => {
@@ -88,6 +95,9 @@ const NavbarC = () => {
                         }
                         if(!recipeRef.current.contains(event.target)){
                             setRecipeModal("modal");
+                        }
+                        if(!jobRef.current.contains(event.target)){
+                            setJobModal("modal");
                         }
                     }
                 })
@@ -141,10 +151,20 @@ const NavbarC = () => {
                     <RecipesC recipeModal={recipeModal} recipeRef={recipeRef}/>
                 </div>
             </div>
+            <div className={jobModal}>
+                <div ref={jobRef} className="modal-content">
+                    <JobC jobModal={jobModal} jobRef={jobRef}/>
+                </div>
+            </div>
 
             <nav className="grid nav-div">
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayRecipe}>
+                    <div className="nav-item-anchor" onClick={displayJobs}>
+                        <img src="../images/briefcase-solid.svg"/>
+                    </div>
+                </span>
+                <span className="nav-item">
+                    <div className="nav-item-anchor" onClick={displayRecipes}>
                         <img src="../images/utensils-solid.svg"/>
                     </div>
                 </span>
