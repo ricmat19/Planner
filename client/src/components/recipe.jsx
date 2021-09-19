@@ -14,15 +14,16 @@ const RecipeC = () => {
         e.preventDefault()
         try{
 
-            // const searchResponse = await RecipeAPI.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + apiKey + "&query=" + search)
+            const searchResponse = await RecipeAPI.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + apiKey + "&query=" + search)
 
-            // const recipeArray = [];
+            const recipeArray = [];
             // for(let i = 0; i < searchResponse.data.results.length; i++){
-            //     const recipeInfo = await RecipeAPI.get("https://api.spoonacular.com/recipes/" + searchResponse.data.results[i].id + "/information?apiKey=" + apiKey)
-            //     recipeArray.push(recipeInfo)
-            // }
-            // console.log(recipeArray)
-            // setSearchResults(recipeArray);
+            for(let i = 0; i < 1; i++){
+                const recipeInfo = await RecipeAPI.get("https://api.spoonacular.com/recipes/" + searchResponse.data.results[i].id + "/information?apiKey=" + apiKey)
+                recipeArray.push(recipeInfo)
+            }
+            console.log(recipeArray)
+            setSearchResults(recipeArray);
 
         }catch(err){
             console.log(err);
@@ -57,8 +58,30 @@ const RecipeC = () => {
                 <div className="search-results-container">
                     {searchResults.map(result => (
                         <div className="recipe-result" key={result.id}>
-                            <div></div>
-                            <div></div>
+                            <div className="sub-title meal-title">{result.data.title}</div>
+                            <div className="meal-info-div">
+                                <div>
+                                    <div className="">Ingredients</div>
+                                    {result.data.extendedIngredients.map((ingredient, index) => (
+                                        <div className="recipe-ingredients" key={index}>
+                                            <div>{ingredient.aisle}: {ingredient.nameClean} {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div>
+                                    <div className="">Steps</div>
+                                    {result.data.analyzedInstructions[0].steps.map((step, index) => (
+                                        <div className="recipe-steps" key={index}>
+                                            <div>{index + 1}. {step.step}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div>
+                                    <div className="align-right">Servings: {result.data.servings}</div>
+                                    <img className="meal-image" src={result.data.image}/>
+                                </div>
+                                
+                            </div>
                             <hr/>
                         </div>
                     ))}

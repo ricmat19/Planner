@@ -638,3 +638,26 @@ button{
   display: grid;
   grid-template-columns: auto auto;
 }
+
+.recipe-result{
+  margin: 20px;
+}
+
+.meal-title{
+  margin-bottom: 20px;
+}
+
+.meal-info-div{
+  display: grid;
+  grid-template-columns: 400px 400px 400px;
+  gap: 20px;
+}
+
+.recipe-steps, .recipe-ingredients{
+  text-align: left;
+  margin: 10px 0;
+}
+
+.meal-image{
+  max-width: 100%;
+}
