@@ -74,34 +74,34 @@ function getAccessToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 
-router.get('/files', async (req, res) => {
-    const drive = google.drive({version: 'v3', auth: oAuth2});
+// router.get('/files', async (req, res) => {
+//     const drive = google.drive({version: 'v3', auth: oAuth2});
     
-    let files = {};
-    try{
-        await drive.files.list({
-        }, (err, response) => {
-            if (err) return console.log('The API returned an error: ' + err);
-            files = response.data.files;
-            if (files.length) {
-                // files.map((file) => {
-                //     console.log(`${file.mimeType}`);
-                //   });
-                // console.log(files)
-            } else {
-                console.log('No files found.');
-            }
-            res.status(200).json({ 
-                status: "success",
-                results: files.length,
-                data: {
-                    files: files
-                }
-            })
-        })
-    }catch(err){
-        console.log(err)
-    }
-})
+//     let files = {};
+//     try{
+//         await drive.files.list({
+//         }, (err, response) => {
+//             if (err) return console.log('The API returned an error: ' + err);
+//             files = response.data.files;
+//             if (files.length) {
+//                 // files.map((file) => {
+//                 //     console.log(`${file.mimeType}`);
+//                 //   });
+//                 // console.log(files)
+//             } else {
+//                 console.log('No files found.');
+//             }
+//             res.status(200).json({ 
+//                 status: "success",
+//                 results: files.length,
+//                 data: {
+//                     files: files
+//                 }
+//             })
+//         })
+//     }catch(err){
+//         console.log(err)
+//     }
+// })
 
 module.exports = router;

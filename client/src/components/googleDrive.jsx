@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PlannerAPI from '../apis/plannerAPI';
 
-const GoogleDriveC = () => {
+const GoogleDriveC = (props) => {
 
     const [files, setFiles] = useState([]);
     const [fileType, setFileType] = useState("");
@@ -10,39 +10,41 @@ const GoogleDriveC = () => {
         const fetchData = async (req, res) => {
             try{
 
-                const googleDriveResponse = await PlannerAPI.get(`/files`);
+                if(props.driveModal === "modal modal-active"){
+                    const googleDriveResponse = await PlannerAPI.get(`/files`);
 
-                for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
-                    //SpreadSheet
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
-                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/spreadsheets/d/" + googleDriveResponse.data.data.files[i].id;
+                    for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
+                        //SpreadSheet
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
+                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/spreadsheets/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //Document
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.document'){
+                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/document/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //Drawing
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.drawing'){
+                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/drawings/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //PDF
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
+                            googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //Diagram
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
+                            googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
+                        }
                     }
-                    //Document
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.document'){
-                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/document/d/" + googleDriveResponse.data.data.files[i].id;
-                    }
-                    //Drawing
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.drawing'){
-                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/drawings/d/" + googleDriveResponse.data.data.files[i].id;
-                    }
-                    //PDF
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
-                        googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
-                    }
-                    //Diagram
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
-                        googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
-                    }
+
+                    setFiles(googleDriveResponse.data.data.files)
                 }
-
-                setFiles(googleDriveResponse.data.data.files)
 
             }catch(err){
                 console.log(err);
             }
         }
         fetchData();
-    }, []);
+    }, [props.driveModal]);
 
     const displayFiles = (fileType) => {
         setFileType(fileType)

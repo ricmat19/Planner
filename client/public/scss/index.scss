@@ -649,7 +649,7 @@ button{
 
 .meal-info-div{
   display: grid;
-  grid-template-columns: 400px 400px 400px;
+  grid-template-columns: 300px 400px 400px;
   gap: 20px;
 }
 
@@ -658,6 +658,15 @@ button{
   margin: 10px 0;
 }
 
+.meal-image-div{
+  gap: 10px;
+}
+
 .meal-image{
   max-width: 100%;
+}
+
+.recipe-button-div{
+  text-align: right;
+  margin: 0 10px 10px 0;
 }

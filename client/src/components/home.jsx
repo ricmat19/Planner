@@ -113,7 +113,7 @@ const NavbarC = () => {
             </div>
             <div className={booksModal}>
                 <div ref={booksRef} className="modal-content">
-                    <BooksC calendarModal={booksModal} calendarRef={booksRef}/>
+                    <BooksC booksModal={booksModal} booksRef={booksRef}/>
                 </div>
             </div>
             <div className={mapModal}>

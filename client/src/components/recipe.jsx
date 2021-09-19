@@ -10,7 +10,7 @@ const RecipeC = () => {
     const [apiKey, setAPIKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
 
 
-    const searchBooks = async (e) => { 
+    const searchRecipes = async (e) => { 
         e.preventDefault()
         try{
 
@@ -22,7 +22,6 @@ const RecipeC = () => {
                 const recipeInfo = await RecipeAPI.get("https://api.spoonacular.com/recipes/" + searchResponse.data.results[i].id + "/information?apiKey=" + apiKey)
                 recipeArray.push(recipeInfo)
             }
-            console.log(recipeArray)
             setSearchResults(recipeArray);
 
         }catch(err){
@@ -51,22 +50,24 @@ const RecipeC = () => {
                             <input className="modal-header" ref={searchInput} onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search..."/>
                         </div>
                         <div>
-                            <button onClick={searchBooks}>Search</button>
+                            <button onClick={searchRecipes}>Search</button>
                         </div>
                     </div>
                 </form>
                 <div className="search-results-container">
                     {searchResults.map(result => (
-                        <div className="recipe-result" key={result.id}>
+                        <div className="recipe-result" key={result.data.id}>
                             <div className="sub-title meal-title">{result.data.title}</div>
                             <div className="meal-info-div">
                                 <div>
                                     <div className="">Ingredients</div>
+                                    <ul>
                                     {result.data.extendedIngredients.map((ingredient, index) => (
                                         <div className="recipe-ingredients" key={index}>
-                                            <div>{ingredient.aisle}: {ingredient.nameClean} {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}</div>
+                                            <li>{ingredient.nameClean} {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}</li>
                                         </div>
                                     ))}
+                                    </ul>
                                 </div>
                                 <div>
                                     <div className="">Steps</div>
@@ -76,9 +77,14 @@ const RecipeC = () => {
                                         </div>
                                     ))}
                                 </div>
-                                <div>
-                                    <div className="align-right">Servings: {result.data.servings}</div>
-                                    <img className="meal-image" src={result.data.image}/>
+                                <div className="meal-image-div">
+                                    <div className="recipe-button-div">
+                                        <button onClick={e => saveRecipe(result.data.id)}>Add</button>
+                                    </div>
+                                    <div>
+                                        <div className="align-right">Servings: {result.data.servings}</div>
+                                        <img className="meal-image" src={result.data.image}/>
+                                    </div>
                                 </div>
                                 
                             </div>

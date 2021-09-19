@@ -15,9 +15,7 @@ const AddBooksC = () => {
         try{
 
             const response = await BookSearchAPI.get("https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=" + apiKey + "&maxResults=40")
-
             setSearchResults(response.data.items);
-            console.log(response.data.items)
 
             searchInput.current.value = "";
 

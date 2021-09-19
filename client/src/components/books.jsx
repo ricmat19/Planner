@@ -3,7 +3,7 @@ import PlannerAPI from '../apis/plannerAPI';
 import BookSelectAPI from '../apis/bookSelectAPI';
 import AddBookC from './addBook';
 
-const BooksC = () => {
+const BooksC = (props) => {
 
     const [addBooksModal, setAddBooksModal] = useState("modal");
     const [bookCollection, setBookCollection] = useState([]);
@@ -35,19 +35,21 @@ const BooksC = () => {
                 }
 
                 let bookVolumeResponse = []
-                for(let i=0; i < bookCollection.length; i++){
-                    const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
-                    bookVolumeResponse.push(bookVolume.data)
+                if(props.booksModal === "modal modal-active"){
+                    console.log("books")
+                    for(let i=0; i < bookCollection.length; i++){
+                        const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
+                        bookVolumeResponse.push(bookVolume.data)
+                    }
+                    setBookCollection(bookVolumeResponse);
                 }
-
-                setBookCollection(bookVolumeResponse);
 
             }catch(err){
                 console.log(err);
             }
         }
         fetchData();
-    }, []);
+    }, [props.booksModal]);
 
     const removeBook = async (book) => { 
         try{

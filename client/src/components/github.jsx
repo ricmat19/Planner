@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import GitHubAPI from '../apis/githubAPI';
 
-const GitHubC = () => {
+const GitHubC = (props) => {
 
     const [username, setUsername] = useState(process.env.REACT_APP_GITHUB_USERNAME);
     const [repos, setRepos] = useState([]);
@@ -12,20 +12,22 @@ const GitHubC = () => {
         const fetchData = async (req, res) => {
             try{
 
-                const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
-                
-                setRepos(githubRepoResponse.data)
+                if(props.githubModal === "modal modal-active"){
+                    const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
+                    
+                    setRepos(githubRepoResponse.data)
 
-                const githubUserResponse = await GitHubAPI.get("https://api.github.com/users/" + username)
+                    const githubUserResponse = await GitHubAPI.get("https://api.github.com/users/" + username)
 
-                setUser(githubUserResponse.data)
+                    setUser(githubUserResponse.data)
+                }
 
             }catch(err){
                 console.log(err);
             }
         }
         fetchData();
-    }, []);
+    }, [props.githubModal]);
 
     const displayRepos = async (e) =>{
         setUserDisplay(false)

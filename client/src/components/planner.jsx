@@ -219,7 +219,7 @@ const ToDoC = () => {
             <div className={toDoModal}>
                 <form>
                     <div ref={toDoRef} className="modal-content">
-                        <CreateToDoC list={list}/>
+                        <CreateToDoC list={list} toDoModal={toDoModal}/>
                     </div>
                 </form>
             </div>
@@ -228,7 +228,7 @@ const ToDoC = () => {
             <div className={editModal}>
                 <form>
                     <div ref={editRef} className="modal-content">
-                        <EditToDoC listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} position={position} file={file}/>
+                        <EditToDoC editModal={editModal} listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} position={position} file={file}/>
                     </div>
                 </form>
             </div>

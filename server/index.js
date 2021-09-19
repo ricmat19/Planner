@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 const plannerRouter = require('./routes/planner');
 const booksRouter = require('./routes/books');
+const recipesRouter = require('./routes/recipes');
 const googleDriveRouter = require('./routes/googleDrive')
 
 //insures that the .env file is only run in a development environment and not a production environment
@@ -28,6 +29,7 @@ app.use(express.urlencoded({extended: false}));
 
 app.use(plannerRouter);
 app.use(booksRouter);
+app.use(recipesRouter);
 app.use(googleDriveRouter);
 
 //uses the Express listen() method

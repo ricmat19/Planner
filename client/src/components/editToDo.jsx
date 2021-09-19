@@ -55,47 +55,49 @@ const EditToDoC = (props) => {
                     // setPosition(props.position)
                 }
 
-                const googleDriveResponse = await PlannerAPI.get(`/files`);
-                for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
-                    //SpreadSheet
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
-                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/spreadsheets/d/" + googleDriveResponse.data.data.files[i].id;
+                if(props.editModal === "modal modal-active"){
+                    const googleDriveResponse = await PlannerAPI.get(`/files`);
+                    for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
+                        //SpreadSheet
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
+                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/spreadsheets/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //Document
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.document'){
+                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/document/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //Drawing
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.drawing'){
+                            googleDriveResponse.data.data.files[i].url = "https://docs.google.com/drawings/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //PDF
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
+                            googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
+                        }
+                        //Diagram
+                        if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
+                            googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
+                        }
                     }
-                    //Document
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.document'){
-                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/document/d/" + googleDriveResponse.data.data.files[i].id;
+                    setFiles(googleDriveResponse.data.data.files)
+
+                    const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
+                    setRepos(githubRepoResponse.data);
+
+                    let bookCollection = [];
+                    const booksResponse = await PlannerAPI.get(`/books`);
+                    for(let i=0; i < booksResponse.data.data.books.length; i++){
+                        bookCollection.push(booksResponse.data.data.books[i].book)
                     }
-                    //Drawing
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.drawing'){
-                        googleDriveResponse.data.data.files[i].url = "https://docs.google.com/drawings/d/" + googleDriveResponse.data.data.files[i].id;
+
+                    let bookVolumeResponse = []
+                    for(let i=0; i < bookCollection.length; i++){
+                        const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
+                        bookVolumeResponse.push(bookVolume.data)
                     }
-                    //PDF
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/pdf'){
-                        googleDriveResponse.data.data.files[i].url = "https://drive.google.com/file/d/" + googleDriveResponse.data.data.files[i].id;
-                    }
-                    //Diagram
-                    if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.jgraph.mxfile'){
-                        googleDriveResponse.data.data.files[i].url = "https://app.diagrams.net/#G" + googleDriveResponse.data.data.files[i].id;
-                    }
+
+                    setBooks(bookVolumeResponse);
                 }
-                setFiles(googleDriveResponse.data.data.files)
-
-                const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
-                setRepos(githubRepoResponse.data);
-
-                let bookCollection = [];
-                const booksResponse = await PlannerAPI.get(`/books`);
-                for(let i=0; i < booksResponse.data.data.books.length; i++){
-                    bookCollection.push(booksResponse.data.data.books[i].book)
-                }
-
-                let bookVolumeResponse = []
-                for(let i=0; i < bookCollection.length; i++){
-                    const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
-                    bookVolumeResponse.push(bookVolume.data)
-                }
-
-                setBooks(bookVolumeResponse);
 
             }catch(err){
                 console.log(err);
