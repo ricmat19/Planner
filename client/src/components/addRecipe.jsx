@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PlannerAPI from '../apis/plannerAPI';
 import RecipeAPI from'../apis/recipeAPI';
 
-const RecipeC = () => {
+const AddRecipeC = () => {
 
     const searchInput = useRef(null);
     const [search, setSearch] = useState("");
@@ -97,4 +97,4 @@ const RecipeC = () => {
     );
 }
 
-export default RecipeC;
+export default AddRecipeC;

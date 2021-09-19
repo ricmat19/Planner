@@ -13,3 +13,8 @@ CREATE TABLE bookcollection(
     id BIGINT PRIMARY KEY,
     volumeId VARCHAR(100)
 );
+
+CREATE TABLE recipes(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    recipeId VARCHAR(100)
+);

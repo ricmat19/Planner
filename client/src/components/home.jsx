@@ -7,7 +7,7 @@ import MapC from './map';
 import GoogleDriveC from './googleDrive';
 // import EventsC from './events';
 import GitHubC from './github';
-import RecipeC from './recipe';
+import RecipesC from './recipes';
 
 
 const NavbarC = () => {
@@ -138,7 +138,7 @@ const NavbarC = () => {
             </div>
             <div className={recipeModal}>
                 <div ref={recipeRef} className="modal-content">
-                    <RecipeC recipeModal={recipeModal} recipeRef={recipeRef}/>
+                    <RecipesC recipeModal={recipeModal} recipeRef={recipeRef}/>
                 </div>
             </div>
 

@@ -12,7 +12,7 @@ const GoogleDriveC = (props) => {
 
                 if(props.driveModal === "modal modal-active"){
                     const googleDriveResponse = await PlannerAPI.get(`/files`);
-
+                    console.log(googleDriveResponse)
                     for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
                         //SpreadSheet
                         if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
