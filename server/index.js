@@ -6,7 +6,8 @@ const app = express();
 const plannerRouter = require('./routes/planner');
 const booksRouter = require('./routes/books');
 const recipesRouter = require('./routes/recipes');
-const googleDriveRouter = require('./routes/googleDrive')
+const googleDriveRouter = require('./routes/googleDrive');
+const gmailRouter = require('./routes/gmail');
 
 //insures that the .env file is only run in a development environment and not a production environment
 if(process.env.NODE_ENV !== 'production'){
@@ -31,6 +32,7 @@ app.use(plannerRouter);
 app.use(booksRouter);
 app.use(recipesRouter);
 app.use(googleDriveRouter);
+app.use(gmailRouter);
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port

@@ -8,7 +8,8 @@ import GoogleDriveC from './googleDrive';
 // import EventsC from './events';
 import GitHubC from './github';
 import RecipesC from './recipes';
-import JobC from './jobs';
+// import JobC from './jobs';
+import EmailC from './email'
 
 
 const NavbarC = () => {
@@ -67,6 +68,12 @@ const NavbarC = () => {
         setJobModal("modal modal-active");
     };
 
+    const [emailModal, setEmailModal] = useState("modal");
+    const emailRef = useRef();
+    const displayEmail = () => {
+        setEmailModal("modal modal-active");
+    };
+
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -96,8 +103,11 @@ const NavbarC = () => {
                         if(!recipeRef.current.contains(event.target)){
                             setRecipeModal("modal");
                         }
-                        if(!jobRef.current.contains(event.target)){
-                            setJobModal("modal");
+                        // if(!jobRef.current.contains(event.target)){
+                        //     setJobModal("modal");
+                        // }
+                        if(!emailRef.current.contains(event.target)){
+                            setEmailModal("modal");
                         }
                     }
                 })
@@ -151,18 +161,28 @@ const NavbarC = () => {
                     <RecipesC recipeModal={recipeModal} recipeRef={recipeRef}/>
                 </div>
             </div>
-            <div className={jobModal}>
+            {/* <div className={jobModal}>
                 <div ref={jobRef} className="modal-content">
                     <JobC jobModal={jobModal} jobRef={jobRef}/>
+                </div>
+            </div> */}
+            <div className={emailModal}>
+                <div ref={emailRef} className="modal-content">
+                    <EmailC emailModal={emailModal} emailRef={emailRef}/>
                 </div>
             </div>
 
             <nav className="grid nav-div">
                 <span className="nav-item">
+                    <div className="nav-item-anchor" onClick={displayEmail}>
+                        <img src="../images/envelope-solid.svg"/>
+                    </div>
+                </span>
+                {/* <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayJobs}>
                         <img src="../images/briefcase-solid.svg"/>
                     </div>
-                </span>
+                </span> */}
                 <span className="nav-item">
                     <div className="nav-item-anchor" onClick={displayRecipes}>
                         <img src="../images/utensils-solid.svg"/>
