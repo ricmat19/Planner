@@ -147,7 +147,7 @@ const CalculatorC = () => {
         <div className="main-body">
             <div className="title">Calculator</div>
             <div className="grid calculator-input-div">
-                <input className="input-box" value={currentInput} type="text" readOnly/>
+                <input className="input-box calculator-input-box" value={currentInput} type="text" readOnly/>
             </div>
 
             <div className="calculator">

@@ -15,47 +15,49 @@ oAuth2Client.setCredentials({refresh_token: refreshToken})
 
 router.post("/email", async(req, res) => {
 
-    const accessToken = await oAuth2Client.getAccessToken();
+    try{
 
-    let transporter = nodemailer.createTransport({ 
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        service: 'gmail',
-        auth:{
-            type: "OAuth2",
-            user: process.env.EMAIL,
-            clientId: clientId,
-            clientSecret: clientSecret,
-            refresh_token: refreshToken,
-            accessToken: accessToken,
+        const accessToken = await oAuth2Client.getAccessToken();
+
+        let transporter = nodemailer.createTransport({ 
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            service: 'gmail',
+            auth:{
+                type: "OAuth2",
+                user: process.env.EMAIL,
+                clientId: clientId,
+                clientSecret: clientSecret,
+                refreshToken: refreshToken,
+                accessToken: accessToken,
+            }
+        })
+    
+        const output = `
+            Message Details:
+                Name: ${req.body.name}
+                Email: ${req.body.email}
+                Message: ${req.body.message}
+        `
+    
+        const html = `
+        <h3>Message Details:</h3>
+        <ul>
+            <li>Name: ${req.body.name}</li>
+            <li>Email: ${req.body.email}</li>
+            <li>Message: ${req.body.message}</li>
+        </ul>`
+    
+        let mailOptions = {
+            from: process.env.EMAIL,
+            to: req.body.email, 
+            subject: req.body.subject,
+            text: output,
+            html: html,
         }
-    })
-
-    const output = `
-        Message Details:
-            Name: ${req.body.name}
-            Email: ${req.body.email}
-            Message: ${req.body.message}
-    `
-
-    const html = `
-    <h3>Message Details:</h3>
-    <ul>
-        <li>Name: ${req.body.name}</li>
-        <li>Email: ${req.body.email}</li>
-        <li>Message: ${req.body.message}</li>
-    </ul>`
-
-    let mailOptions = {
-        from: req.body.email,
-        to: process.env.EMAIL, 
-        subject: req.body.subject,
-        text: output,
-        html: html,
-    }
-
-    transporter.sendMail(mailOptions)
+    
+        transporter.sendMail(mailOptions)
         .then(function(response){
             console.log('Email sent');
             res.sendStatus(200);
@@ -63,6 +65,11 @@ router.post("/email", async(req, res) => {
         .catch(function(error){
             console.log('Error', error);
         });
+
+    }catch(err){
+        console.log(err)
+    }
+
 })
 
 module.exports = router;

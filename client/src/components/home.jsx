@@ -167,7 +167,7 @@ const NavbarC = () => {
                 </div>
             </div> */}
             <div className={emailModal}>
-                <div ref={emailRef} className="modal-content">
+                <div ref={emailRef} className="modal-content email-modal-content">
                     <EmailC emailModal={emailModal} emailRef={emailRef}/>
                 </div>
             </div>
