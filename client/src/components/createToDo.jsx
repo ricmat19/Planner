@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
+import {useDispatch} from 'react-redux';
+import {saveToDos} from '../features/toDoSlice';
 import PlannerAPI from '../apis/plannerAPI';
 import GitHubAPI from '../apis/githubAPI';
 import BookSelectAPI from '../apis/bookSelectAPI';
 import RecipeAPI from'../apis/recipeAPI';
 
 const CreateToDoC = (props) => {
+
+    const dispatch = useDispatch()
 
     const [googleBooksKey, setGoogleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
     const [recipeKey, setRecipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
@@ -117,6 +121,12 @@ const CreateToDoC = (props) => {
                     fileURL = files[i].url;
                 }
             }
+
+            dispatch(saveToDos({
+                item: toDo,
+                done: false,
+                id: Date.now()
+            }))
 
             let formData = new FormData();
             

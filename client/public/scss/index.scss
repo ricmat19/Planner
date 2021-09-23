@@ -29,8 +29,8 @@ body{
 
 .nav-div{
   grid-template-columns: auto auto auto auto auto auto auto auto;
-  justify-content: right;
   align-items: center;
+  justify-items: center;
   color: black;
   border-bottom: $solid-border;
   background-color: #e9e9e9;

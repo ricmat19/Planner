@@ -24,7 +24,6 @@ const ToDoC = () => {
     const [toDos, setToDos] = useState([]);
     const [currentDay, setCurrentDay] = useState();
     const [currentMonth, setCurrentMonth] = useState();
-
     const [modalList, setModalList] = useState('')
 
     const [id, setId] = useState("");
