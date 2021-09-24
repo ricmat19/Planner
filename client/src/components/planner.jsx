@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import { useDrag, useDrop } from "react-dnd";
-import {Droppable, Draggable, DragDropContext} from "react-beautiful-dnd";
+// import {Droppable, Draggable, DragDropContext} from "react-beautiful-dnd";
+// import {useSelector} from 'react-redux';
+// import { selectToDos } from '../features/toDoSlice';
 import PlannerAPI from '../apis/plannerAPI';
 import DeleteListC from './deleteList';
 import DeleteToDoC from './deleteToDo';
@@ -34,6 +36,8 @@ const ToDoC = () => {
     const [info, setInfo] = useState("");
     const [position, setPosition] = useState("")
     const [file, setFile] = useState("")
+
+    // const reduxToDos = useSelector(selectToDos);
 
     const displayDeleteListModal = (list) => {
         setDeletedList(list)
