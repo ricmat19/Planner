@@ -35,22 +35,22 @@ const AddBooksC = () => {
         <div className="main-body">
             <div className="grid grid-center">
                 <form>
-                    <div className="grid book-search-form">
+                    <div className="grid search-form">
                         <div className="title">Search for a Book</div>
                         <div className="grid">
                             <input className="modal-header" ref={searchInput} onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search..."/>
                         </div>
                         <div>
-                            <button onClick={searchBooks}>Search</button>
+                            <button className="form-button" onClick={searchBooks}>Search</button>
                         </div>
                     </div>
                 </form>
                 <div className="search-results-container">
                     {searchResults.map(result => (
                         <div className="book-result" key={result.id}>
-                            <div className="grid book-search-results">
-                                <div className="book-thumbnail">
-                                    <img className="book-image" src={result.volumeInfo.imageLinks !== undefined ? result.volumeInfo.imageLinks.thumbnail : ""} alt={result.volumeInfo.title}/>
+                            <div className="grid search-results">
+                                <div className="search-thumbnail">
+                                    <img className="search-image" src={result.volumeInfo.imageLinks !== undefined ? result.volumeInfo.imageLinks.thumbnail : ""} alt={result.volumeInfo.title}/>
                                 </div>
                                 <div className="book-labels-container">
                                     <div className="grid book-info-div">
@@ -89,7 +89,7 @@ const AddBooksC = () => {
                                     </div>
                                 </div>
                                 <div className="add-button">
-                                    <button onClick={e => saveBook(result.id)}>Add</button>
+                                    <button className="form-button" onClick={e => saveBook(result.id)}>Add</button>
                                 </div>
                             </div>
                             <hr/>

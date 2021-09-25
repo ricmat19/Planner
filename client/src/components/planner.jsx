@@ -210,8 +210,8 @@ const ToDoC = () => {
             <div className="grid grid-center align-horizontal">
                 {toDoList.map(list => {
                     return(
-                        <div key={list} className="grid grid-center container">
-                            <div onClick={() => displayDeleteListModal(list)} className="delete-list">X</div>
+                        <div key={list} className="grid grid-center container list-container">
+                            <div onClick={() => displayDeleteListModal(list)} className="delete delete-list">X</div>
                             <div className="title">{list}</div>
                             <div className="grid input-div to-do-button-div">
                                 <button onClick={() => displayToDoModal(list)} className="to-do-button">
@@ -224,49 +224,57 @@ const ToDoC = () => {
                                         if(list === toDo.list && toDo.dueDate === currentDay){
                                             return(
                                                 <div  key={index} className="grid to-do-item due-today">
-                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
-                                                    </div>
+                                                    </button>
                                                     <div className="to-do-item-name">
                                                         {toDo.todo}
                                                     </div> 
-                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                    <button onClick={() => displayDeleteToDoModal(toDo.id)} className="delete to-do-delete item-button">
+                                                        X
+                                                    </button>
                                                 </div>
                                             );
                                         } else if(list === toDo.list && toDo.dueDate < currentDay && toDo.dueDate !== ""){
                                             return(
                                                 <div  key={index} className="grid to-do-item past-due">
-                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
-                                                    </div>
+                                                    </button>
                                                     <div className="to-do-item-name">
                                                         {toDo.todo}
                                                     </div> 
-                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                    <button onClick={() => displayDeleteToDoModal(toDo.id)} className="delete to-do-delete item-button">
+                                                        X
+                                                    </button>
                                                 </div>
                                             );
                                         }else if(list === toDo.list && toDo.dueDate.slice(5, 7) === currentMonth){
                                             return(
                                                 <div  key={index} className="grid to-do-item due-month">
-                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
-                                                    </div>
+                                                    </button>
                                                     <div className="to-do-item-name">
                                                         {toDo.todo}
                                                     </div> 
-                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                    <button onClick={() => displayDeleteToDoModal(toDo.id)} className="delete to-do-delete item-button">
+                                                        X
+                                                    </button>
                                                 </div>
                                             );
                                         }else if (list === toDo.list){
                                             return(
                                                 <div  key={index} className="grid to-do-item">
-                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
-                                                    </div>
+                                                    </button>
                                                     <div className="to-do-item-name">
                                                         {toDo.todo}
                                                     </div> 
-                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                    <button onClick={() => displayDeleteToDoModal(toDo.id)} className="delete to-do-delete item-button">
+                                                        X
+                                                    </button>
                                                 </div>
                                             );
                                         }
@@ -279,7 +287,7 @@ const ToDoC = () => {
                 
                 {/* Add List */}
                 <div className="grid grid-center container add-list-container">
-                    <button onClick={displayListModal} className="add-list-button">
+                    <button onClick={displayListModal} className="title add-list-button">
                         <img className="add-list-image" src="../images/plus-solid-black.svg"/>
                         <div>Add a List</div>
                     </button>

@@ -1,43 +1,30 @@
-$solid-border: black 3px solid;
-
 body{
-    margin: 0;
-    padding: 0;
-    background-color: #000000;
-    // color: white;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: bold;
-    height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  height: 100%;
 }
 
+$solid-border: black 3px solid;
+
 .grid{
-    display: grid;
+  display: grid;
 }
 
 .grid-center{
-  justify-items: center;
-  align-items: flex-start;
-}
-
-.align-horizontal{
-  display: flex;
-  overflow-x: auto;
-  position: absolute;
-  // height: 100%;
-  padding: 80px 15px 0 15px;
+justify-items: center;
+align-items: flex-start;
 }
 
 .nav-div{
   grid-template-columns: auto auto auto auto auto auto auto auto;
   align-items: center;
   justify-items: center;
-  color: black;
   border-bottom: $solid-border;
   background-color: #e9e9e9;
-  margin-bottom: 30px;
-  overflow: hidden;
   position: fixed;
-  top: 0;
   width: 100%;
   z-index: 1;
 }
@@ -48,394 +35,80 @@ body{
 }
 
 .nav-item-anchor{
-  text-decoration: none;
-  color: black;
   cursor: pointer;
 }
 
 .container{
-    border: $solid-border;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: #e9e9e9;
-    color: black;
-    min-width: 300px;
-    margin: 5px;
+  border: $solid-border;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #e9e9e9;
+  color: black;
+  min-width: 300px;
+  margin: 5px;
 }
 
-.calculator-input-div{
-  margin: 20px 0;
-  gap: 5px;
-  justify-content: center;
+.title{
+  font-size: 25px;
+  margin: 5px 0;
+}
+
+.sub-title{
+text-align: center;
+font-size: 17px;
+margin: 10px 0 30px 0;
+}
+
+input, select, textarea{
+  border-style: none;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+  outline: none;
+}
+
+textarea{
+  resize: none;
+  height: 100px;
 }
 
 .input-box{
-  width: 100%;
+  width: fit-content;
   padding: 10px 5px;
-  font-size: 1rem;
   border-radius: 10px;
   border-style: none;
   outline: none;
+  text-align: right;
+  font-weight: bold;
 }
 
-.calculator-input-box{
-  width: fit-content;
-}
-
-/* width */
 ::-webkit-scrollbar {
-    width: 15px; left:100px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #e9e9e9;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgba(207, 37, 156, .7);
-  }
-
-.title{
-    text-align: center;
-    font-size: 25px;
-    // border-bottom: $solid-border;
+  width: 15px; left:100px;
 }
 
-
-.sub-title{
-  text-align: center;
-  font-size: 17px;
-  margin: 10px 0 30px 0;
+::-webkit-scrollbar-track {
+  background: #e9e9e9;
 }
-
-.modal-button{
-  display: inline-block;
-  text-align: center;
-  border: 3px solid black;
-  border-radius: 10px;
-  height: 80px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 25px;
+  
+::-webkit-scrollbar-thumb {
+  background: rgba(207, 37, 156, .7);
 }
 
 .modal{
-  display: none;
+  display: grid;
   position: fixed;
-  z-index: 2;
   top: 0;
   left: 0;
-  height: 100%;
+  z-index: 2;
+  height: 100vh;
   width: 100%;
   overflow: auto;
   background-color: (0, 0, 0, .5);
-}
-
-.modal-close{
-  cursor: pointer;
-}
-
-.modal-title-div{
-  grid-template-columns: auto auto;
-}
-
-.title{
-  margin: 5px 0;
-}
-
-.list-input{
-  margin: 5px 0;
-}
-
-.input-box{
-  text-align: right;
-  font-weight: bold;
-  font-size: 25px;
-}
-
-.calculator{
-  display: grid;
-  grid-template-columns: repeat(4, 80px);
-  gap: 3px;
-  font-size: 20px;
-  justify-content: center;
-  align-items: center;
-}
-
-.button-box{
-  display: inline-block;
-  text-align: center;
-  border: 2px solid black;
-  border-radius: 10px;
-  height: 80px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 25px;
-}
-
-.button-box:hover{
-  background-color: rgba(207, 37, 156, .5);
-  color: white;
-}
-
-// input::-webkit-outer-spin-button,
-// input::-webkit-inner-spin-button {
-// -webkit-appearance: none;
-// margin: 0;
-// }
-
-input[type=number] {
--moz-appearance: textfield;
-}
-
-$solid-border: black 3px solid;
-
-.month-row{
-    display: grid;
-    grid-template-columns: auto auto auto;
-    margin-top: 10px;
-}
-
-.forward-div{
-    display: grid;
-    justify-items: end;
-}
-
-.month-back, .month-forward{
-    width: 35px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background-color: #e9e9e9;
-}
-
-.month-title{
-    text-align: center;
-    font-size: 30px;
-    display: flex;
-    align-self: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.day-names, .day-boxes{
-    display: grid;
-    grid-template-columns: repeat(7, 50px);
-    gap: 3px;
-    font-size: 20px;
-    justify-content: center;
-    align-items: center;
-}
-
-.day{
-    display: inline-block;
-    text-align: center;
-}
-
-.day-name{
-    border-bottom: $solid-border;
-    padding: 5px 0;
-    margin: 5px 0;
-}
-
-.day-name:hover{
-    border-bottom: $solid-border;
-    padding: 5px 0;
-    margin: 5px 0;
-}
-
-.day-box{
-    display: grid;
-    border: $solid-border;
-    border-radius: 10px;
-    height: 50px;
-    cursor: pointer;
-}
-
-.day-box:hover{
-  background-color: rgba(207, 37, 156, .5);
-}
-
-.day-box-task:hover{
-  background-color: rgba(207, 37, 156, .7);
-  color: white;
-}
-
-.day-today, .day-today:hover{
-  background-color: rgba(207, 37, 156, .7);
-  color: white;
-}
-
-.day-box-task{
-  background-color: rgba(207, 37, 156, .2);
-  color: black;
-}
-
-.day-box-task-today, .day-box-task-today:hover{
-  background-color: rgba(207, 37, 156, 1);
-  color: white;
-}
-
-.center-num{
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-$solid-border: black 3px solid;
-
-.map{
-    height: 500px;
-    width: 500px;
-    border: $solid-border;
-    margin: 10px 5px 5px 5px;
-}
-
-.point-title{
-    text-align: center;
-    font-size: 20px;
-    text-decoration: underline;
-    margin-bottom: 5px;
-}
-
-$solid-border: black 3px solid;
-
-.input-div{
-  max-height: 50px;
-  width: 50px;
-}
-
-.to-do-button-div{
-  margin: 10px;
-}
-
-.to-do-button{
-    border-radius: 10px;
-    border: $solid-border;
-    cursor: pointer;
-    outline: none;
-}
-
-.to-do-button:hover{
-    background-color: #ffffff;
-}
-
-.to-do-list{
-    width: 100%;
-    max-height:415px;
-    overflow: auto;
-    padding: 10px;
-}
-
-.to-do-item{
-    grid-template-columns: 25px auto 25px;
-    margin: 2px;
-    padding: 5px;
-    word-wrap: break-word;
-    word-break: break-all;
-    gap: 15px;
-    border: $solid-border;
-    border-radius: 5px;
-    cursor: move;
-}
-
-.to-do-item-name{
-  align-self: center;
-}
-
-.calendar-to-do-item{
-  width: 100%;
-  margin: 3px 0;
-  padding: 3px 0;
-  word-wrap: break-word;
-  word-break: break-all;
-  gap: 15px;
-  border-bottom: $solid-border;
-}
-
-.calender-to-do{
-  text-align: left;
-}
-
-.past-due{
-  background-color: rgb(92, 16, 69);
-  color: white;
-  border-radius: 5px;
-}
-
-.due-today{
-  background-color: rgba(207, 37, 156, 1);
-  color: white;
-  border-radius: 5px;
-}
-
-.due-month{
-  background-color: rgba(207, 37, 156, .2);
-  color: black;
-  border-radius: 5px;
-}
-
-.delete-toDo, .edit-toDo, .add-book, .add-recipe{
-    text-align: center;
-    cursor: pointer;
-    background-color: #000000;
-    color: white;
-    border: $solid-border;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.add-book, .add-recipe{
-  width: 15px;
-  justify-self: start;
-}
-
-.edit-toDo, .add-book, .add-recipe{
-  padding: 2px
-}
-
-.add-list-button{
-  width: 300px;
-  border-radius: none;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  text-align: left;
-  font-weight: bold;
-  font-size: 25px;
-  display: grid;
-  grid-template-columns: 50px auto;
-  align-items: center;
-  gap: 10px;
-}
-
-.add-list-image{
-  width: 50px;
-}
-
-.modal{
-  display: grid;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, .5);
   justify-content: center;
   align-items: center;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.5s;
-  cursor: pointer;
 }
 
 .modal-active{
@@ -444,51 +117,28 @@ $solid-border: black 3px solid;
 }
 
 .modal-content{
-  display: grid;
   background-color: #e9e9e9;
-  gap: 10px;
   padding: 20px;
   text-align: center;
-  min-width: 400px;
   border: $solid-border;
   border-radius: 10px;
 }
 
-.modal-header{
-  margin: 5px;
-  outline: none;
+.item-button{
+  text-align: center;
+  cursor: pointer;
+  background-color: #000000;
+  color: white;
+  border: $solid-border;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  padding: 2px
 }
 
-input, select{
-  border-style: none;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-textarea{
-  border-style: none;
-  padding: 5px;
-  outline: none;
-  resize: none;
-  font-family: 'Rajdhani';
-  border-radius: 10px;
-  height: 100px;
-}
-
-.toDo-modal-grid{
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  text-align: left;
-  justify-content: left;
-  align-items: center;
-}
-
-.email-modal-grid{
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  text-align: left;
-  justify-content: left;
-  align-items: center;
+.form-button{
+  width: fit-content;
 }
 
 button{
@@ -501,85 +151,50 @@ button{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: bold;
   cursor: pointer;
+  width: 30px;
 }
 
-.add-list-container{
-  min-width: 300px;
-  padding: 0;
-}
-
-.delete-list{
-  justify-self: end;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.book-search-form, .recipe-search-form{
+.search-form{
   margin: 15px;
   width: 350px;
   gap: 10px;
 }
 
-.book-info-div, .recipe-info-div{
-  grid-template-columns: 150px 300px;
-  text-align: left;
-  margin: 5px;
+.search-image{
+  width: 100%;
 }
 
-.book-title, .recipe-title{
-  align-self: center;
+.search-thumbnail{
+  padding: 5px;
 }
 
-.book-image, .recipe-image{
-  width: 70px;
+.search-results{
+  grid-template-columns: 120px auto 90px 90px;
 }
 
-.book-search-results, .recipe-search-results{
-  grid-template-columns: 90px auto 90px 90px;
-}
-
-.book-collection-title, .recipe-title{
-  margin: 20px
-}
-
-.search-results-container, .book-collection-container, .recipe-container, .file-grid{
+.search-results-container{
   width: 100%;
   max-height: 415px;
   overflow: auto;
   padding: 10px;
 }
 
-.book-thumbnail, .recipe-thumbnail{
-  align-self: center;
-}
 
-.map-directions-container{
-  display: grid;
-  gap: 3px;
-}
 
-.map-direction-div{
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 10px;
-  align-items: center;
-}
 
-.map-modal-container{
-  display: grid;
-  padding: 20px;
-  grid-template-rows: 50px auto;
-  background-color: #e9e9e9;
-  gap: 10px;
-  border: $solid-border;
-  border-radius: 10px;
-  width: 700px;
-  height: 600px;
-}
 
-#pac-input{
-  outline: none;
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .file-grid{
   grid-template-columns: 300px 300px 300px;
@@ -646,23 +261,12 @@ button{
   gap: 20px;
 }
 
-.github-user-info-div{
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
 .recipe-result{
   margin: 20px;
 }
 
 .meal-title{
   margin-bottom: 20px;
-}
-
-.meal-info-div{
-  display: grid;
-  grid-template-columns: 300px 400px 400px;
-  gap: 20px;
 }
 
 .recipe-steps, .recipe-ingredients{

@@ -47,27 +47,27 @@ const GitHubC = (props) => {
             <div className="repo-list">
                 {userDisplay ?
                     <div>
-                        <div className="github-user-info-div">
+                        <div className="grid github-user-info-div">
                             <label className="align-left">Name</label>
                             <div className="align-right">{user.name}</div>
                         </div>
                         <hr/>
-                        <div className="github-user-info-div">
+                        <div className="grid github-user-info-div">
                             <label className="align-left">Location</label>
                             <div className="align-right">{user.location}</div>
                         </div>
                         <hr/>
-                        <div className="github-user-info-div">
+                        <div className="grid github-user-info-div">
                             <label className="align-left">GitHub</label>
                             <a className="align-right" href={user.html_url} target="_blank"><div>Link</div></a>
                         </div>
                         <hr/>
-                        <div className="github-user-info-div">
+                        <div className="grid github-user-info-div">
                             <label className="align-left">Website</label>
                             <a className="align-right" href={user.blog} target="_blank"><div>Link</div></a>
                         </div>
                         <hr/>
-                        <div className="github-user-info-div">
+                        <div className="grid github-user-info-div">
                             <label className="align-left"># of Repos</label>
                             <div className="align-right">{user.public_repos}</div>
                         </div>

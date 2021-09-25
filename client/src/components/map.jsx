@@ -94,21 +94,21 @@ export const MapC = (props) => {
 
     return(
         <div className="main-body">
-            <div className="map-modal-container">
+            <div className="grid map-modal-container">
                 <div className="map-directions-container">
                     <div className="pac-card map-direction-div" id="pac-card">
                         <label>Destination</label>
                         <input id="pac-input" type="text" onChange={e => setEnd(e.target.value)}/>
                     </div>
                 </div>
-                {/* <Map
+                <Map
                 initialCenter={process.env.REACT_APP_DIRECTION_ORIGIN}
                 google={props.google}
                 onClick={props.onMapClicked}
                 onReady={onMapReady}
                 containerStyle={containerStyle}
                 >
-                </Map> */}
+                </Map>
             </div>
         </div>
     )

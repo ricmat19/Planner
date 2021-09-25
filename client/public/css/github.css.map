@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,qBAAqB,AAAA,CACjB,qBAAqB,CAAE,SAAS,CACjC",
+    "sources": [
+        "../scss/github.scss"
+    ],
+    "names": [],
+    "file": "github.css"
+}

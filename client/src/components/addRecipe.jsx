@@ -41,13 +41,13 @@ const AddRecipeC = () => {
         <div className="main-body">
             <div className="grid grid-center">
                 <form>
-                    <div className="grid recipe-search-form">
+                    <div className="grid search-form">
                         <div className="title">Search for a Recipe</div>
                         <div className="grid">
                             <input className="modal-header" ref={searchInput} onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search..."/>
                         </div>
                         <div>
-                            <button onClick={searchRecipes}>Search</button>
+                            <button className="form-button" onClick={searchRecipes}>Search</button>
                         </div>
                     </div>
                 </form>
@@ -55,7 +55,7 @@ const AddRecipeC = () => {
                     {searchResults.map(result => (
                         <div className="recipe-result" key={result.data.id}>
                             <div className="sub-title meal-title">{result.data.title}</div>
-                            <div className="meal-info-div">
+                            <div className="grid recipe-info-div">
                                 <div>
                                     <div className="">Ingredients</div>
                                     <ul>
@@ -76,7 +76,7 @@ const AddRecipeC = () => {
                                 </div>
                                 <div className="meal-image-div">
                                     <div className="recipe-button-div">
-                                        <button onClick={e => saveRecipe(result.data.id)}>Add</button>
+                                        <button className="form-button" onClick={e => saveRecipe(result.data.id)}>Add</button>
                                     </div>
                                     <div>
                                         <div className="align-right">Servings: {result.data.servings}</div>

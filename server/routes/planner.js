@@ -77,7 +77,6 @@ const upload = multer({dest: 'images/'});
 router.post('/planner/add-toDo', upload.single('imgRef'), async (req, res) => {
     try{
 
-        console.log(req.body)
         const todo = await db.query("INSERT INTO todos (list, todo, dueDate, info, file) values (?, ?, ?, ?, ?)", 
         [req.body.list, req.body.toDo, req.body.dueDate, req.body.info, req.body.fileURL]);
 

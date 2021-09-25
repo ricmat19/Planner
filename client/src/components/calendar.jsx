@@ -161,13 +161,13 @@ const CalendarC = () => {
             </div>
 
             <div className="grid grid-center">
-                <div className="month-row">
+                <div className="grid month-row">
                     <div className="back-div">
                         <button onClick={() => setNav(nav - 1)} className="month-back">
                             <img src="../images/angle-left-solid.svg"/>
                         </button>
                     </div>
-                    <div className="month-title">{dateDisplay}</div>
+                    <div className="title month-title">{dateDisplay}</div>
                     <div className="forward-div">
                         <button onClick={() => setNav(nav + 1)} className="month-forward">
                             <img src="../images/angle-right-solid.svg"/>
@@ -183,7 +183,7 @@ const CalendarC = () => {
                     <div className="day day-name">Fri</div>
                     <div className="day day-name">Sat</div>
                 </div>
-                <div className="day-boxes">
+                <div className="title day-boxes">
                     {days.map((day, index) => (
                         <div key={index}>
                             {day.value === 'padding' ? '' 
@@ -213,17 +213,6 @@ const CalendarC = () => {
                             </div>}
                         </div>
                     ))}
-                </div>
-                <div className="grid grid-center modal">
-                    <div className="grid grid-center modal-content container">
-                        <div className="grid modal-title-div">
-                            <div className="title modal-title">My Modal</div>
-                            <div className="modal-close">&times;</div>
-                        </div>
-                        <div className="modal-body">
-                            <div>Random Text</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

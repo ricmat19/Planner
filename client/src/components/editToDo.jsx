@@ -154,11 +154,11 @@ const EditToDoC = (props) => {
         <div className="main-body">
 
             {/* Edit To Do */}
-            <div className="toDo-modal-grid">
+            <div className="grid toDo-modal-grid">
                 <label>To Do</label>
                 <input className="modal-header title" value={toDo} ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
             </div>
-            <div className="toDo-modal-grid">
+            <div className="grid toDo-modal-grid">
                 <label>List</label>
                 <select className="modal-header" value={list} onChange={e => setList(e.target.value)}>
                     {listCollection.map(list => {
@@ -168,16 +168,16 @@ const EditToDoC = (props) => {
                     })}
                 </select>
             </div>
-            <div className="toDo-modal-grid">
+            <div className="grid toDo-modal-grid">
                 <label>Description</label>
                 <textarea className="modal-header info" value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
             </div>
-            <div className="toDo-modal-grid">
+            <div className="grid toDo-modal-grid">
                 <label>Due Date</label>
                 <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
             </div>
             {file ? 
-                <div className="toDo-modal-grid link-div-file">
+                <div className="grid toDo-modal-grid link-div-file">
                     <label>File</label>
                     <select className="modal-header" value={file} onChange={e => setFile(e.target.value)}>
                         <option value="" disabled>Select a File...</option>
@@ -190,7 +190,7 @@ const EditToDoC = (props) => {
                     <a className="file-link" href={file} target="_blank">File</a>
                 </div>
             :
-                <div className="toDo-modal-grid link-div-no-file">
+                <div className="grid toDo-modal-grid link-div-no-file">
                     <label>File</label>
                     <select className="modal-header" value={file} onChange={e => setFile(e.target.value)}>
                         <option value="" disabled>Select a File...</option>
@@ -203,7 +203,7 @@ const EditToDoC = (props) => {
                 </div>
             }
             {repo ? 
-                <div className="toDo-modal-grid link-div-file">
+                <div className="grid toDo-modal-grid link-div-file">
                     <label>Repo</label>
                     <select className="modal-header" value={repo} onChange={e => setRepo(e.target.value)}>
                         <option value="" disabled>Select a Repo...</option>
@@ -216,7 +216,7 @@ const EditToDoC = (props) => {
                     <a className="repo-link" href={repo} target="_blank">Repo</a>
                 </div>
             :
-                <div className="toDo-modal-grid link-div-no-file">
+                <div className="grid toDo-modal-grid link-div-no-file">
                     <label>Repo</label>
                     <select className="modal-header" value={repo} onChange={e => setRepo(e.target.value)}>
                         <option value="" disabled>Select a Repo...</option>
@@ -229,7 +229,7 @@ const EditToDoC = (props) => {
                 </div>
             }
             {book ? 
-                <div className="toDo-modal-grid link-div-file">
+                <div className="grid toDo-modal-grid link-div-file">
                     <label>Book</label>
                     <select className="modal-header" value={book} onChange={e => setBook(e.target.value)}>
                         <option value="" disabled>Select a Book...</option>
@@ -242,7 +242,7 @@ const EditToDoC = (props) => {
                     <a className="book-link" href={book} target="_blank">Book</a>
                 </div>
             :
-                <div className="toDo-modal-grid link-div-no-file">
+                <div className="grid toDo-modal-grid link-div-no-file">
                     <label>Book</label>
                     <select className="modal-header" value={book} onChange={e => setBook(e.target.value)}>
                         <option value="" disabled>Select a Book...</option>
@@ -255,7 +255,7 @@ const EditToDoC = (props) => {
                 </div>
             }
             {recipe ? 
-                <div className="toDo-modal-grid link-div-file">
+                <div className="grid toDo-modal-grid link-div-file">
                     <label>Recipe</label>
                     <select className="modal-header" value={recipe} onChange={e => setRecipe(e.target.value)}>
                         <option value="" disabled>Select a Recipe...</option>
@@ -268,7 +268,7 @@ const EditToDoC = (props) => {
                     <a className="recipe-link" href={recipe} target="_blank">Recipe</a>
                 </div>
             :
-                <div className="toDo-modal-grid link-div-no-file">
+                <div className="grid toDo-modal-grid link-div-no-file">
                     <label>Recipe</label>
                     <select className="modal-header" value={recipe} onChange={e => setRecipe(e.target.value)}>
                         <option value="" disabled>Select a Recipe...</option>
@@ -280,12 +280,12 @@ const EditToDoC = (props) => {
                     </select>
                 </div>
             }
-            {/* <div className="toDo-modal-grid">
+            {/* <div className="grid toDo-modal-grid">
                 <label>Attachment</label>
                 <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
             </div> */}
             <div>
-                <button onClick={editToDo}>Save</button>
+                <button className="form-button" onClick={editToDo}>Save</button>
             </div>
         </div>
     )

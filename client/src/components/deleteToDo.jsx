@@ -24,7 +24,7 @@ const DeleteToDoC = (props) => {
                 <label className="">Are you sure you want to delete this to do?</label>
             </div>
             <div>
-                <button onClick={() => deleteToDo(props.deletedToDo)}>Delete</button>
+                <button className="delete form-button" onClick={() => deleteToDo(props.deletedToDo)}>Delete</button>
             </div>
         </div>
     )

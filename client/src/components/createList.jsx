@@ -30,7 +30,7 @@ const CreateListC = () => {
                 <input className="modal-header" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list"/>
             </div>
             <div>
-                <button onClick={createList}>Save</button>
+                <button className="form-button" onClick={createList}>Save</button>
             </div>
         </div>
     )

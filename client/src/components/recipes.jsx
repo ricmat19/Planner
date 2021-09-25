@@ -67,9 +67,9 @@ const RecipesC = (props) => {
             </div>
 
             <div className="grid grid-center">
-                <div onClick={displayAddRecipeModal} className="add-recipe">
+                <button onClick={displayAddRecipeModal} className="item-button">
                     <img src="../images/plus-solid-white.svg"/>
-                </div>
+                </button>
                 <div className="title recipe-collection-title">Recipe Collection</div>
                 <div className="recipe-collection-container">
                     {recipes.map(recipe => {
@@ -77,7 +77,7 @@ const RecipesC = (props) => {
                             <div key={recipe.data.id} className="grid grid-center">
                                 <div className="recipe-result">
                                     <div className="sub-title meal-title">{recipe.data.title}</div>
-                                    <div className="meal-info-div">
+                                    <div className="grid recipe-info-div">
                                         <div>
                                             <div className="">Ingredients</div>
                                             <ul>
@@ -98,7 +98,7 @@ const RecipesC = (props) => {
                                         </div>
                                         <div className="meal-image-div">
                                             <div className="recipe-button-div">
-                                                <button onClick={e => removeRecipe(recipe.data.id)}>Remove</button>
+                                                <button className="form-button" onClick={e => removeRecipe(recipe.data.id)}>Remove</button>
                                             </div>
                                             <div>
                                                 <div className="align-right">Servings: {recipe.data.servings}</div>

@@ -43,7 +43,6 @@ router.post('/recipes/add-recipe', async (req, res) => {
 //Delete a recipe from the DB
 router.delete('/recipes/remove-recipe/:recipe', async (req, res) => {
     try{
-        console.log(req.params)
         const removeRecipe = await db.query("DELETE FROM recipes WHERE recipe=? ", [req.params.recipe]);
 
         res.status(204).json({

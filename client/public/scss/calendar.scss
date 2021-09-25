@@ -1,0 +1,72 @@
+.month-title{
+    align-self: center;
+  }
+  
+  .month-row{
+    grid-template-columns: auto auto auto;
+    margin-top: 10px;
+  }
+  
+  .month-back, .month-forward{
+    width: 35px;
+    border: none;
+  }
+  
+  .day-names, .day-boxes{
+    display: grid;
+    grid-template-columns: repeat(7, 50px);
+    gap: 3px;
+  }
+  
+  .day-name{
+    border-bottom: $solid-border;
+    padding: 5px 0;
+    margin: 5px 0;
+  }
+  
+  .day-box{
+    border: $solid-border;
+    border-radius: 10px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .day-box:hover{
+    background-color: rgba(207, 37, 156, .5);
+  }
+  
+  .day-box-task{
+    background-color: rgba(207, 37, 156, .2);
+  }
+  
+  .day-box-task:hover{
+    background-color: rgba(207, 37, 156, .7);
+    color: white;
+  }
+  
+  .day-box-task-today, .day-box-task-today:hover{
+    background-color: rgba(207, 37, 156, 1);
+    color: white;
+  }
+  
+  .day-today, .day-today:hover{
+    background-color: rgba(207, 37, 156, .7);
+    color: white;
+  }
+  
+  .center-num{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .calendar-to-do-item{
+    margin: 3px 0;
+    padding: 3px 0;
+    border-bottom: $solid-border;
+  }
+  
+  .calender-to-do{
+    text-align: left;
+  }

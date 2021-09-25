@@ -68,18 +68,18 @@ const BooksC = (props) => {
             </div>
 
             <div className="grid grid-center">
-                <div onClick={displayaddBookModal} className="add-book">
+                <button onClick={displayaddBookModal} className="item-button">
                     <img src="../images/plus-solid-white.svg"/>
-                </div>
+                </button>
                 <div className="title book-collection-title">Book Collection</div>
-                <div className="book-collection-container">
+                <div className="search-results-container">
                     {bookCollection.map(book => {
                         return(
                             <div key={book.id} className="grid grid-center">
                                 <div className="book-result">
-                                    <div className="grid book-search-results">
-                                        <div className="book-thumbnail">
-                                            <img className="book-image" src={book.volumeInfo.imageLinks !== undefined ? book.volumeInfo.imageLinks.thumbnail : ""} alt={book.volumeInfo.title}/>
+                                    <div className="grid search-results">
+                                        <div className="search-thumbnail">
+                                            <img className="search-image" src={book.volumeInfo.imageLinks !== undefined ? book.volumeInfo.imageLinks.thumbnail : ""} alt={book.volumeInfo.title}/>
                                         </div>
                                         <div className="book-labels-container">
                                             <div className="grid book-info-div">
@@ -118,7 +118,7 @@ const BooksC = (props) => {
                                             </div>
                                         </div>
                                         <div className="add-button">
-                                            <button onClick={e => removeBook(book.id)}>Remove</button>
+                                            <button className="form-button" onClick={e => removeBook(book.id)}>Remove</button>
                                         </div>
                                     </div>
                                     <hr/>
