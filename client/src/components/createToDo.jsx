@@ -1,14 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import {useDispatch} from 'react-redux';
-// import {saveToDos} from '../features/toDoSlice';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 import GitHubAPI from '../apis/githubAPI';
 import BookSelectAPI from '../apis/bookSelectAPI';
 import RecipeAPI from'../apis/recipeAPI';
 
 const CreateToDoC = (props) => {
-
-    // const dispatch = useDispatch()
 
     const [googleBooksKey, setGoogleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
     const [recipeKey, setRecipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
@@ -44,7 +40,7 @@ const CreateToDoC = (props) => {
             try{
 
                 if(props.toDoModal === "modal modal-active"){
-                    // const googleDriveResponse = await PlannerAPI.get(`/files`);
+                    // const googleDriveResponse = await IndexAPI.get(`/files`);
                     // for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
                     //     //SpreadSheet
                     //     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
@@ -73,7 +69,7 @@ const CreateToDoC = (props) => {
                     setRepos(githubRepoResponse.data);
 
                     let bookCollection = [];
-                    const booksResponse = await PlannerAPI.get(`/books`);
+                    const booksResponse = await IndexAPI.get(`/books`);
                     for(let i=0; i < booksResponse.data.data.books.length; i++){
                         bookCollection.push(booksResponse.data.data.books[i].book)
                     }
@@ -86,11 +82,10 @@ const CreateToDoC = (props) => {
                     setBooks(bookVolumeResponse);
 
                     let recipes = [];
-                    const recipesResponse = await PlannerAPI.get(`/recipes`);
+                    const recipesResponse = await IndexAPI.get(`/recipes`);
                     for(let i=0; i < recipesResponse.data.data.recipes.length; i++){
                         recipes.push(recipesResponse.data.data.recipes[i].recipe)
                     }
-                    console.log(recipes)
     
                     const recipeArray = [];
                     for(let i=0; i < recipes.length; i++){
@@ -122,12 +117,6 @@ const CreateToDoC = (props) => {
                 }
             }
 
-            // dispatch(saveToDos({
-            //     item: toDo,
-            //     done: false,
-            //     id: Date.now()
-            // }))
-
             let formData = new FormData();
             
             formData.append('list', props.list);
@@ -141,10 +130,7 @@ const CreateToDoC = (props) => {
             formData.append('recipe', recipe);
             // formData.append('position', position);
 
-            console.log(Array.from(formData))
-            console.log(formData)
-
-            const response = await PlannerAPI.post("/planner/add-toDo",
+            const response = await IndexAPI.post("/planner/add-toDo",
                 formData,
                 {
                     headers: {"Content-Type": "multipart/form-data"}
@@ -152,8 +138,6 @@ const CreateToDoC = (props) => {
             )
             .then(res => console.log(res))
             .catch(err => console.log(err))
-
-            console.log(response)
 
             toDoInput.current.value = "";
             dueDateInput.current.value = "";

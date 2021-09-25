@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-
 const CalendarToDoC = (props) => {
 
     const [year, setYear] = useState('')
@@ -36,7 +35,6 @@ const CalendarToDoC = (props) => {
             <div className="main-body">
                 <div className="title">{month}/{day}/{year}</div>
                 <div className="grid">
-                    {/* {console.log(daysToDos)} */}
                     {daysToDos.map((todo, index) => (
                         <div className="grid calendar-to-do-item" key={index}>
                             <div className="calender-to-do">{index + 1}. {todo}</div>

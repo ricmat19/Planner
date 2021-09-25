@@ -22,7 +22,7 @@ router.get('/recipes', async (req, res) => {
     }
 })
 
-//Store a book volume in the DB
+//Store a recipe in the DB
 router.post('/recipes/add-recipe', async (req, res) => {
     try{
         const recipe = await db.query(`INSERT INTO recipes (recipe) VALUES (?)`, [req.body.recipe]);
@@ -40,6 +40,7 @@ router.post('/recipes/add-recipe', async (req, res) => {
     }
 })
 
+//Delete a recipe from the DB
 router.delete('/recipes/remove-recipe/:recipe', async (req, res) => {
     try{
         console.log(req.params)

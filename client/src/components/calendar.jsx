@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 import CalendarToDoC from './calendarToDo';
-
-
 
 const CalendarC = () => {
 
@@ -13,7 +11,6 @@ const CalendarC = () => {
     const [dateDisplay, setDateDisplay] = useState('')
     const [daysToDosModal, setDaysToDosModal] = useState("modal");
     const [selectedDay, setSelectedDay] = useState('')
-    const [daysToDos, setDaysToDos] = useState([])
 
     const daysToDosRef = useRef();
 
@@ -28,7 +25,6 @@ const CalendarC = () => {
     }
 
     const displayToDoModal = (day) => {
-        console.log(day)
         if(day.toDo.length > 0){
             setDaysToDosModal("modal modal-active");
             setSelectedDay(day.date)
@@ -36,11 +32,9 @@ const CalendarC = () => {
     };
 
     const toDosArray = [];
-
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-
                 document.addEventListener("mousedown", (event) => {
                     if(daysToDosRef.current !== null){
                         if(!daysToDosRef.current.contains(event.target)){
@@ -48,7 +42,6 @@ const CalendarC = () => {
                         }
                     }
                 })
-
             }catch(err){
                 console.log(err);
             }
@@ -59,7 +52,7 @@ const CalendarC = () => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const toDosResponse = await PlannerAPI.get(`/planner`);
+                const toDosResponse = await IndexAPI.get(`/planner`);
                 for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
                     toDosArray.push(toDosResponse.data.data.toDos[i])
                 }
@@ -70,7 +63,6 @@ const CalendarC = () => {
         }
         fetchData();
     }, []);
-    //toDos - Removed due to constant re-rendering
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -88,7 +80,6 @@ const CalendarC = () => {
                     date.setMonth(new Date().getMonth() + nav);
                 }
 
-                const day = date.getDate();
                 const month = date.getMonth();
                 const year = date.getFullYear();
 

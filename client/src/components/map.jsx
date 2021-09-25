@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 export const MapC = (props) => {
@@ -15,7 +15,6 @@ export const MapC = (props) => {
 
     const onMapReady = (mapProps, map) => {
 
-        console.log(mapProps)
         let coords = [];
         let waypoints = [];
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 import BookSelectAPI from '../apis/bookSelectAPI';
 import AddBookC from './addBook';
 
@@ -8,7 +8,6 @@ const BooksC = (props) => {
     const [addBooksModal, setAddBooksModal] = useState("modal");
     const [bookCollection, setBookCollection] = useState([]);
     const [apiKey, setAPIKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
-    const search = ""
 
     const addBooksRef = useRef();
 
@@ -29,14 +28,13 @@ const BooksC = (props) => {
 
                 
                 let bookCollection = [];
-                const booksResponse = await PlannerAPI.get(`/books`);
+                const booksResponse = await IndexAPI.get(`/books`);
                 for(let i=0; i < booksResponse.data.data.books.length; i++){
                     bookCollection.push(booksResponse.data.data.books[i].book)
                 }
 
                 let bookVolumeResponse = []
                 if(props.booksModal === "modal modal-active"){
-                    console.log("books")
                     for(let i=0; i < bookCollection.length; i++){
                         const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
                         bookVolumeResponse.push(bookVolume.data)
@@ -53,7 +51,7 @@ const BooksC = (props) => {
 
     const removeBook = async (book) => { 
         try{
-            const response = await PlannerAPI.delete(`/books/remove-book/${book}`);
+            const response = await IndexAPI.delete(`/books/remove-book/${book}`);
         }catch(err){
             console.log(err);
         }
@@ -64,9 +62,9 @@ const BooksC = (props) => {
 
             {/* Day's To Do's */}
             <div className={addBooksModal}>
-                    <div ref={addBooksRef} className="modal-content">
-                        <AddBookC/>
-                    </div>
+                <div ref={addBooksRef} className="modal-content">
+                    <AddBookC/>
+                </div>
             </div>
 
             <div className="grid grid-center">

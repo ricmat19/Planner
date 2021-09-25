@@ -13,8 +13,8 @@ const refreshToken = process.env.GMAIL_REFRESH_TOKEN;
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI)
 oAuth2Client.setCredentials({refresh_token: refreshToken})
 
+//Send an email via GMAIL
 router.post("/email", async(req, res) => {
-
     try{
 
         const accessToken = await oAuth2Client.getAccessToken();

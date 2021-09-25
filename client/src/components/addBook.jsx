@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import React, { useRef, useState } from 'react';
+import IndexAPI from '../apis/indexAPI';
 import BookSearchAPI from '../apis/bookSearchAPI';
 
 const AddBooksC = () => {
@@ -13,12 +13,9 @@ const AddBooksC = () => {
     const searchBooks = async (e) => { 
         e.preventDefault()
         try{
-
             const response = await BookSearchAPI.get("https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=" + apiKey + "&maxResults=40")
             setSearchResults(response.data.items);
-
             searchInput.current.value = "";
-
         }catch(err){
             console.log(err);
         }
@@ -26,10 +23,9 @@ const AddBooksC = () => {
 
     const saveBook = async (book) => { 
         try{
-            const response = await PlannerAPI.post("/books/add-book",{
+            const response = await IndexAPI.post("/books/add-book",{
                 book,
             });
-            console.log(response)
         }catch(err){
             console.log(err);
         }

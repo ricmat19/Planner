@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 
 const DeleteToDoC = (props) => {
 
@@ -7,7 +7,7 @@ const DeleteToDoC = (props) => {
 
     const deleteToDo = async (id) => {
         try{
-            const response = await PlannerAPI.delete(`/planner/delete-toDo/${id}`);
+            const response = await IndexAPI.delete(`/planner/delete-toDo/${id}`);
             setToDos(toDos.filter(toDo => {
                return toDo.id !== id;
             }))

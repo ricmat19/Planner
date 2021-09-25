@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import React, { useEffect, useState } from 'react';
+import IndexAPI from '../apis/indexAPI';
 
 const GoogleDriveC = (props) => {
 
@@ -11,8 +11,7 @@ const GoogleDriveC = (props) => {
             try{
 
                 if(props.driveModal === "modal modal-active"){
-                    const googleDriveResponse = await PlannerAPI.get(`/files`);
-                    console.log(googleDriveResponse)
+                    const googleDriveResponse = await IndexAPI.get(`/files`);
                     for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
                         //SpreadSheet
                         if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){

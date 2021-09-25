@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import React, { useRef, useState } from 'react';
+import IndexAPI from '../apis/indexAPI';
 import RecipeAPI from'../apis/recipeAPI';
 
 const AddRecipeC = () => {
@@ -17,8 +17,7 @@ const AddRecipeC = () => {
             const searchResponse = await RecipeAPI.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + apiKey + "&query=" + search)
 
             const recipeArray = [];
-            // for(let i = 0; i < searchResponse.data.results.length; i++){
-            for(let i = 0; i < 1; i++){
+            for(let i = 0; i < searchResponse.data.results.length; i++){
                 const recipeInfo = await RecipeAPI.get("https://api.spoonacular.com/recipes/" + searchResponse.data.results[i].id + "/information?apiKey=" + apiKey)
                 recipeArray.push(recipeInfo)
             }
@@ -31,10 +30,9 @@ const AddRecipeC = () => {
 
     const saveRecipe = async (recipe) => { 
         try{
-            const response = await PlannerAPI.post("/recipes/add-recipe",{
+            const response = await IndexAPI.post("/recipes/add-recipe",{
                 recipe,
             });
-            console.log(response)
         }catch(err){
             console.log(err);
         }

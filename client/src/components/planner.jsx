@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import { useDrag, useDrop } from "react-dnd";
-// import {Droppable, Draggable, DragDropContext} from "react-beautiful-dnd";
-// import {useSelector} from 'react-redux';
-// import { selectToDos } from '../features/toDoSlice';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 import DeleteListC from './deleteList';
 import DeleteToDoC from './deleteToDo';
 import CreateListC from './createList';
@@ -36,8 +32,6 @@ const ToDoC = () => {
     const [info, setInfo] = useState("");
     const [position, setPosition] = useState("")
     const [file, setFile] = useState("")
-
-    // const reduxToDos = useSelector(selectToDos);
 
     const displayDeleteListModal = (list) => {
         setDeletedList(list)
@@ -100,13 +94,13 @@ const ToDoC = () => {
                 setCurrentDay(currentDayString)
                 setCurrentMonth(todayMonthString)
 
-                const listResponse = await PlannerAPI.get(`/lists`);
+                const listResponse = await IndexAPI.get(`/lists`);
                 for(let i=0; i < listResponse.data.data.lists.length; i++){
                     listArray.push(listResponse.data.data.lists[i].list)
                 }
                 setToDoList(listArray);
 
-                const toDosResponse = await PlannerAPI.get(`/planner`);
+                const toDosResponse = await IndexAPI.get(`/planner`);
                 for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
                     toDosArray.push(toDosResponse.data.data.toDos[i])
                 }
@@ -124,7 +118,7 @@ const ToDoC = () => {
                 for(let i=0; i < noDueDateArray.length; i++){
                     newToDoArray.push(noDueDateArray[i]);
                 }
-
+                
                 setToDos(newToDoArray);
 
                 document.addEventListener("mousedown", (event) => {
@@ -177,7 +171,6 @@ const ToDoC = () => {
     // }
 
     const handleOnDragEnd = (result) => {
-        console.log(result)
         if(!result.destination){
             return;
         }

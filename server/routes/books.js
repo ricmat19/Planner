@@ -40,6 +40,7 @@ router.post('/books/add-book', async (req, res) => {
     }
 })
 
+//Delete a book volume from the DB
 router.delete('/books/remove-book/:book', async (req, res) => {
     try{
         console.log(req.params)

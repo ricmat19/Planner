@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 
 const DeleteListC = (props) => {
 
@@ -7,7 +7,7 @@ const DeleteListC = (props) => {
 
     const deleteList = async (list) => {
         try{
-            const response = await PlannerAPI.delete(`/planner/delete-list/${list}`);
+            const response = await IndexAPI.delete(`/planner/delete-list/${list}`);
             setListCollection(listCollection.filter(list => {
                return list.list !== list;
             }))

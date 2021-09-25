@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import React, { useRef, useState } from 'react';
+import IndexAPI from '../apis/indexAPI';
 
 const EmailC = () => {
 
@@ -16,7 +16,7 @@ const EmailC = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
-            const response = await PlannerAPI.post("/email", {
+            const response = await IndexAPI.post("/email", {
                 name: name,
                 email: email,
                 subject: subject,

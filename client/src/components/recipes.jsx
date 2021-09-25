@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 import RecipeAPI from'../apis/recipeAPI';
 import AddRecipeC from './addRecipe';
 
@@ -8,7 +8,6 @@ const RecipesC = (props) => {
     const [addRecipesModal, setAddRecipesModal] = useState("modal");
     const [recipes, setRecipes] = useState([]);
     const [apiKey, setAPIKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
-    const search = ""
 
     const addRecipesRef = useRef();
 
@@ -28,7 +27,7 @@ const RecipesC = (props) => {
                 })
                 
                 let recipes = [];
-                const recipesResponse = await PlannerAPI.get(`/recipes`);
+                const recipesResponse = await IndexAPI.get(`/recipes`);
                 for(let i=0; i < recipesResponse.data.data.recipes.length; i++){
                     recipes.push(recipesResponse.data.data.recipes[i].recipe)
                 }
@@ -51,7 +50,7 @@ const RecipesC = (props) => {
 
     const removeRecipe = async (recipe) => { 
         try{
-            const response = await PlannerAPI.delete(`/recipes/remove-recipe/${recipe}`);
+            const response = await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
         }catch(err){
             console.log(err);
         }

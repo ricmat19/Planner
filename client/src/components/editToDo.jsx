@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 import GitHubAPI from '../apis/githubAPI';
 import BookSelectAPI from '../apis/bookSelectAPI';
 import RecipeAPI from'../apis/recipeAPI';
@@ -58,7 +58,7 @@ const EditToDoC = (props) => {
                 }
 
                 if(props.editModal === "modal modal-active"){
-                    // const googleDriveResponse = await PlannerAPI.get(`/files`);
+                    // const googleDriveResponse = await IndexAPI.get(`/files`);
                     // for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
                     //     //SpreadSheet
                     //     if(googleDriveResponse.data.data.files[i].mimeType === 'application/vnd.google-apps.spreadsheet'){
@@ -87,7 +87,7 @@ const EditToDoC = (props) => {
                     setRepos(githubRepoResponse.data);
 
                     let bookCollection = [];
-                    const booksResponse = await PlannerAPI.get(`/books`);
+                    const booksResponse = await IndexAPI.get(`/books`);
                     for(let i=0; i < booksResponse.data.data.books.length; i++){
                         bookCollection.push(booksResponse.data.data.books[i].book)
                     }
@@ -100,7 +100,7 @@ const EditToDoC = (props) => {
                     setBooks(bookVolumeResponse);
 
                     let recipes = [];
-                    const recipesResponse = await PlannerAPI.get(`/recipes`);
+                    const recipesResponse = await IndexAPI.get(`/recipes`);
                     for(let i=0; i < recipesResponse.data.data.recipes.length; i++){
                         recipes.push(recipesResponse.data.data.recipes[i].recipe)
                     }
@@ -135,7 +135,7 @@ const EditToDoC = (props) => {
                 }
             }
 
-            const update = await PlannerAPI.put(`/planner/edit-toDo`,{
+            const update = await IndexAPI.put(`/planner/edit-toDo`,{
                 id: props.id,
                 list: list,
                 toDo: toDo,

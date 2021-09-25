@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import PlannerAPI from '../apis/plannerAPI';
+import IndexAPI from '../apis/indexAPI';
 
 const CreateListC = () => {
 
@@ -10,7 +10,7 @@ const CreateListC = () => {
     const createList = async (e) => { 
         e.preventDefault()
         try{
-            const response = await PlannerAPI.post("/planner/add-list",{
+            const response = await IndexAPI.post("/planner/add-list",{
                 list,
             });
             listInput.current.value = "";

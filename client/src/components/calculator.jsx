@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const CalculatorC = () => {
 
     const [firstValue, setFirstValue] = useState(null);
@@ -37,7 +36,6 @@ const CalculatorC = () => {
     }
 
     const equationType = (calculation) => {
-        console.log(calculation)
         if(collectingFirstValue === true && firstValue !== "0"){
             setCollectingFirstValue(false);
         }
@@ -49,11 +47,6 @@ const CalculatorC = () => {
     }
     
     const enterEqual = (calculation) => {
-
-        console.log(firstValue)
-        console.log(secondValue)
-        console.log(calculation)
-        console.log(equation)
 
         if(calculation === undefined){
             calculation = equation;
@@ -76,7 +69,6 @@ const CalculatorC = () => {
         }
     
         setCurrentInput(result);
-        console.log(result)
     
         setFirstValue(result);
         setSecondValue(null);
