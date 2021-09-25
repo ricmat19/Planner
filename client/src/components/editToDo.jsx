@@ -32,12 +32,9 @@ const EditToDoC = (props) => {
     const [recipes, setRecipes] = useState([]);
     const [recipe, setRecipe] = useState("");
 
-    // const [position, setPosition] = useState("");
-
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
-    // const positionInput = useRef(null);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -54,7 +51,6 @@ const EditToDoC = (props) => {
                     setRepo(props.repo)
                     setBook(props.book)
                     setRecipe(props.recipe)
-                    // setPosition(props.position)
                 }
 
                 if(props.editModal === "modal modal-active"){
@@ -145,7 +141,6 @@ const EditToDoC = (props) => {
                 repo: repo,
                 book: book,
                 recipe: recipe,
-                // position: position
             });
             
             setEditModal("modal");
@@ -285,11 +280,6 @@ const EditToDoC = (props) => {
                     </select>
                 </div>
             }
-
-            {/* <div className="toDo-modal-grid">
-                <label>Position</label>
-                <input className="modal-header due-date" value={position} ref={positionInput} onChange={e => setPosition(e.target.value)} type="number" name="position" min="1"/>
-            </div> */}
             {/* <div className="toDo-modal-grid">
                 <label>Attachment</label>
                 <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>

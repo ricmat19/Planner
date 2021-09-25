@@ -28,12 +28,9 @@ const CreateToDoC = (props) => {
     const [recipes, setRecipes] = useState([]);
     const [recipe, setRecipe] = useState("");
 
-    // const [position, setPosition] = useState(1);
-
     const toDoInput = useRef(null);
     const dueDateInput = useRef(null);
     const infoInput = useRef(null);
-    // const positionInput = useRef(null);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -128,7 +125,6 @@ const CreateToDoC = (props) => {
             formData.append('repo', repo);
             formData.append('book', book);
             formData.append('recipe', recipe);
-            // formData.append('position', position);
 
             const response = await IndexAPI.post("/planner/add-toDo",
                 formData,
@@ -142,7 +138,6 @@ const CreateToDoC = (props) => {
             toDoInput.current.value = "";
             dueDateInput.current.value = "";
             infoInput.current.value = "";
-            // positionInput.current.value = "";
 
             setToDoModal("modal");
 
@@ -214,10 +209,6 @@ const CreateToDoC = (props) => {
                     })}
                 </select>
             </div>
-            {/* <div className="toDo-modal-grid">
-                <label>Position</label>
-                <input className="modal-header position" value={position} ref={positionInput} onChange={e => setPosition(e.target.value)} type="number" name="position" min="1"/>
-            </div> */}
             {/* <div className="toDo-modal-grid">
                 <label>Attachment</label>
                 <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>

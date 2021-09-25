@@ -6,7 +6,6 @@ import CreateListC from './createList';
 import CreateToDoC from './createToDo';
 import EditToDoC from './editToDo.jsx';
 
-
 const ToDoC = () => {
 
     const [deletedList, setDeletedList] = useState("");
@@ -148,28 +147,6 @@ const ToDoC = () => {
         fetchData();
     }, []);
 
-    // const [{ isOver }, drop] = useDrop(() => ({
-    //     accept: "div",
-    //     drop: (item) => moveToDo(item.id),
-    //     collect: (monitor) => ({
-    //         isOver: !!monitor.isOver(),
-    //     })
-    // }))
-
-    // const moveToDo = (id) => {
-    //     const toDoList = toDos.filter((toDo) => id === toDo.id);
-    //     setBoard((container) => [...container, pictureList[0]])
-    // }
-
-    // const ToDos = (position, div) => {
-    //     const[{isDragging}, drag] = useDrag(() => ({
-    //         type: "div",
-    //         collection: (monitor) => ({
-    //             isDragging: !!monitor.isDragging(),
-    //         })
-    //     }))
-    // }
-
     const handleOnDragEnd = (result) => {
         if(!result.destination){
             return;
@@ -242,89 +219,59 @@ const ToDoC = () => {
                                 </button>
                             </div>
                             <div className="grid to-do-list">
-                                {/* <DragDropContext onDragEnd={handleOnDragEnd}>
-                                    <Droppable droppableId={list}>
-                                        {(provided) => {
-                                            <div className="to-do-div" {...provided.droppableProps} ref={provided.innerRef}> */}
-                                            <div className="to-do-div">{/* Alternative */}
-                                                {toDos.map((toDo, index) => {
-                                                    if(list === toDo.list && toDo.dueDate === currentDay){
-                                                        return(
-                                                            // <Draggable key={index} draggableId={index}>
-                                                            //     {(provided) => (
-                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
-                                                                    <div  key={index} className="grid to-do-item due-today"> {/* Alternative */}
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
-                                                                            <img src="../images/wrench-solid.svg"/>
-                                                                        </div>
-                                                                        <div className="to-do-item-name">
-                                                                            {toDo.todo}
-                                                                        </div> 
-                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
-                                                                    </div>
-                                                            //      )}
-                                                            //  </Draggable>
-                                                        );
-                                                    } else if(list === toDo.list && toDo.dueDate < currentDay && toDo.dueDate !== ""){
-                                                        return(
-                                                            // <Draggable key={index} draggableId={index}>
-                                                            //     {(provided) => (
-                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
-                                                                    <div  key={index} className="grid to-do-item past-due"> {/* Alternative */}
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
-                                                                            <img src="../images/wrench-solid.svg"/>
-                                                                        </div>
-                                                                        <div className="to-do-item-name">
-                                                                            {toDo.todo}
-                                                                        </div> 
-                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
-                                                                    </div>
-                                                            //      )}
-                                                            //  </Draggable>
-                                                        );
-                                                    }else if(list === toDo.list && toDo.dueDate.slice(5, 7) === currentMonth){
-                                                        return(
-                                                            // <Draggable key={index} draggableId={index}>
-                                                            //     {(provided) => (
-                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
-                                                                    <div  key={index} className="grid to-do-item due-month"> {/* Alternative */}
-
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
-                                                                            <img src="../images/wrench-solid.svg"/>
-                                                                        </div>
-                                                                        <div className="to-do-item-name">
-                                                                            {toDo.todo}
-                                                                        </div> 
-                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
-                                                                    </div>
-                                                            //      )}
-                                                            //  </Draggable>
-                                                        );
-                                                    }else if (list === toDo.list){
-                                                        return(
-                                                            // <Draggable key={index} draggableId={index}>
-                                                            //     {(provided) => (
-                                                            //         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="grid to-do-item">
-                                                                    <div  key={index} className="grid to-do-item"> {/* Alternative */}
-
-                                                                        <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
-                                                                            <img src="../images/wrench-solid.svg"/>
-                                                                        </div>
-                                                                        <div className="to-do-item-name">
-                                                                            {toDo.todo}
-                                                                        </div> 
-                                                                        <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
-                                                                    </div>
-                                                            //      )}
-                                                            //  </Draggable>
-                                                        );
-                                                    }
-                                                })}
-                                                 {/* {provided.placeholder} */}
-                                            </div>
-                                         {/* }}
-                                     </Droppable>
-                                 </DragDropContext> */}
+                                <div className="to-do-div">
+                                    {toDos.map((toDo, index) => {
+                                        if(list === toDo.list && toDo.dueDate === currentDay){
+                                            return(
+                                                <div  key={index} className="grid to-do-item due-today">
+                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                        <img src="../images/wrench-solid.svg"/>
+                                                    </div>
+                                                    <div className="to-do-item-name">
+                                                        {toDo.todo}
+                                                    </div> 
+                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                </div>
+                                            );
+                                        } else if(list === toDo.list && toDo.dueDate < currentDay && toDo.dueDate !== ""){
+                                            return(
+                                                <div  key={index} className="grid to-do-item past-due">
+                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                        <img src="../images/wrench-solid.svg"/>
+                                                    </div>
+                                                    <div className="to-do-item-name">
+                                                        {toDo.todo}
+                                                    </div> 
+                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                </div>
+                                            );
+                                        }else if(list === toDo.list && toDo.dueDate.slice(5, 7) === currentMonth){
+                                            return(
+                                                <div  key={index} className="grid to-do-item due-month">
+                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                        <img src="../images/wrench-solid.svg"/>
+                                                    </div>
+                                                    <div className="to-do-item-name">
+                                                        {toDo.todo}
+                                                    </div> 
+                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                </div>
+                                            );
+                                        }else if (list === toDo.list){
+                                            return(
+                                                <div  key={index} className="grid to-do-item">
+                                                    <div onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="edit-toDo">
+                                                        <img src="../images/wrench-solid.svg"/>
+                                                    </div>
+                                                    <div className="to-do-item-name">
+                                                        {toDo.todo}
+                                                    </div> 
+                                                    <div onClick={() => displayDeleteToDoModal(toDo.id)} className="delete-toDo">X</div>
+                                                </div>
+                                            );
+                                        }
+                                    })}
+                                </div>
                             </div>
                         </div>
                     );

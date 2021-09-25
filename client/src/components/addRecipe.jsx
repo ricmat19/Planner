@@ -9,7 +9,6 @@ const AddRecipeC = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [apiKey, setAPIKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
 
-
     const searchRecipes = async (e) => { 
         e.preventDefault()
         try{
