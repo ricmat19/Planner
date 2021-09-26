@@ -114,6 +114,27 @@ const CreateToDoC = (props) => {
                 }
             }
 
+            let repoURL = "";
+            for(let i = 0; i < repos.length; i++){
+                if(repos[i].name === repo){
+                    repoURL = repos[i].html_url;
+                }
+            }
+
+            let bookID = "";
+            for(let i = 0; i < books.length; i++){
+                if(books[i].volumeInfo.title === book){
+                    bookID = books[i].id;
+                }
+            }
+
+            let recipeID = "";
+            for(let i = 0; i < recipes.length; i++){
+                if(recipes[i].data.title === recipe){
+                    recipeID = recipes[i].data.id;
+                }
+            }
+
             let formData = new FormData();
             
             formData.append('list', props.list);
@@ -122,9 +143,9 @@ const CreateToDoC = (props) => {
             // formData.append('imgRef', imgRef);
             formData.append('info', info);
             formData.append('fileURL', fileURL);
-            formData.append('repo', repo);
-            formData.append('book', book);
-            formData.append('recipe', recipe);
+            formData.append('repoURL', repoURL);
+            formData.append('bookID', bookID);
+            formData.append('recipeID', recipeID);
 
             const response = await IndexAPI.post("/planner/add-toDo",
                 formData,
@@ -132,7 +153,6 @@ const CreateToDoC = (props) => {
                     headers: {"Content-Type": "multipart/form-data"}
                 }
             )
-            .then(res => console.log(res))
             .catch(err => console.log(err))
 
             toDoInput.current.value = "";

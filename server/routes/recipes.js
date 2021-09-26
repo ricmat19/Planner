@@ -22,6 +22,26 @@ router.get('/recipes', async (req, res) => {
     }
 })
 
+//Get a recipe
+router.get('/recipe/:recipe', async (req, res) => {
+    try{
+        const recipe = await db.query("SELECT * FROM recipe WHERE recipe=?", [req.params.recipe], function (err, result, fields) {
+            if (err) throw err;
+
+            res.status(200).json({
+                status: "success",
+                results: result,
+                data:{
+                    recipes: result,
+                }
+            })
+        });
+
+    }catch(err){
+        console.log(err);
+    }
+})
+
 //Store a recipe in the DB
 router.post('/recipes/add-recipe', async (req, res) => {
     try{
@@ -43,7 +63,7 @@ router.post('/recipes/add-recipe', async (req, res) => {
 //Delete a recipe from the DB
 router.delete('/recipes/remove-recipe/:recipe', async (req, res) => {
     try{
-        const removeRecipe = await db.query("DELETE FROM recipes WHERE recipe=? ", [req.params.recipe]);
+        const removeRecipe = await db.query("DELETE FROM recipes WHERE recipe=?", [req.params.recipe]);
 
         res.status(204).json({
             status: "success"

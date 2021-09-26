@@ -92,3 +92,15 @@ $solid-border: black 3px solid;
   justify-self: end;
   cursor: pointer;
 }
+
+.link-div-file{
+  grid-template-columns: 100px 1fr 50px;
+}
+
+.link-div-no-file{
+  grid-template-columns: 100px 1fr;
+}
+
+.file-link, .repo-link, .book-link, .recipe-link{
+  text-align: center;
+}

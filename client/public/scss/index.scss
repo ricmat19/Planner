@@ -9,6 +9,14 @@ body{
 
 $solid-border: black 3px solid;
 
+.align-left{
+  text-align: left;
+}
+
+.align-right{
+  text-align: right;
+}
+
 .grid{
   display: grid;
 }
@@ -54,9 +62,10 @@ align-items: flex-start;
 }
 
 .sub-title{
-text-align: center;
-font-size: 17px;
-margin: 10px 0 30px 0;
+  text-align: center;
+  font-size: 17px;
+  margin: 10px 0 30px 0;
+  cursor: pointer;
 }
 
 input, select, textarea{
@@ -103,7 +112,7 @@ textarea{
   height: 100vh;
   width: 100%;
   overflow: auto;
-  background-color: (0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, .7);
   justify-content: center;
   align-items: center;
   visibility: hidden;
@@ -177,112 +186,4 @@ button{
   max-height: 415px;
   overflow: auto;
   padding: 10px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.file-grid{
-  grid-template-columns: 300px 300px 300px;
-  justify-content: center;
-}
-
-.file-div{
-  display: grid;
-  justify-content: center;
-  justify-items: center;
-  margin: 10px
-}
-
-.file-image-div{
-  display: grid;
-  align-content: end;
-  max-width: 50px;
-  min-width: 50px;
-}
-
-.google-drive-modal{
-  width: fit-content;
-}
-
-.google-drive-nav{
-  justify-content: center;
-  // grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  grid-template-columns: auto auto auto auto auto;
-  gap: 20px;
-}
-
-.link-div-file{
-  grid-template-columns: 100px 1fr 50px;
-}
-
-.link-div-no-file{
-  grid-template-columns: 100px 1fr;
-}
-
-.file-link, .repo-link, .book-link, .recipe-link{
-  text-align: center;
-}
-
-.repo-list{
-  margin-top: 10px;
-}
-
-.github-repo-div{
-  display: grid;
-  grid-template-columns: 130px 120px auto;
-}
-
-.align-left{
-  text-align: left;
-}
-
-.align-right{
-  text-align: right;
-}
-
-.github-nav{
-  justify-content: center;
-  grid-template-columns: auto auto;
-  gap: 20px;
-}
-
-.recipe-result{
-  margin: 20px;
-}
-
-.meal-title{
-  margin-bottom: 20px;
-}
-
-.recipe-steps, .recipe-ingredients{
-  text-align: left;
-  margin: 10px 0;
-}
-
-.meal-image-div{
-  gap: 10px;
-}
-
-.meal-image{
-  max-width: 100%;
-}
-
-.recipe-button-div{
-  text-align: right;
-  margin: 0 10px 10px 0;
 }

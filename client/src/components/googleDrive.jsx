@@ -60,7 +60,7 @@ const GoogleDriveC = (props) => {
                     <div className="sub-title" onClick={() => displayFiles("diagrams")}>Diagrams</div>
                     <div className="sub-title" onClick={() => displayFiles("pdfs")}>PDFs</div>
                 </div>
-                <div className="grid search-results-container">
+                <div className="grid search-results-container file-grid">
                     {files.map(file => {
                         if(file.mimeType === 'application/vnd.google-apps.spreadsheet' && fileType === "sheets"){
                             return(

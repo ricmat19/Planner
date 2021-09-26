@@ -29,8 +29,10 @@ const ToDoC = () => {
     const [dueDate, setDueDate] = useState("");
     // const [imgRef, setImgRef] = useState("");
     const [info, setInfo] = useState("");
-    const [position, setPosition] = useState("")
     const [file, setFile] = useState("")
+    const [repo, setRepo] = useState("")
+    const [book, setBook] = useState("")
+    const [recipe, setRecipe] = useState("")
 
     const displayDeleteListModal = (list) => {
         setDeletedList(list)
@@ -52,15 +54,17 @@ const ToDoC = () => {
         setList(list)
     }
 
-    const displayEditModal = (id, list, toDo, dueDate, info, position, file) => {
+    const displayEditModal = (id, list, toDo, dueDate, info, file, repo, book, recipe) => {
         setEditModal("modal modal-active");
         setId(id);
         setList(list);
         setToDo(toDo);
         setDueDate(dueDate);
         setInfo(info);
-        setPosition(position)
         setFile(file)
+        setRepo(repo)
+        setBook(book)
+        setRecipe(recipe)
     }
 
     const deleteListRef = useRef();
@@ -201,7 +205,7 @@ const ToDoC = () => {
             <div className={editModal}>
                 <form>
                     <div ref={editRef} className="modal-content">
-                        <EditToDoC editModal={editModal} listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} position={position} file={file}/>
+                        <EditToDoC editModal={editModal} listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} file={file} repo={repo} book={book} recipe={recipe}/>
                     </div>
                 </form>
             </div>
@@ -224,7 +228,7 @@ const ToDoC = () => {
                                         if(list === toDo.list && toDo.dueDate === currentDay){
                                             return(
                                                 <div  key={index} className="grid to-do-item due-today">
-                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.file, toDo.repo, toDo.book, toDo.recipe)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
                                                     </button>
                                                     <div className="to-do-item-name">
@@ -238,7 +242,7 @@ const ToDoC = () => {
                                         } else if(list === toDo.list && toDo.dueDate < currentDay && toDo.dueDate !== ""){
                                             return(
                                                 <div  key={index} className="grid to-do-item past-due">
-                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.file, toDo.repo, toDo.book, toDo.recipe)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
                                                     </button>
                                                     <div className="to-do-item-name">
@@ -252,7 +256,7 @@ const ToDoC = () => {
                                         }else if(list === toDo.list && toDo.dueDate.slice(5, 7) === currentMonth){
                                             return(
                                                 <div  key={index} className="grid to-do-item due-month">
-                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.file, toDo.repo, toDo.book, toDo.recipe)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
                                                     </button>
                                                     <div className="to-do-item-name">
@@ -266,7 +270,7 @@ const ToDoC = () => {
                                         }else if (list === toDo.list){
                                             return(
                                                 <div  key={index} className="grid to-do-item">
-                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.position, toDo.file)} className="item-button">
+                                                    <button onClick={() => displayEditModal(toDo.id, toDo.list, toDo.todo, toDo.dueDate, toDo.info, toDo.file, toDo.repo, toDo.book, toDo.recipe)} className="item-button">
                                                         <img src="../images/wrench-solid.svg"/>
                                                     </button>
                                                     <div className="to-do-item-name">

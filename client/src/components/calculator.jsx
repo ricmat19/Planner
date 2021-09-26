@@ -143,22 +143,22 @@ const CalculatorC = () => {
             </div>
 
             <div className="grid calculator">
-                <button onClick={() => enterNumber("1")} className="title calculator-button one">1</button>
-                <button onClick={() => enterNumber("2")} className="title calculator-button two">2</button>
-                <button onClick={() => enterNumber("3")} className="title calculator-button three">3</button>
-                <button onClick={() => equationType("+")} className="title calculator-button plus">+</button>
-                <button onClick={() => enterNumber("4")} className="title calculator-button four">4</button>
-                <button onClick={() => enterNumber("5")} className="title calculator-button five">5</button>
-                <button onClick={() => enterNumber("6")} className="title calculator-button six">6</button>
-                <button onClick={() => equationType("-")} className="title calculator-button minus">-</button>
-                <button onClick={() => enterNumber("7")} className="title calculator-button seven">7</button>
-                <button onClick={() => enterNumber("8")} className="title calculator-button eight">8</button>
-                <button onClick={() => enterNumber("9")} className="title calculator-button nine">9</button>
-                <button onClick={() => equationType("*")} className="title calculator-button multiply">x</button>
-                <button onClick={() => enterNumber("0")} className="title calculator-button zero">0</button>
-                <button onClick={() => enterEqual()} className="title calculator-button equal">=</button>
-                <button onClick={() => enterClear()} className="title calculator-button clear">C</button>
-                <button onClick={() => equationType("/")} className="title calculator-button divide">/</button>
+                <button onClick={() => enterNumber("1")} className="calculator-button one">1</button>
+                <button onClick={() => enterNumber("2")} className="calculator-button two">2</button>
+                <button onClick={() => enterNumber("3")} className="calculator-button three">3</button>
+                <button onClick={() => equationType("+")} className="calculator-button plus">+</button>
+                <button onClick={() => enterNumber("4")} className="calculator-button four">4</button>
+                <button onClick={() => enterNumber("5")} className="calculator-button five">5</button>
+                <button onClick={() => enterNumber("6")} className="calculator-button six">6</button>
+                <button onClick={() => equationType("-")} className="calculator-button minus">-</button>
+                <button onClick={() => enterNumber("7")} className="calculator-button seven">7</button>
+                <button onClick={() => enterNumber("8")} className="calculator-button eight">8</button>
+                <button onClick={() => enterNumber("9")} className="calculator-button nine">9</button>
+                <button onClick={() => equationType("*")} className="calculator-button multiply">x</button>
+                <button onClick={() => enterNumber("0")} className="calculator-button zero">0</button>
+                <button onClick={() => enterEqual()} className="calculator-button equal">=</button>
+                <button onClick={() => enterClear()} className="calculator-button clear">C</button>
+                <button onClick={() => equationType("/")} className="calculator-button divide">/</button>
             </div>
         </div>
     )

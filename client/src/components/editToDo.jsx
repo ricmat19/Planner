@@ -126,8 +126,30 @@ const EditToDoC = (props) => {
 
             let fileURL = "";
             for(let i = 0; i < files.length; i++){
-                if(files[i].name === file){
+                if(files[i].name === file || files[i].url === file){
                     fileURL = files[i].url;
+                }
+            }
+
+
+            let repoURL = "";
+            for(let i = 0; i < repos.length; i++){
+                if(repos[i].name === repo || repos[i].html_url === repo){
+                    repoURL = repos[i].html_url;
+                }
+            }
+
+            let bookID = "";
+            for(let i = 0; i < books.length; i++){
+                if(books[i].volumeInfo.title === book || books[i].id === book){
+                    bookID = books[i].id;
+                }
+            }
+
+            let recipeID = "";
+            for(let i = 0; i < recipes.length; i++){
+                if(recipes[i].data.title === recipe || recipes[i].data.id === recipe){
+                    recipeID = recipes[i].data.id;
                 }
             }
 
@@ -137,10 +159,10 @@ const EditToDoC = (props) => {
                 toDo: toDo,
                 dueDate: dueDate,
                 info: info,
-                file: fileURL,
-                repo: repo,
-                book: book,
-                recipe: recipe,
+                fileURL: fileURL,
+                repoURL: repoURL,
+                bookID: bookID,
+                recipeID: recipeID,
             });
             
             setEditModal("modal");
