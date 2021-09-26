@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,iBAAiB,AAAA,CACb,qBAAqB,CAAE,QAAQ,CAC/B,UAAU,CAAE,IAAI,CAChB,WAAW,CAAE,MAAM,CACpB",
+    "mappings": "AAAA,AAAA,iBAAiB,AAAA,CACb,qBAAqB,CAAE,QAAQ,CAC/B,UAAU,CAAE,IAAI,CAChB,WAAW,CAAE,MAAM,CACtB",
     "sources": [
         "../scss/email.scss"
     ],

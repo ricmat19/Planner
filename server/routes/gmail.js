@@ -5,9 +5,9 @@ const { gmail } = require('googleapis/build/src/apis/gmail');
 const { oauth2 } = require('googleapis/build/src/apis/oauth2');
 const nodemailer = require('nodemailer');
 
-const clientId = process.env.GMAIL_CLIENT_ID;
-const clientSecret = process.env.GMAIL_CLIENT_SECRET;
-const redirectURI = process.env.GMAIL_REDIRECT_URI;
+const clientId = process.env.GOOGLE_API_CLIENT_ID;
+const clientSecret = process.env.GOOGLE_API_CLIENT_SECRET;
+const redirectURI = process.env.GOOGLE_API_REDIRECT_URI;
 const refreshToken = process.env.GMAIL_REFRESH_TOKEN;
 
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI)

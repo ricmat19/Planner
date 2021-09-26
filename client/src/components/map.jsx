@@ -101,14 +101,14 @@ export const MapC = (props) => {
                         <input id="pac-input" type="text" onChange={e => setEnd(e.target.value)}/>
                     </div>
                 </div>
-                <Map
+                {/* <Map
                 initialCenter={process.env.REACT_APP_DIRECTION_ORIGIN}
                 google={props.google}
                 onClick={props.onMapClicked}
                 onReady={onMapReady}
                 containerStyle={containerStyle}
                 >
-                </Map>
+                </Map> */}
             </div>
         </div>
     )

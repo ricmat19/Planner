@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,qBAAqB,AAAA,CACjB,qBAAqB,CAAE,SAAS,CACjC",
+    "mappings": "AAAA,AAAA,qBAAqB,AAAA,CACjB,qBAAqB,CAAE,SAAS,CACnC",
     "sources": [
         "../scss/github.scss"
     ],
