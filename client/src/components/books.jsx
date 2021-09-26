@@ -7,6 +7,7 @@ const BooksC = (props) => {
 
     const [addBooksModal, setAddBooksModal] = useState("modal");
     const [bookCollection, setBookCollection] = useState([]);
+    const [newBook, setNewBook] = useState([]);
     const [apiKey, setAPIKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
 
     const addBooksRef = useRef();
@@ -27,19 +28,27 @@ const BooksC = (props) => {
                 })
 
                 
-                let bookCollection = [];
+                let bookSet = [];
                 const booksResponse = await IndexAPI.get(`/books`);
                 for(let i=0; i < booksResponse.data.data.books.length; i++){
-                    bookCollection.push(booksResponse.data.data.books[i].book)
+                    bookSet.push(booksResponse.data.data.books[i].book)
                 }
 
                 let bookVolumeResponse = []
                 if(props.booksModal === "modal modal-active"){
-                    for(let i=0; i < bookCollection.length; i++){
-                        const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + apiKey)
+                    for(let i=0; i < bookSet.length; i++){
+                        const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookSet[i] + "?key=" + apiKey)
                         bookVolumeResponse.push(bookVolume.data)
                     }
-                    setBookCollection(bookVolumeResponse);
+
+                    console.log(JSON.stringify(bookVolumeResponse))
+                    console.log(JSON.stringify(bookCollection))
+
+
+                    if(JSON.stringify(bookVolumeResponse) !== JSON.stringify(bookCollection)){
+                        setBookCollection(bookVolumeResponse);
+                    }
+
                 }
 
             }catch(err){
@@ -47,11 +56,12 @@ const BooksC = (props) => {
             }
         }
         fetchData();
-    }, [props.booksModal]);
+    }, [props.booksModal, bookCollection, newBook]);
 
     const removeBook = async (book) => { 
         try{
             const response = await IndexAPI.delete(`/books/remove-book/${book}`);
+            setBookCollection(bookCollection)
         }catch(err){
             console.log(err);
         }
@@ -63,7 +73,7 @@ const BooksC = (props) => {
             {/* Day's To Do's */}
             <div className={addBooksModal}>
                 <div ref={addBooksRef} className="modal-content">
-                    <AddBookC/>
+                    <AddBookC setNewBook={newBook => setNewBook(newBook)}/>
                 </div>
             </div>
 

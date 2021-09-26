@@ -121,10 +121,10 @@ const CreateToDoC = (props) => {
                 }
             }
 
-            let bookID = "";
+            let bookURL = "";
             for(let i = 0; i < books.length; i++){
                 if(books[i].volumeInfo.title === book){
-                    bookID = books[i].id;
+                    bookURL = books[i].volumeInfo.previewLink;
                 }
             }
 
@@ -144,7 +144,7 @@ const CreateToDoC = (props) => {
             formData.append('info', info);
             formData.append('fileURL', fileURL);
             formData.append('repoURL', repoURL);
-            formData.append('bookID', bookID);
+            formData.append('bookURL', bookURL);
             formData.append('recipeID', recipeID);
 
             const response = await IndexAPI.post("/planner/add-toDo",
@@ -159,7 +159,7 @@ const CreateToDoC = (props) => {
             dueDateInput.current.value = "";
             infoInput.current.value = "";
 
-            setToDoModal("modal");
+            props.setNewToDo(toDo)
 
         }catch(err){
             console.log(err);

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import IndexAPI from '../apis/indexAPI';
 import BookSearchAPI from '../apis/bookSearchAPI';
 
-const AddBooksC = () => {
+const AddBooksC = (props) => {
 
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -26,6 +26,9 @@ const AddBooksC = () => {
             const response = await IndexAPI.post("/books/add-book",{
                 book,
             });
+
+            props.setNewBook(book)
+
         }catch(err){
             console.log(err);
         }

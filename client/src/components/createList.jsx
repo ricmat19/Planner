@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import IndexAPI from '../apis/indexAPI';
 
-const CreateListC = () => {
+const CreateListC = (props) => {
 
     const [list, setList] = useState("");
     const [listModal, setListModal] = useState("modal");
@@ -14,7 +14,9 @@ const CreateListC = () => {
                 list,
             });
             listInput.current.value = "";
-            setListModal("modal");
+            
+            props.setNewList(list)
+
         }catch(err){
             console.log(err);
         }

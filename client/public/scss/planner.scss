@@ -50,6 +50,12 @@ $solid-border: black 3px solid;
   margin-right: 5px;
 }
 
+.toDo-link-div{
+  grid-template-columns: auto auto;
+  gap: 5px;
+  justify-content: end;
+}
+
 .to-do-item-name{
   align-self: center;
 }
@@ -94,13 +100,13 @@ $solid-border: black 3px solid;
 }
 
 .link-div-file{
-  grid-template-columns: 100px 1fr 50px;
+  grid-template-columns: 100px 400px auto;
 }
 
 .link-div-no-file{
   grid-template-columns: 100px 1fr;
 }
 
-.file-link, .repo-link, .book-link, .recipe-link{
-  text-align: center;
+.link-icon{
+  width: 17px;
 }

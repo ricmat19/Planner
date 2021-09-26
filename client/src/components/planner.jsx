@@ -23,6 +23,9 @@ const ToDoC = () => {
     const [currentMonth, setCurrentMonth] = useState();
     const [modalList, setModalList] = useState('')
 
+    const [newList, setNewList] = useState("")
+    const [newToDo, setNewToDo] = useState("");
+
     const [id, setId] = useState("");
     const [list, setList] = useState("");
     const [toDo, setToDo] = useState("");
@@ -122,7 +125,9 @@ const ToDoC = () => {
                     newToDoArray.push(noDueDateArray[i]);
                 }
                 
-                setToDos(newToDoArray);
+                if(JSON.stringify(toDos) !== JSON.stringify(newToDoArray)){
+                    setToDos(newToDoArray);
+                }
 
                 document.addEventListener("mousedown", (event) => {
                     if(toDoRef.current !== null && listRef.current !== null && editRef.current !== null && deleteListRef.current !== null && deleteToDoRef.current !== null){
@@ -149,7 +154,7 @@ const ToDoC = () => {
             }
         }
         fetchData();
-    }, []);
+    }, [newToDo, newList]);
 
     const handleOnDragEnd = (result) => {
         if(!result.destination){
@@ -164,7 +169,6 @@ const ToDoC = () => {
 
     return(
         <div className="main-body">
-
             {/* Delete List */}
             <div className={deleteListModal}>
                 <form>
@@ -187,7 +191,7 @@ const ToDoC = () => {
             <div className={listModal}>
                 <form>
                     <div ref={listRef} className="modal-content">
-                        <CreateListC/>
+                        <CreateListC setNewList={newList => setNewList(newList)}/>
                     </div>
                 </form>
             </div>
@@ -196,7 +200,7 @@ const ToDoC = () => {
             <div className={toDoModal}>
                 <form>
                     <div ref={toDoRef} className="modal-content">
-                        <CreateToDoC list={list} toDoModal={toDoModal}/>
+                        <CreateToDoC list={list} toDoModal={toDoModal} setNewToDo={newToDo => setNewToDo(newToDo)}/>
                     </div>
                 </form>
             </div>
@@ -205,7 +209,7 @@ const ToDoC = () => {
             <div className={editModal}>
                 <form>
                     <div ref={editRef} className="modal-content">
-                        <EditToDoC editModal={editModal} listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} file={file} repo={repo} book={book} recipe={recipe}/>
+                        <EditToDoC editModal={editModal} listCollection={toDoList} id={id} list={list} toDo={toDo} info={info} dueDate={dueDate} file={file} repo={repo} book={book} recipe={recipe} editToDo={newToDo => setNewToDo(newToDo)}/>
                     </div>
                 </form>
             </div>

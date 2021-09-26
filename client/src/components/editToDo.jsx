@@ -139,10 +139,10 @@ const EditToDoC = (props) => {
                 }
             }
 
-            let bookID = "";
+            let bookURL = "";
             for(let i = 0; i < books.length; i++){
-                if(books[i].volumeInfo.title === book || books[i].id === book){
-                    bookID = books[i].id;
+                if(books[i].volumeInfo.title === book || books[i].volumeInfo.previewLink === book){
+                    bookURL = books[i].volumeInfo.previewLink;
                 }
             }
 
@@ -161,11 +161,11 @@ const EditToDoC = (props) => {
                 info: info,
                 fileURL: fileURL,
                 repoURL: repoURL,
-                bookID: bookID,
+                bookURL: bookURL,
                 recipeID: recipeID,
             });
             
-            setEditModal("modal");
+            props.editToDo(toDo)
             
         }catch(err){
             console.log(err);
@@ -174,7 +174,6 @@ const EditToDoC = (props) => {
 
     return(
         <div className="main-body">
-
             {/* Edit To Do */}
             <div className="grid toDo-modal-grid">
                 <label>To Do</label>
@@ -209,7 +208,10 @@ const EditToDoC = (props) => {
                             )
                         })}
                     </select>
-                    <a className="file-link" href={file} target="_blank">File</a>
+                    <div className="grid toDo-link-div">
+                        <a className="item-button link-icon" href={file} target="_blank"><img src="../images/binoculars-solid.svg"/></a>
+                        <button className="item-button" onClick={e => setFile("")}>X</button>
+                    </div>
                 </div>
             :
                 <div className="grid toDo-modal-grid link-div-no-file">
@@ -235,7 +237,10 @@ const EditToDoC = (props) => {
                             )
                         })}
                     </select>
-                    <a className="repo-link" href={repo} target="_blank">Repo</a>
+                    <div className="grid toDo-link-div">
+                        <a className="item-button link-icon" href={repo} target="_blank"><img src="../images/binoculars-solid.svg"/></a>
+                        <button className="item-button" onClick={e => setRepo("")}>X</button>
+                    </div>
                 </div>
             :
                 <div className="grid toDo-modal-grid link-div-no-file">
@@ -261,7 +266,10 @@ const EditToDoC = (props) => {
                             )
                         })}
                     </select>
-                    <a className="book-link" href={book} target="_blank">Book</a>
+                    <div className="grid toDo-link-div">
+                        <a className="item-button link-icon" href={book} target="_blank"><img src="../images/binoculars-solid.svg"/></a>
+                        <button className="item-button" onClick={e => setBook("")}>X</button>
+                    </div>
                 </div>
             :
                 <div className="grid toDo-modal-grid link-div-no-file">
@@ -287,7 +295,10 @@ const EditToDoC = (props) => {
                             )
                         })}
                     </select>
-                    <a className="recipe-link" href={recipe} target="_blank">Recipe</a>
+                    <div className="grid toDo-link-div">
+                        <a className="item-button link-icon" href={recipe} target="_blank"><img src="../images/binoculars-solid.svg"/></a>
+                        <button className="item-button" onClick={e => setRecipe("")}>X</button>
+                    </div>
                 </div>
             :
                 <div className="grid toDo-modal-grid link-div-no-file">
