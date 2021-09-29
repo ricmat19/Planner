@@ -7,7 +7,8 @@ const BooksC = (props) => {
 
     const [addBooksModal, setAddBooksModal] = useState("modal");
     const [bookCollection, setBookCollection] = useState([]);
-    const [newBook, setNewBook] = useState([]);
+    const [newBook, setNewBook] = useState("");
+    const [deletedBook, setDeletedBook] = useState("");
     const [apiKey, setAPIKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
 
     const addBooksRef = useRef();
@@ -41,10 +42,6 @@ const BooksC = (props) => {
                         bookVolumeResponse.push(bookVolume.data)
                     }
 
-                    console.log(JSON.stringify(bookVolumeResponse))
-                    console.log(JSON.stringify(bookCollection))
-
-
                     if(JSON.stringify(bookVolumeResponse) !== JSON.stringify(bookCollection)){
                         setBookCollection(bookVolumeResponse);
                     }
@@ -56,12 +53,13 @@ const BooksC = (props) => {
             }
         }
         fetchData();
-    }, [props.booksModal, bookCollection, newBook]);
+    }, [props.booksModal, newBook, deletedBook]);
 
     const removeBook = async (book) => { 
         try{
             const response = await IndexAPI.delete(`/books/remove-book/${book}`);
             setBookCollection(bookCollection)
+            setDeletedBook(book)
         }catch(err){
             console.log(err);
         }

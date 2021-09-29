@@ -7,6 +7,8 @@ const RecipesC = (props) => {
 
     const [addRecipesModal, setAddRecipesModal] = useState("modal");
     const [recipes, setRecipes] = useState([]);
+    const [newRecipe, setNewRecipe] = useState("");
+    const [deletedRecipe, setDeletedRecipe] = useState("");
     const [apiKey, setAPIKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
 
     const addRecipesRef = useRef();
@@ -46,11 +48,12 @@ const RecipesC = (props) => {
             }
         }
         fetchData();
-    }, [props.recipeModal]);
+    }, [props.recipeModal, newRecipe, deletedRecipe]);
 
     const removeRecipe = async (recipe) => { 
         try{
             const response = await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
+            setDeletedRecipe(recipe)
         }catch(err){
             console.log(err);
         }
@@ -62,7 +65,7 @@ const RecipesC = (props) => {
             {/* Day's To Do's */}
             <div className={addRecipesModal}>
                     <div ref={addRecipesRef} className="modal-content">
-                        <AddRecipeC/>
+                        <AddRecipeC setNewRecipe={newRecipe => setNewRecipe(newRecipe)}/>
                     </div>
             </div>
 

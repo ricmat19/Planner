@@ -77,7 +77,7 @@ const upload = multer({dest: 'images/'});
 router.post('/planner/add-toDo', upload.single('imgRef'), async (req, res) => {
     try{
         const todo = await db.query("INSERT INTO todos (list, todo, dueDate, info, file, repo, book, recipe) values (?, ?, ?, ?, ?, ?, ?, ?)", 
-        [req.body.list, req.body.toDo, req.body.dueDate, req.body.info, req.body.fileURL, req.body.repoURL, req.body.bookURL, req.body.recipeID]);
+        [req.body.list, req.body.toDo, req.body.dueDate, req.body.info, req.body.fileURL, req.body.repoURL, req.body.bookURL, req.body.recipeURL]);
 
         res.status(201).json({
             status: "success",
@@ -97,7 +97,7 @@ router.put('/planner/edit-toDo', async (req, res) => {
     try{
 
         const todo = await db.query("UPDATE todos SET list=?, todo=?, dueDate=?, info=?, file=?, repo=?, book=?, recipe=? WHERE id=?", 
-        [req.body.list, req.body.toDo, req.body.dueDate, req.body.info, req.body.fileURL, req.body.repoURL, req.body.bookURL, req.body.recipeID, req.body.id]);
+        [req.body.list, req.body.toDo, req.body.dueDate, req.body.info, req.body.fileURL, req.body.repoURL, req.body.bookURL, req.body.recipeURL, req.body.id]);
 
         res.status(201).json({
             status: "success",

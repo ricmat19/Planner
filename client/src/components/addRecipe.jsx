@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import IndexAPI from '../apis/indexAPI';
 import RecipeAPI from'../apis/recipeAPI';
 
-const AddRecipeC = () => {
+const AddRecipeC = (props) => {
 
     const searchInput = useRef(null);
     const [search, setSearch] = useState("");
@@ -32,6 +32,9 @@ const AddRecipeC = () => {
             const response = await IndexAPI.post("/recipes/add-recipe",{
                 recipe,
             });
+
+            props.setNewRecipe(recipe)
+            
         }catch(err){
             console.log(err);
         }

@@ -146,10 +146,10 @@ const EditToDoC = (props) => {
                 }
             }
 
-            let recipeID = "";
+            let recipeURL = "";
             for(let i = 0; i < recipes.length; i++){
-                if(recipes[i].data.title === recipe || recipes[i].data.id === recipe){
-                    recipeID = recipes[i].data.id;
+                if(recipes[i].data.title === recipe || recipes[i].data.spoonacularSourceUrl === recipe){
+                    recipeURL = recipes[i].data.spoonacularSourceUrl;
                 }
             }
 
@@ -162,7 +162,7 @@ const EditToDoC = (props) => {
                 fileURL: fileURL,
                 repoURL: repoURL,
                 bookURL: bookURL,
-                recipeID: recipeID,
+                recipeURL: recipeURL,
             });
             
             props.editToDo(toDo)

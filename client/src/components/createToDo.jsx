@@ -128,10 +128,10 @@ const CreateToDoC = (props) => {
                 }
             }
 
-            let recipeID = "";
+            let recipeURL = "";
             for(let i = 0; i < recipes.length; i++){
                 if(recipes[i].data.title === recipe){
-                    recipeID = recipes[i].data.id;
+                    recipeURL = recipes[i].data.spoonacularSourceUrl;
                 }
             }
 
@@ -145,7 +145,7 @@ const CreateToDoC = (props) => {
             formData.append('fileURL', fileURL);
             formData.append('repoURL', repoURL);
             formData.append('bookURL', bookURL);
-            formData.append('recipeID', recipeID);
+            formData.append('recipeURL', recipeURL);
 
             const response = await IndexAPI.post("/planner/add-toDo",
                 formData,
