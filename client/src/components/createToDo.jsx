@@ -167,27 +167,27 @@ const CreateToDoC = (props) => {
     }
 
     return(
-        <div className="main-body">
+        <div>
             {/* Create To Do */}
             <div className="grid toDo-modal-grid">
                 <label>To Do</label>
-                <input className="modal-header title" ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
+                <input className="title" ref={toDoInput} onChange={e => setToDo(e.target.value)} type="text" name="todo" required/>
             </div>
             <div className="grid toDo-modal-grid">
                 <label>List</label>
-                <div className="modal-header">{props.list}</div>
+                <div>{props.list}</div>
             </div>
             <div className="grid toDo-modal-grid">
                 <label>Description</label>
-                <textarea className="modal-header info" value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
+                <textarea value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} type="text" name="info"/>
             </div>
             <div className="grid toDo-modal-grid">
                 <label>Due Date</label>
-                <input className="modal-header due-date" value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
+                <input value={dueDate} ref={dueDateInput} onChange={e => setDueDate(e.target.value)} type="date" name="dueDate"/>
             </div>
             <div className="grid toDo-modal-grid">
                 <label>File</label>
-                <select className="modal-header" value={file} onChange={e => setFile(e.target.value)}>
+                <select value={file} onChange={e => setFile(e.target.value)}>
                     <option value="" disabled>Select a File...</option>
                     {files.map((file, index) => {
                         return(
@@ -198,7 +198,7 @@ const CreateToDoC = (props) => {
             </div>
             <div className="grid toDo-modal-grid">
                 <label>Repo</label>
-                <select className="modal-header" value={repo} onChange={e => setRepo(e.target.value)}>
+                <select value={repo} onChange={e => setRepo(e.target.value)}>
                     <option value="" disabled>Select a Repo...</option>
                     {repos.map((repo, index) => {
                         return(
@@ -209,7 +209,7 @@ const CreateToDoC = (props) => {
             </div>
             <div className="grid toDo-modal-grid">
                 <label>Book</label>
-                <select className="modal-header" value={book} onChange={e => setBook(e.target.value)}>
+                <select value={book} onChange={e => setBook(e.target.value)}>
                     <option value="" disabled>Select a Book...</option>
                     {books.map((book, index) => {
                         return(
@@ -220,7 +220,7 @@ const CreateToDoC = (props) => {
             </div>
             <div className="grid toDo-modal-grid">
                 <label>Recipe</label>
-                <select className="modal-header" value={recipe} onChange={e => setRecipe(e.target.value)}>
+                <select value={recipe} onChange={e => setRecipe(e.target.value)}>
                     <option value="" disabled>Select a Recipe...</option>
                     {recipes.map((recipe, index) => {
                         return(

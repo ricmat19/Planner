@@ -170,14 +170,6 @@ button{
   gap: 10px;
 }
 
-.search-image{
-  width: 100%;
-}
-
-.search-thumbnail{
-  padding: 5px;
-}
-
 .search-results{
   grid-template-columns: 120px auto 90px 90px;
 }
@@ -187,6 +179,14 @@ button{
   max-height: 415px;
   overflow: auto;
   padding: 10px;
+}
+
+.search-thumbnail{
+  padding: 5px;
+}
+
+.search-image{
+  width: 100%;
 }
 
 @import 'planner';

@@ -38,13 +38,13 @@ const GitHubC = (props) => {
     }
 
     return(
-        <div className="main-body">
+        <div>
             <div className="title">GitHub</div>
             <div className="grid github-nav">
                     <div className="sub-title" onClick={displayRepos}>Repos</div>
                     <div className="sub-title" onClick={displayUser}>User</div>
             </div>
-            <div className="repo-list">
+            <div>
                 {userDisplay ?
                     <div>
                         <div className="grid github-user-info-div">
@@ -77,7 +77,7 @@ const GitHubC = (props) => {
                         return(
                             <div key={repo.id} >
                                 <div className="github-repo-div">
-                                    <div className="align-left min-width">{repo.name}</div>
+                                    <div className="align-left">{repo.name}</div>
                                     <div className="align-left">{repo.language}</div>
                                     <a className="align-right" href={repo.html_url} target="_blank">
                                         <div className="align-right">Repo</div>

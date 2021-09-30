@@ -50,7 +50,7 @@ const GoogleDriveC = (props) => {
     }
 
     return(
-        <div className="main-body">
+        <div>
             <div className="grid grid-center">
                 <div className="title">Google Drive</div>
                 <div className="grid google-drive-nav">

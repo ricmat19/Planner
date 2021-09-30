@@ -79,24 +79,24 @@ const BooksC = (props) => {
                 <button onClick={displayaddBookModal} className="item-button">
                     <img src="../images/plus-solid-white.svg"/>
                 </button>
-                <div className="title book-collection-title">Book Collection</div>
+                <div className="title">Book Collection</div>
                 <div className="search-results-container">
                     {bookCollection.map(book => {
                         return(
                             <div key={book.id} className="grid grid-center">
-                                <div className="book-result">
+                                <div>
                                     <div className="grid search-results">
                                         <div className="search-thumbnail">
                                             <img className="search-image" src={book.volumeInfo.imageLinks !== undefined ? book.volumeInfo.imageLinks.thumbnail : ""} alt={book.volumeInfo.title}/>
                                         </div>
-                                        <div className="book-labels-container">
+                                        <div>
                                             <div className="grid book-info-div">
-                                                <div className="book-label">Title:</div>
-                                                <div className="book-info">{book.volumeInfo.title}</div>
+                                                <div>Title:</div>
+                                                <div>{book.volumeInfo.title}</div>
                                             </div>
                                             <div className="grid book-info-div">
-                                                <div className="book-label">Author(s):</div>
-                                                <div className="book-info">
+                                                <div>Author(s):</div>
+                                                <div>
                                                     {book.volumeInfo.authors && book.volumeInfo.authors.map((author, index) => (
                                                         <div key={index}>
                                                             {author}
@@ -105,8 +105,8 @@ const BooksC = (props) => {
                                                 </div>
                                             </div>
                                             <div className="grid book-info-div">
-                                                <div className="book-label">Categories(s):</div>
-                                                <div className="book-info">
+                                                <div>Categories(s):</div>
+                                                <div>
                                                     {book.volumeInfo.categories && book.volumeInfo.categories.map((category, index) => (
                                                         <div key={index}>
                                                             {category}
@@ -115,17 +115,17 @@ const BooksC = (props) => {
                                                 </div>
                                             </div>
                                             <div className="grid book-info-div">
-                                                <div className="book-label">Desc:</div>
-                                                <div className="book-info"><a href={book.volumeInfo.infoLink} target="_blank">Info</a></div>
+                                                <div>Desc:</div>
+                                                <div><a href={book.volumeInfo.infoLink} target="_blank">Info</a></div>
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="book-price">
+                                            <div>
                                                 {book.saleInfo.listPrice !== undefined ?
                                                 book.saleInfo.listPrice.amount : "Unknown"}
                                             </div>
                                         </div>
-                                        <div className="add-button">
+                                        <div>
                                             <button className="form-button" onClick={e => removeBook(book.id)}>Remove</button>
                                         </div>
                                     </div>

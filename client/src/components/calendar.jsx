@@ -149,7 +149,7 @@ const CalendarC = () => {
     }, [toDos, nav]);
 
     return(
-        <div className="main-body">
+        <div>
 
             {/* Day's To Do's */}
             <div className={daysToDosModal}>
@@ -162,51 +162,51 @@ const CalendarC = () => {
 
             <div className="grid grid-center">
                 <div className="grid month-row">
-                    <div className="back-div">
+                    <div>
                         <button onClick={() => setNav(nav - 1)} className="month-back">
                             <img src="../images/angle-left-solid.svg"/>
                         </button>
                     </div>
                     <div className="title month-title">{dateDisplay}</div>
-                    <div className="forward-div">
+                    <div>
                         <button onClick={() => setNav(nav + 1)} className="month-forward">
                             <img src="../images/angle-right-solid.svg"/>
                         </button>
                     </div>
                 </div>
                 <div className="day-names">
-                    <div className="day day-name">Sun</div>
-                    <div className="day day-name">Mon</div>
-                    <div className="day day-name">Tue</div>
-                    <div className="day day-name">Wed</div>
-                    <div className="day day-name">Thur</div>
-                    <div className="day day-name">Fri</div>
-                    <div className="day day-name">Sat</div>
+                    <div className="day-name">Sun</div>
+                    <div className="day-name">Mon</div>
+                    <div className="day-name">Tue</div>
+                    <div className="day-name">Wed</div>
+                    <div className="day-name">Thur</div>
+                    <div className="day-name">Fri</div>
+                    <div className="day-name">Sat</div>
                 </div>
                 <div className="title day-boxes">
                     {days.map((day, index) => (
                         <div key={index}>
                             {day.value === 'padding' ? '' 
                             : day.toDo.length > 0 && day.date === day.today ?
-                                <div className="day day-box day-box-task-today" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                <div className="day-box day-box-task-today" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
                                     <div onClick={() => displayToDoModal(day)} className="center-num">
                                         {day.value}
                                     </div>
                                 </div>
                             : day.date === day.today ?
-                                <div className="day day-box day-today" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                <div className="day-box day-today" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
                                     <div onClick={() => displayToDoModal(day)} className="center-num">
                                         {day.value}
                                     </div>
                                 </div>
                             : day.toDo.length > 0 ?
-                                <div className="day day-box day-box-task" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                <div className="day-box day-box-task" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
                                     <div onClick={() => displayToDoModal(day)} className="center-num">
                                         {day.value}
                                     </div>
                                 </div>
                             :                         
-                                <div className="day day-box" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
+                                <div className="day-box" onClick={() => {day.value !== "padding" ? setClicked(day.date) : setClicked("")}}>
                                     <div onClick={() => displayToDoModal(day)} className="center-num">
                                         {day.value}
                                     </div>

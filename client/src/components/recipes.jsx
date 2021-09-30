@@ -60,7 +60,7 @@ const RecipesC = (props) => {
     };
 
     return(
-        <div className="main-body">
+        <div>
 
             {/* Day's To Do's */}
             <div className={addRecipesModal}>
@@ -73,16 +73,16 @@ const RecipesC = (props) => {
                 <button onClick={displayAddRecipeModal} className="item-button">
                     <img src="../images/plus-solid-white.svg"/>
                 </button>
-                <div className="title recipe-collection-title">Recipe Collection</div>
-                <div className="recipe-collection-container">
+                <div className="title">Recipe Collection</div>
+                <div>
                     {recipes.map(recipe => {
                         return(
                             <div key={recipe.data.id} className="grid grid-center">
-                                <div className="recipe-result">
-                                    <div className="sub-title meal-title">{recipe.data.title}</div>
+                                <div>
+                                    <div className="sub-title">{recipe.data.title}</div>
                                     <div className="grid recipe-info-div">
                                         <div>
-                                            <div className="">Ingredients</div>
+                                            <div>Ingredients</div>
                                             <ul>
                                             {recipe.data.extendedIngredients.map((ingredient, index) => (
                                                 <div className="recipe-ingredients" key={index}>
@@ -92,14 +92,14 @@ const RecipesC = (props) => {
                                             </ul>
                                         </div>
                                         <div>
-                                            <div className="">Steps</div>
+                                            <div>Steps</div>
                                             {recipe.data.analyzedInstructions[0].steps.map((step, index) => (
                                                 <div className="recipe-steps" key={index}>
                                                     <div>{index + 1}. {step.step}</div>
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="meal-image-div">
+                                        <div>
                                             <div className="recipe-button-div">
                                                 <button className="form-button" onClick={e => removeRecipe(recipe.data.id)}>Remove</button>
                                             </div>

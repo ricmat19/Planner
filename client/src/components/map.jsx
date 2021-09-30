@@ -93,10 +93,10 @@ export const MapC = (props) => {
     };
 
     return(
-        <div className="main-body">
+        <div>
             <div className="grid map-modal-container">
                 <div className="map-directions-container">
-                    <div className="pac-card map-direction-div" id="pac-card">
+                    <div className="map-direction-div">
                         <label>Destination</label>
                         <input id="pac-input" type="text" onChange={e => setEnd(e.target.value)}/>
                     </div>

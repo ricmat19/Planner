@@ -32,7 +32,7 @@ const CalendarToDoC = (props) => {
 
     if(daysToDos){
         return(
-            <div className="main-body">
+            <div>
                 <div className="title">{month}/{day}/{year}</div>
                 <div className="grid">
                     {daysToDos.map((todo, index) => (
@@ -45,7 +45,7 @@ const CalendarToDoC = (props) => {
         )
     }else{
         return(
-            <div className="main-body">
+            <div>
 
             </div>
         )

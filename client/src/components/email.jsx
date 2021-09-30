@@ -35,30 +35,30 @@ const EmailC = () => {
     }
 
     return(
-        <div className="main-body">
-            <div className="center">
+        <div>
+            <div>
                 <p className="title">Email</p>
             </div>
-            <div className="form-div">
-                <form className="contact-form" method="POST" action="/email">
+            <div>
+                <form method="POST" action="/email">
                     <div className="grid email-modal-grid">
                         <label>name</label>
-                        <input type="text" ref={nameInput} onChange={e => setName(e.target.value)} name="name" className="modal-header"/>
+                        <input type="text" ref={nameInput} onChange={e => setName(e.target.value)} name="name"/>
                     </div>
                     <div className="grid email-modal-grid">
                         <label>email</label>
-                        <input type="email" ref={emailInput} onChange={e => setEmail(e.target.value)} name="email" className="modal-header" required/>
+                        <input type="email" ref={emailInput} onChange={e => setEmail(e.target.value)} name="email" required/>
                     </div>
                     <div className="grid email-modal-grid">
                         <label>subject</label>
-                        <input type="text" ref={subjectInput} onChange={e => setSubject(e.target.value)} name="subject" className="modal-header" required/>
+                        <input type="text" ref={subjectInput} onChange={e => setSubject(e.target.value)} name="subject" required/>
                     </div>
                     <div className="grid email-modal-grid">
                         <label>message</label>
-                        <textarea className="modal-header" name="message" ref={messageInput} onChange={e => setMessage(e.target.value)} rows="10" required></textarea>
+                        <textarea name="message" ref={messageInput} onChange={e => setMessage(e.target.value)} rows="10" required></textarea>
                     </div>
                     <div>
-                        <button onClick={handleSubmit} type="submit" className="btn form-button">submit</button>
+                        <button onClick={handleSubmit} type="submit" className="form-button">submit</button>
                     </div>
                 </form>
             </div>

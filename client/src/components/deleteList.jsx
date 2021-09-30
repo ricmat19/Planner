@@ -17,11 +17,11 @@ const DeleteListC = (props) => {
     };
 
     return(
-        <div className="main-body">
+        <div>
 
             {/* Delete List */}
             <div>
-                <label className="">Are you sure you want to delete this list?</label>
+                <label>Are you sure you want to delete this list?</label>
             </div>
             <div>
                 <button className="delete form-button" onClick={() => deleteList(props.deletedList)}>Delete</button>

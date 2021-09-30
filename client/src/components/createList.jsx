@@ -22,14 +22,14 @@ const CreateListC = (props) => {
         }
     };
     return(
-        <div className="main-body" >
+        <div>
 
             {/* Create List */}
             <div className="grid">
                 <label className="title">List</label>
             </div>
             <div className="grid">
-                <input className="modal-header" value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list"/>
+                <input value={list} ref={listInput} onChange={e => setList(e.target.value)} type="text" name="list"/>
             </div>
             <div>
                 <button className="form-button" onClick={createList}>Save</button>

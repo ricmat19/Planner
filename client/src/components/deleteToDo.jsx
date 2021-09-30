@@ -17,11 +17,11 @@ const DeleteToDoC = (props) => {
     };
 
     return(
-        <div className="main-body">
+        <div>
 
             {/* Delete To Do */}
             <div>
-                <label className="">Are you sure you want to delete this to do?</label>
+                <label>Are you sure you want to delete this to do?</label>
             </div>
             <div>
                 <button className="delete form-button" onClick={() => deleteToDo(props.deletedToDo)}>Delete</button>

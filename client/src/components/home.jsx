@@ -98,7 +98,7 @@ const NavbarC = () => {
     }, []);
 
     return(
-        <div className="main-body">
+        <div>
 
             <div className={calculatorModal}>
                 <div ref={calculatorRef} className="modal-content">
@@ -121,7 +121,7 @@ const NavbarC = () => {
                 </div>
             </div>
             <div className={driveModal}>
-                <div ref={driveRef} className="modal-content google-drive-modal">
+                <div ref={driveRef} className="modal-content">
                     <GoogleDriveC driveModal={driveModal} driveRef={driveRef}/>
                 </div>
             </div>

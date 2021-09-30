@@ -41,13 +41,13 @@ const AddRecipeC = (props) => {
     };
 
     return(
-        <div className="main-body">
+        <div>
             <div className="grid grid-center">
                 <form>
                     <div className="grid search-form">
                         <div className="title">Search for a Recipe</div>
                         <div className="grid">
-                            <input className="modal-header" ref={searchInput} onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search..."/>
+                            <input ref={searchInput} onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search..."/>
                         </div>
                         <div>
                             <button className="form-button" onClick={searchRecipes}>Search</button>
@@ -56,28 +56,28 @@ const AddRecipeC = (props) => {
                 </form>
                 <div className="search-results-container">
                     {searchResults.map(result => (
-                        <div className="recipe-result" key={result.data.id}>
-                            <div className="sub-title meal-title">{result.data.title}</div>
-                            <div className="grid recipe-info-div">
+                        <div key={result.data.id}>
+                            <div className="sub-title">{result.data.title}</div>
+                            <div className="grid">
                                 <div>
-                                    <div className="">Ingredients</div>
+                                    <div>Ingredients</div>
                                     <ul>
                                     {result.data.extendedIngredients.map((ingredient, index) => (
-                                        <div className="recipe-ingredients" key={index}>
+                                        <div key={index}>
                                             <li>{ingredient.nameClean} {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}</li>
                                         </div>
                                     ))}
                                     </ul>
                                 </div>
                                 <div>
-                                    <div className="">Steps</div>
+                                    <div>Steps</div>
                                     {result.data.analyzedInstructions[0].steps.map((step, index) => (
                                         <div className="recipe-steps" key={index}>
                                             <div>{index + 1}. {step.step}</div>
                                         </div>
                                     ))}
                                 </div>
-                                <div className="meal-image-div">
+                                <div>
                                     <div className="recipe-button-div">
                                         <button className="form-button" onClick={e => saveRecipe(result.data.id)}>Add</button>
                                     </div>

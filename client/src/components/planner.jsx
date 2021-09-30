@@ -168,7 +168,7 @@ const ToDoC = () => {
     }
 
     return(
-        <div className="main-body">
+        <div>
             {/* Delete List */}
             <div className={deleteListModal}>
                 <form>
@@ -221,13 +221,13 @@ const ToDoC = () => {
                         <div key={list} className="grid grid-center container list-container">
                             <div onClick={() => displayDeleteListModal(list)} className="delete delete-list">X</div>
                             <div className="title">{list}</div>
-                            <div className="grid input-div to-do-button-div">
+                            <div className="grid to-do-button-div">
                                 <button onClick={() => displayToDoModal(list)} className="to-do-button">
-                                    <img className="nav-buttons" src="../images/pencil-alt-solid.svg"/>
+                                    <img src="../images/pencil-alt-solid.svg"/>
                                 </button>
                             </div>
                             <div className="grid to-do-list">
-                                <div className="to-do-div">
+                                <div>
                                     {toDos.map((toDo, index) => {
                                         if(list === toDo.list && toDo.dueDate === currentDay){
                                             return(
@@ -296,7 +296,7 @@ const ToDoC = () => {
                 {/* Add List */}
                 <div className="grid grid-center add-list-container">
                     <button onClick={displayListModal} className="title add-list-button">
-                        <img className="add-list-image" src="../images/plus-solid-black.svg"/>
+                        <img src="../images/plus-solid-black.svg"/>
                         <div>Add a List</div>
                     </button>
                 </div>
