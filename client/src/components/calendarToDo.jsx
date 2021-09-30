@@ -7,6 +7,7 @@ const CalendarToDoC = (props) => {
     const [day, setDay] = useState('')
     const [daysToDos, setDaysToDos] = useState([])
 
+    //Display days to dos from calendar day
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{

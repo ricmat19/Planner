@@ -13,49 +13,49 @@ const NavbarC = () => {
 
     const [calculatorModal, setCalculatorModal] = useState("modal");
     const calculatorRef = useRef();
-    const displayCalculator = () => {
+    const displayCalculatorModal = () => {
         setCalculatorModal("modal modal-active");
     };
 
     const [calendarModal, setCalendarModal] = useState("modal");
     const calendarRef = useRef();
-    const displayCalendar = () => {
+    const displayCalendarModal = () => {
         setCalendarModal("modal modal-active");
     };
 
     const [booksModal, setBooksModal] = useState("modal");
     const booksRef = useRef();
-    const displayBooks = () => {
+    const displayBooksModal = () => {
         setBooksModal("modal modal-active");
     };
 
     const [mapModal, setMapModal] = useState("modal");
     const mapRef = useRef();
-    const displayMap = () => {
+    const displayMapModal = () => {
         setMapModal("modal modal-active");
     };
 
     const [driveModal, setDriveModal] = useState("modal");
     const driveRef = useRef();
-    const displayDrive = () => {
+    const displayDriveModal = () => {
         setDriveModal("modal modal-active");
     };
 
     const [githubModal, setGithubModal] = useState("modal");
     const githubRef = useRef();
-    const displayGitHub = () => {
+    const displayGitHubModal = () => {
         setGithubModal("modal modal-active");
     };
 
     const [recipeModal, setRecipeModal] = useState("modal");
     const recipeRef = useRef();
-    const displayRecipes = () => {
+    const displayRecipesModal = () => {
         setRecipeModal("modal modal-active");
     };
 
     const [emailModal, setEmailModal] = useState("modal");
     const emailRef = useRef();
-    const displayEmail = () => {
+    const displayEmailModal = () => {
         setEmailModal("modal modal-active");
     };
 
@@ -143,42 +143,42 @@ const NavbarC = () => {
 
             <nav className="grid nav-div">
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayEmail}>
+                    <div className="nav-item-anchor" onClick={displayEmailModal}>
                         <img src="../images/envelope-solid.svg"/>
                     </div>
                 </span>
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayRecipes}>
+                    <div className="nav-item-anchor" onClick={displayRecipesModal}>
                         <img src="../images/utensils-solid.svg"/>
                     </div>
                 </span>
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayGitHub}>
+                    <div className="nav-item-anchor" onClick={displayGitHubModal}>
                         <img src="../images/github-square-brands.svg"/>
                     </div>
                 </span>
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayDrive}>
+                    <div className="nav-item-anchor" onClick={displayDriveModal}>
                         <img src="../images/folder-open-solid.svg"/>
                     </div>
                 </span>
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayMap}>
+                    <div className="nav-item-anchor" onClick={displayMapModal}>
                         <img src="../images/map-marked-alt-solid.svg"/>
                     </div>
                 </span>
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayBooks}>
+                    <div className="nav-item-anchor" onClick={displayBooksModal}>
                         <img src="../images/book-solid.svg"/>
                     </div>
                 </span>
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayCalendar}>
+                    <div className="nav-item-anchor" onClick={displayCalendarModal}>
                         <img src="../images/calendar-alt-solid.svg"/>
                     </div>
                 </span>
                 <span className="nav-item">
-                    <div className="nav-item-anchor" onClick={displayCalculator}>
+                    <div className="nav-item-anchor" onClick={displayCalculatorModal}>
                         <img src="../images/calculator-solid.svg"/>
                     </div>
                 </span>

@@ -13,12 +13,11 @@ const GitHubC = (props) => {
             try{
 
                 if(props.githubModal === "modal modal-active"){
+                    ///Get repo data from GitHub API
                     const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
-                    
                     setRepos(githubRepoResponse.data)
-
+                    //Get user data from GitHub API
                     const githubUserResponse = await GitHubAPI.get("https://api.github.com/users/" + username)
-
                     setUser(githubUserResponse.data)
                 }
 

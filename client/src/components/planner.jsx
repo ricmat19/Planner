@@ -100,18 +100,22 @@ const ToDoC = () => {
                 setCurrentDay(currentDayString)
                 setCurrentMonth(todayMonthString)
 
+                //Get a list of the lists in the DB
                 const listResponse = await IndexAPI.get(`/lists`);
                 for(let i=0; i < listResponse.data.data.lists.length; i++){
                     listArray.push(listResponse.data.data.lists[i].list)
                 }
                 setToDoList(listArray);
 
+                //Get a list of the to dos in the DB
                 const toDosResponse = await IndexAPI.get(`/planner`);
                 for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
                     toDosArray.push(toDosResponse.data.data.toDos[i])
                 }
+                //Sort the to dos by date
                 toDosArray.sort((a, b) => (a.dueDate > b.dueDate) ? 1 : -1)
 
+                //Move the to dos with no due date to the bottom of the list
                 const newToDoArray = [];
                 const noDueDateArray = [];
                 for(let i=0; i < toDosArray.length; i++){
@@ -156,16 +160,16 @@ const ToDoC = () => {
         fetchData();
     }, [newToDo, newList]);
 
-    const handleOnDragEnd = (result) => {
-        if(!result.destination){
-            return;
-        }
-        const items = Array.from(toDos);
-        const [reorderItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderItem);
+    // const handleOnDragEnd = (result) => {
+    //     if(!result.destination){
+    //         return;
+    //     }
+    //     const items = Array.from(toDos);
+    //     const [reorderItem] = items.splice(result.source.index, 1);
+    //     items.splice(result.destination.index, 0, reorderItem);
 
-        setToDos(items)
-    }
+    //     setToDos(items)
+    // }
 
     return(
         <div>

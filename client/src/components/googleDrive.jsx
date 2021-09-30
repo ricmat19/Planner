@@ -10,6 +10,7 @@ const GoogleDriveC = (props) => {
         const fetchData = async (req, res) => {
             try{
 
+                //Get a list of all files from the Google Drive API and add a url key:value pair for each file
                 if(props.driveModal === "modal modal-active"){
                     const googleDriveResponse = await IndexAPI.get(`/files`);
                     for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
@@ -61,10 +62,10 @@ const GoogleDriveC = (props) => {
                     <div className="sub-title" onClick={() => displayFiles("pdfs")}>PDFs</div>
                 </div>
                 <div className="grid search-results-container file-grid">
-                    {files.map(file => {
+                    {files.map((file, index) => {
                         if(file.mimeType === 'application/vnd.google-apps.spreadsheet' && fileType === "sheets"){
                             return(
-                                <div>
+                                <div key={index}>
                                     <a href={file.url} target="_blank">
                                         <div key={file.id} className="file-div">
                                             <div className="file-image-div">

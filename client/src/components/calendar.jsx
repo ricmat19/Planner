@@ -14,6 +14,7 @@ const CalendarC = () => {
 
     const daysToDosRef = useRef();
 
+    //Get a list of the days to dos
     const toDoForDate = (date) => {
         let daysToDos = [];
         for(let i = 0; i < toDos.length; i++){
@@ -52,6 +53,7 @@ const CalendarC = () => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
+                //Get a list of all of the todos in the DB
                 const toDosResponse = await IndexAPI.get(`/planner`);
                 for(let i=0; i < toDosResponse.data.data.toDos.length; i++){
                     toDosArray.push(toDosResponse.data.data.toDos[i])
@@ -64,6 +66,7 @@ const CalendarC = () => {
         fetchData();
     }, []);
 
+    //Setup Calendar
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{

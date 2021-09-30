@@ -84,56 +84,56 @@ const CalculatorC = () => {
     }
     
 
-    const keyPress = (e) => {
-        if(e.key === 48){
-            enterEqual("0")
-        }
-        if(e.key === 49){
-            enterEqual("1")
-        }
-        if(e.key === 50){
-            enterEqual("2")
-        }
-        if(e.key === 51){
-            enterEqual("3")
-        }
-        if(e.key === 52){
-            enterEqual("4")
-        }
-        if(e.key === 53){
-            enterEqual("5")
-        }
-        if(e.key === 54){
-            enterEqual("6")
-        }
-        if(e.key === 55){
-            enterEqual("7")
-        }
-        if(e.key === 56){
-            enterEqual("8")
-        }
-        if(e.key === 57){
-            enterEqual("9")
-        }
-        if(e.key === 187){
-            equation("+")
-        }
-        if(e.key === 189){
-            equation("-")
-        }
-        if(e.key === 88){
-            equation("*")
-        }
-        if(e.key === 191){
-            equation("/")
-        }
-        if(e.key === 13){
-            enterEqual()
-        }
-        if(e.key === 8 || e.key === 46){
-            enterClear()
-        }
-    };
+    // const keyPress = (e) => {
+    //     if(e.key === 48){
+    //         enterEqual("0")
+    //     }
+    //     if(e.key === 49){
+    //         enterEqual("1")
+    //     }
+    //     if(e.key === 50){
+    //         enterEqual("2")
+    //     }
+    //     if(e.key === 51){
+    //         enterEqual("3")
+    //     }
+    //     if(e.key === 52){
+    //         enterEqual("4")
+    //     }
+    //     if(e.key === 53){
+    //         enterEqual("5")
+    //     }
+    //     if(e.key === 54){
+    //         enterEqual("6")
+    //     }
+    //     if(e.key === 55){
+    //         enterEqual("7")
+    //     }
+    //     if(e.key === 56){
+    //         enterEqual("8")
+    //     }
+    //     if(e.key === 57){
+    //         enterEqual("9")
+    //     }
+    //     if(e.key === 187){
+    //         equation("+")
+    //     }
+    //     if(e.key === 189){
+    //         equation("-")
+    //     }
+    //     if(e.key === 88){
+    //         equation("*")
+    //     }
+    //     if(e.key === 191){
+    //         equation("/")
+    //     }
+    //     if(e.key === 13){
+    //         enterEqual()
+    //     }
+    //     if(e.key === 8 || e.key === 46){
+    //         enterClear()
+    //     }
+    // };
 
     return(
         <div>

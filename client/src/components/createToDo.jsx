@@ -36,6 +36,7 @@ const CreateToDoC = (props) => {
         const fetchData = async (req, res) => {
             try{
 
+                //Get a list of all files from the Google Drive API and add a url key:value pair for each file
                 if(props.toDoModal === "modal modal-active"){
                     const googleDriveResponse = await IndexAPI.get(`/files`);
                     for(let i = 0; i < googleDriveResponse.data.data.files.length; i++){
@@ -62,15 +63,18 @@ const CreateToDoC = (props) => {
                     }
                     setFiles(googleDriveResponse.data.data.files)
 
+                    //Get repo data from GitHub API
                     const githubRepoResponse = await GitHubAPI.get("https://api.github.com/users/" + username + "/repos")
                     setRepos(githubRepoResponse.data);
 
+                    //Get the list of books in DB
                     let bookCollection = [];
                     const booksResponse = await IndexAPI.get(`/books`);
                     for(let i=0; i < booksResponse.data.data.books.length; i++){
                         bookCollection.push(booksResponse.data.data.books[i].book)
                     }
 
+                    //Request all data from Google Books API pertaining to the list of books
                     let bookVolumeResponse = []
                     for(let i=0; i < bookCollection.length; i++){
                         const bookVolume = await BookSelectAPI.get("https://www.googleapis.com/books/v1/volumes/" + bookCollection[i] + "?key=" + googleBooksKey)
@@ -78,12 +82,14 @@ const CreateToDoC = (props) => {
                     }
                     setBooks(bookVolumeResponse);
 
+                    //Get the list of recipes in the DB
                     let recipes = [];
                     const recipesResponse = await IndexAPI.get(`/recipes`);
                     for(let i=0; i < recipesResponse.data.data.recipes.length; i++){
                         recipes.push(recipesResponse.data.data.recipes[i].recipe)
                     }
     
+                    //Request all data from Recipe API pertaining to the list of recipes
                     const recipeArray = [];
                     for(let i=0; i < recipes.length; i++){
                         const recipeInfo = await RecipeAPI.get("https://api.spoonacular.com/recipes/" + recipes[i] + "/information?apiKey=" + recipeKey)

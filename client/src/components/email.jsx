@@ -13,7 +13,7 @@ const EmailC = () => {
     const subjectInput = useRef(null);
     const messageInput = useRef(null);
 
-    const handleSubmit = async (e) => {
+    const submitEmail = async (e) => {
         e.preventDefault()
         try{
             const response = await IndexAPI.post("/email", {
@@ -58,7 +58,7 @@ const EmailC = () => {
                         <textarea name="message" ref={messageInput} onChange={e => setMessage(e.target.value)} rows="10" required></textarea>
                     </div>
                     <div>
-                        <button onClick={handleSubmit} type="submit" className="form-button">submit</button>
+                        <button onClick={submitEmail} type="submit" className="form-button">submit</button>
                     </div>
                 </form>
             </div>
