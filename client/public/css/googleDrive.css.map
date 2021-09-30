@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,iBAAiB,AAAA,CACb,qBAAqB,CAAE,wBAAwB,CAC/C,GAAG,CAAE,IAAI,CACZ,AAED,AAAA,UAAU,AAAA,CACN,qBAAqB,CAAE,iBAAiB,CACxC,eAAe,CAAE,MAAM,CAC1B,AAED,AAAA,SAAS,AAAA,CACL,OAAO,CAAE,IAAI,CACb,aAAa,CAAE,MAAM,CACrB,MAAM,CAAE,IACZ,CAAC,AAED,AAAA,eAAe,AAAA,CACX,SAAS,CAAE,IAAI,CAClB",
-    "sources": [
-        "../scss/googleDrive.scss"
-    ],
-    "names": [],
-    "file": "googleDrive.css"
-}

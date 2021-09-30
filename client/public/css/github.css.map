@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,qBAAqB,AAAA,CACjB,qBAAqB,CAAE,SAAS,CAChC,GAAG,CAAE,KAAK,CACb,AAED,AAAA,gBAAgB,AAAA,CACZ,OAAO,CAAE,IAAI,CACb,qBAAqB,CAAE,gBAAgB,CAC1C,AAED,AAAA,WAAW,AAAA,CACP,eAAe,CAAE,MAAM,CACvB,qBAAqB,CAAE,SAAS,CAChC,GAAG,CAAE,IAAI,CACZ",
-    "sources": [
-        "../scss/github.scss"
-    ],
-    "names": [],
-    "file": "github.css"
-}

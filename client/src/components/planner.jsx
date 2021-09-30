@@ -215,7 +215,7 @@ const ToDoC = () => {
             </div>
 
             {/* To Do Lists */}
-            <div className="grid grid-center align-horizontal">
+            <div className="grid-center align-horizontal">
                 {toDoList.map(list => {
                     return(
                         <div key={list} className="grid grid-center container list-container">
@@ -294,7 +294,7 @@ const ToDoC = () => {
                 })}
                 
                 {/* Add List */}
-                <div className="grid grid-center container add-list-container">
+                <div className="grid grid-center add-list-container">
                     <button onClick={displayListModal} className="title add-list-button">
                         <img className="add-list-image" src="../images/plus-solid-black.svg"/>
                         <div>Add a List</div>

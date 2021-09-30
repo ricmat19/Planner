@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,gBAAgB,AAAA,CACd,qBAAqB,CAAE,iBAAiB,CACxC,GAAG,CAAE,IAAI,CACT,UAAU,CAAE,IAAI,CAChB,MAAM,CAAE,GAAG,CACZ,AAED,AAAA,aAAa,CAAE,mBAAmB,AAAA,CAChC,MAAM,CAAE,MAAM,CACf,AAED,AAAA,WAAW,AAAA,CACT,SAAS,CAAE,IAAI,CAChB,AAED,AAAA,kBAAkB,AAAA,CAChB,UAAU,CAAE,KAAK,CACjB,MAAM,CAAE,aAAa,CACtB",
-    "sources": [
-        "../scss/recipe.scss"
-    ],
-    "names": [],
-    "file": "recipe.css"
-}

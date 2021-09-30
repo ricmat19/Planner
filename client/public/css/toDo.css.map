@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "../../client/public/scss/toDo.scss"
-    ],
-    "names": [],
-    "file": "toDo.css"
-}

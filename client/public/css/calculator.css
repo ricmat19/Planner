@@ -1,2 +1,0 @@
-.calculator-input-div{margin:20px 0;justify-content:center}.calculator{grid-template-columns:repeat(4, 80px);gap:3px;justify-content:center}.calculator-button{border:2px solid black;border-radius:10px;height:80px;cursor:pointer;display:flex;justify-content:center;flex-direction:column;margin:0;width:100%;align-items:center;font-size:25px}.calculator-button:hover{background-color:rgba(207,37,156,0.5);color:white}
-/*# sourceMappingURL=calculator.css.map */

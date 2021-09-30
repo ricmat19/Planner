@@ -21,9 +21,11 @@
   width: 100%;
   align-items: center;
   font-size: 25px;
+
+  &:hover{
+    background-color: rgba(207, 37, 156, .5);
+    color: white;
+  }
+
 }
 
-.calculator-button:hover{
-  background-color: rgba(207, 37, 156, .5);
-  color: white;
-}
