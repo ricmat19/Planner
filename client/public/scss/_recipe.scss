@@ -1,19 +1,20 @@
-.recipe-info-div{
+.recipe-info-div {
   grid-template-columns: 300px 400px 400px;
   gap: 20px;
   text-align: left;
   margin: 5px;
 }
 
-.recipe-steps, .recipe-ingredients{
+.recipe-steps,
+.recipe-ingredients {
   margin: 10px 0;
 }
 
-.meal-image{
+.meal-image {
   max-width: 100%;
 }
 
-.recipe-button-div{
+.recipe-button-div {
   text-align: right;
   margin: 0 10px 10px 0;
 }

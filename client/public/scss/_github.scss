@@ -1,15 +1,15 @@
-.github-user-info-div{
-    grid-template-columns: auto auto;
-    gap: 100px;
+.github-user-info-div {
+  grid-template-columns: auto auto;
+  gap: 100px;
 }
 
-.github-repo-div{
-    display: grid;
-    grid-template-columns: 130px 120px auto;
+.github-repo-div {
+  display: grid;
+  grid-template-columns: 130px 120px auto;
 }
 
-.github-nav{
-    justify-content: center;
-    grid-template-columns: auto auto;
-    gap: 20px;
+.github-nav {
+  justify-content: center;
+  grid-template-columns: auto auto;
+  gap: 20px;
 }

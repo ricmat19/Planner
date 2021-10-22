@@ -1,56 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const CalendarToDoC = (props) => {
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [daysToDos, setDaysToDos] = useState([]);
 
-    const [year, setYear] = useState('')
-    const [month, setMonth] = useState('')
-    const [day, setDay] = useState('')
-    const [daysToDos, setDaysToDos] = useState([])
+  //Display days to dos from calendar day
+  useEffect(() => {
+    const fetchData = async (req, res) => {
+      try {
+        setMonth(props.selectedDay.slice(5, 7));
+        setDay(props.selectedDay.slice(8, 10));
+        setYear(props.selectedDay.slice(0, 4));
 
-    //Display days to dos from calendar day
-    useEffect(() => {
-        const fetchData = async (req, res) => {
-            try{
-                
-                setMonth(props.selectedDay.slice(5, 7))
-                setDay(props.selectedDay.slice(8, 10))
-                setYear(props.selectedDay.slice(0, 4))
-                
-                let toDosArray = []
-                for(let i=0; i < props.days.length; i++){
-                    if(props.selectedDay === props.days[i].date){
-                        toDosArray.push(props.days[i].toDo)
-                    }
-                }
-                setDaysToDos(...toDosArray)
-
-            }catch(err){
-                console.log(err);
-            }
+        let toDosArray = [];
+        for (let i = 0; i < props.days.length; i++) {
+          if (props.selectedDay === props.days[i].date) {
+            toDosArray.push(props.days[i].toDo);
+          }
         }
-        fetchData();
-    }, [props.selectedDay]);
+        setDaysToDos(...toDosArray);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [props.selectedDay]);
 
-    if(daysToDos){
-        return(
-            <div>
-                <div className="title">{month}/{day}/{year}</div>
-                <div className="grid">
-                    {daysToDos.map((todo, index) => (
-                        <div className="grid calendar-to-do-item" key={index}>
-                            <div className="calender-to-do">{index + 1}. {todo}</div>
-                        </div>
-                    ))}
-                </div>
+  if (daysToDos) {
+    return (
+      <div>
+        <div className="title">
+          {month}/{day}/{year}
+        </div>
+        <div className="grid">
+          {daysToDos.map((todo, index) => (
+            <div className="grid calendar-to-do-item" key={index}>
+              <div className="calender-to-do">
+                {index + 1}. {todo}
+              </div>
             </div>
-        )
-    }else{
-        return(
-            <div>
-
-            </div>
-        )
-    }
-}
+          ))}
+        </div>
+      </div>
+    );
+  } else {
+    return <div></div>;
+  }
+};
 
 export default CalendarToDoC;

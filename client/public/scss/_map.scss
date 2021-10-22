@@ -1,27 +1,27 @@
-.map-directions-container{
-    display: grid;
-    gap: 3px;
-}
-  
-.map-direction-div{
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 10px;
-    align-items: center;
+.map-directions-container {
+  display: grid;
+  gap: 3px;
 }
 
-.map-modal-container{
-    display: grid;
-    padding: 20px;
-    grid-template-rows: 50px auto;
-    background-color: $light-grey;
-    gap: 10px;
-    border: $solid-border;
-    border-radius: 10px;
-    width: 700px;
-    height: 600px;
+.map-direction-div {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 10px;
+  align-items: center;
 }
 
-#pac-input{
-    outline: none;
+.map-modal-container {
+  display: grid;
+  padding: 20px;
+  grid-template-rows: 50px auto;
+  background-color: $light-grey;
+  gap: 10px;
+  border: $solid-border;
+  border-radius: 10px;
+  width: 700px;
+  height: 600px;
+}
+
+#pac-input {
+  outline: none;
 }

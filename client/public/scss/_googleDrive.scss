@@ -1,19 +1,19 @@
-.google-drive-nav{
-    grid-template-columns: auto auto auto auto auto;
-    gap: 20px;
-}
-  
-.file-grid{
-    grid-template-columns: 300px 300px 300px;
-    justify-content: center;
+.google-drive-nav {
+  grid-template-columns: auto auto auto auto auto;
+  gap: 20px;
 }
 
-.file-div{
-    display: grid;
-    justify-items: center;
-    margin: 10px
+.file-grid {
+  grid-template-columns: 300px 300px 300px;
+  justify-content: center;
 }
 
-.file-image-div{
-    min-width: 50px;
+.file-div {
+  display: grid;
+  justify-items: center;
+  margin: 10px;
+}
+
+.file-image-div {
+  min-width: 50px;
 }
