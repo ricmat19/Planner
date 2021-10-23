@@ -3,18 +3,12 @@ import IndexAPI from "../apis/indexAPI";
 import GitHubAPI from "../apis/githubAPI";
 import BookSelectAPI from "../apis/bookSelectAPI";
 import RecipeAPI from "../apis/recipeAPI";
+import PropTypes from 'prop-types';
 
 const EditToDoC = (props) => {
-  const [googleBooksKey, setGoogleBooksKey] = useState(
-    process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC
-  );
-  const [recipeKey, setRecipeKey] = useState(
-    process.env.REACT_APP_RECIPE_APIKEY
-  );
-  const [username, setUsername] = useState(
-    process.env.REACT_APP_GITHUB_USERNAME
-  );
-  const [editModal, setEditModal] = useState("modal");
+  const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
+  const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
+  const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
   const [listCollection, setListCollection] = useState(props.listCollection);
 
   const [id, setId] = useState("");
@@ -42,7 +36,7 @@ const EditToDoC = (props) => {
   const infoInput = useRef(null);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         //Set the data for the selected to do
         setListCollection(props.listCollection);
@@ -204,7 +198,7 @@ const EditToDoC = (props) => {
         }
       }
 
-      const update = await IndexAPI.put(`/planner/edit-toDo`, {
+      await IndexAPI.put(`/planner/edit-toDo`, {
         id: props.id,
         list: list,
         toDo: toDo,
@@ -277,10 +271,15 @@ const EditToDoC = (props) => {
             })}
           </select>
           <div className="grid toDo-link-div">
-            <a className="item-button link-icon" href={file} target="_blank">
+            <a
+              className="item-button link-icon"
+              href={file}
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src="../images/binoculars-solid.svg" />
             </a>
-            <button className="item-button" onClick={(e) => setFile("")}>
+            <button className="item-button" onClick={() => setFile("")}>
               X
             </button>
           </div>
@@ -310,10 +309,15 @@ const EditToDoC = (props) => {
             })}
           </select>
           <div className="grid toDo-link-div">
-            <a className="item-button link-icon" href={repo} target="_blank">
+            <a
+              className="item-button link-icon"
+              href={repo}
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src="../images/binoculars-solid.svg" />
             </a>
-            <button className="item-button" onClick={(e) => setRepo("")}>
+            <button className="item-button" onClick={() => setRepo("")}>
               X
             </button>
           </div>
@@ -343,10 +347,15 @@ const EditToDoC = (props) => {
             })}
           </select>
           <div className="grid toDo-link-div">
-            <a className="item-button link-icon" href={book} target="_blank">
+            <a
+              className="item-button link-icon"
+              href={book}
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src="../images/binoculars-solid.svg" />
             </a>
-            <button className="item-button" onClick={(e) => setBook("")}>
+            <button className="item-button" onClick={() => setBook("")}>
               X
             </button>
           </div>
@@ -376,10 +385,15 @@ const EditToDoC = (props) => {
             })}
           </select>
           <div className="grid toDo-link-div">
-            <a className="item-button link-icon" href={recipe} target="_blank">
+            <a
+              className="item-button link-icon"
+              href={recipe}
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src="../images/binoculars-solid.svg" />
             </a>
-            <button className="item-button" onClick={(e) => setRecipe("")}>
+            <button className="item-button" onClick={() => setRecipe("")}>
               X
             </button>
           </div>
@@ -409,5 +423,20 @@ const EditToDoC = (props) => {
     </div>
   );
 };
+
+EditToDoC.propTypes = {
+  listCollection: PropTypes.array,
+  id: PropTypes.string,
+  list: PropTypes.string,
+  toDo: PropTypes.string,
+  dueDate: PropTypes.string,
+  info: PropTypes.string,
+  file: PropTypes.string,
+  repo: PropTypes.string,
+  book: PropTypes.string,
+  recipe: PropTypes.string,
+  editModal: PropTypes.string,
+  editToDo: PropTypes.func
+}
 
 export default EditToDoC;

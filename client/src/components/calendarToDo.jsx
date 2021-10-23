@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
 const CalendarToDoC = (props) => {
   const [year, setYear] = useState("");
@@ -8,7 +9,7 @@ const CalendarToDoC = (props) => {
 
   //Display days to dos from calendar day
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         setMonth(props.selectedDay.slice(5, 7));
         setDay(props.selectedDay.slice(8, 10));
@@ -49,5 +50,10 @@ const CalendarToDoC = (props) => {
     return <div></div>;
   }
 };
+
+CalendarToDoC.propTypes = {
+  selectedDay: PropTypes.string,
+  days: PropTypes.array
+}
 
 export default CalendarToDoC;

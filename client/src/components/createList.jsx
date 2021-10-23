@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
+import PropTypes from 'prop-types';
 
 const CreateListC = (props) => {
   const [list, setList] = useState("");
-  const [listModal, setListModal] = useState("modal");
   const listInput = useRef(null);
 
   const createList = async (e) => {
     e.preventDefault();
     try {
-      const response = await IndexAPI.post("/planner/add-list", {
+      await IndexAPI.post("/planner/add-list", {
         list,
       });
       listInput.current.value = "";
@@ -42,5 +42,9 @@ const CreateListC = (props) => {
     </div>
   );
 };
+
+CreateListC.propTypes = {
+  setNewList: PropTypes.func
+}
 
 export default CreateListC;

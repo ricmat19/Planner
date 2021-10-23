@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import RecipeAPI from "../apis/recipeAPI";
+import PropTypes from 'prop-types';
 
 const AddRecipeC = (props) => {
   const searchInput = useRef(null);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [apiKey, setAPIKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
+  const [apiKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
 
   const searchRecipes = async (e) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const AddRecipeC = (props) => {
 
   const saveRecipe = async (recipe) => {
     try {
-      const response = await IndexAPI.post("/recipes/add-recipe", {
+      await IndexAPI.post("/recipes/add-recipe", {
         recipe,
       });
 
@@ -105,7 +106,7 @@ const AddRecipeC = (props) => {
                   <div className="recipe-button-div">
                     <button
                       className="form-button"
-                      onClick={(e) => saveRecipe(result.data.id)}
+                      onClick={() => saveRecipe(result.data.id)}
                     >
                       Add
                     </button>
@@ -126,5 +127,9 @@ const AddRecipeC = (props) => {
     </div>
   );
 };
+
+AddRecipeC.propTypes = {
+  setNewRecipe: PropTypes.func
+}
 
 export default AddRecipeC;

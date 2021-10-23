@@ -20,7 +20,7 @@ const ToDoC = () => {
   const [toDos, setToDos] = useState([]);
   const [currentDay, setCurrentDay] = useState();
   const [currentMonth, setCurrentMonth] = useState();
-  const [modalList, setModalList] = useState("");
+  const [, setModalList] = useState("");
 
   const [newList, setNewList] = useState("");
   const [newToDo, setNewToDo] = useState("");
@@ -86,7 +86,7 @@ const ToDoC = () => {
   const editRef = useRef();
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const currentDate = new Date();
 

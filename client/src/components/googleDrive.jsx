@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
+import PropTypes from 'prop-types';
 
 const GoogleDriveC = (props) => {
   const [files, setFiles] = useState([]);
   const [fileType, setFileType] = useState("");
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
         if (props.driveModal === "modal modal-active") {
@@ -101,7 +102,7 @@ const GoogleDriveC = (props) => {
             ) {
               return (
                 <div key={index}>
-                  <a href={file.url} target="_blank">
+                  <a href={file.url} target="_blank" rel="noreferrer">
                     <div key={file.id} className="file-div">
                       <div className="file-image-div">
                         <img src="../images/file-excel-solid.svg" />
@@ -117,7 +118,7 @@ const GoogleDriveC = (props) => {
             ) {
               return (
                 <div>
-                  <a href={file.url} target="_blank">
+                  <a href={file.url} target="_blank" rel="noreferrer">
                     <div key={file.id} className="file-div">
                       <div className="file-image-div">
                         <img src="../images/file-word-solid.svg" />
@@ -133,7 +134,7 @@ const GoogleDriveC = (props) => {
             ) {
               return (
                 <div>
-                  <a href={file.url} target="_blank">
+                  <a href={file.url} target="_blank" rel="noreferrer">
                     <div key={file.id} className="file-div">
                       <div className="file-image-div">
                         <img src="../images/file-image-solid.svg" />
@@ -149,7 +150,7 @@ const GoogleDriveC = (props) => {
             ) {
               return (
                 <div>
-                  <a href={file.url} target="_blank">
+                  <a href={file.url} target="_blank" rel="noreferrer">
                     <div key={file.id} className="file-div">
                       <div className="file-image-div">
                         <img src="../images/file-pdf-solid.svg" />
@@ -165,7 +166,7 @@ const GoogleDriveC = (props) => {
             ) {
               return (
                 <div>
-                  <a href={file.url} target="_blank">
+                  <a href={file.url} target="_blank" rel="noreferrer">
                     <div key={file.id} className="file-div">
                       <div className="file-image-div">
                         <img src="../images/project-diagram-solid.svg" />
@@ -182,5 +183,9 @@ const GoogleDriveC = (props) => {
     </div>
   );
 };
+
+GoogleDriveC.propTypes = {
+  driveModal: PropTypes.string
+}
 
 export default GoogleDriveC;

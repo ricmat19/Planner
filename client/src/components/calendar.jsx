@@ -4,7 +4,7 @@ import CalendarToDoC from "./calendarToDo";
 
 const CalendarC = () => {
   const [nav, setNav] = useState(0);
-  const [clicked, setClicked] = useState();
+  const [setClicked] = useState();
   const [toDos, setToDos] = useState();
   const [days, setDays] = useState([]);
   const [dateDisplay, setDateDisplay] = useState("");
@@ -33,7 +33,7 @@ const CalendarC = () => {
 
   const toDosArray = [];
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         document.addEventListener("mousedown", (event) => {
           if (daysToDosRef.current !== null) {
@@ -50,7 +50,7 @@ const CalendarC = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         //Get a list of all of the todos in the DB
         const toDosResponse = await IndexAPI.get(`/planner`);
@@ -67,7 +67,7 @@ const CalendarC = () => {
 
   //Setup Calendar
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const weekdays = [
           "Sunday",

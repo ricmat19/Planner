@@ -3,18 +3,12 @@ import IndexAPI from "../apis/indexAPI";
 import GitHubAPI from "../apis/githubAPI";
 import BookSelectAPI from "../apis/bookSelectAPI";
 import RecipeAPI from "../apis/recipeAPI";
+import PropTypes from 'prop-types';
 
 const CreateToDoC = (props) => {
-  const [googleBooksKey, setGoogleBooksKey] = useState(
-    process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC
-  );
-  const [recipeKey, setRecipeKey] = useState(
-    process.env.REACT_APP_RECIPE_APIKEY
-  );
-  const [username, setUsername] = useState(
-    process.env.REACT_APP_GITHUB_USERNAME
-  );
-  const [toDoModal, setToDoModal] = useState("modal");
+  const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
+  const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
+  const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
 
   const [toDo, setToDo] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -38,7 +32,7 @@ const CreateToDoC = (props) => {
   const infoInput = useRef(null);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
         if (props.toDoModal === "modal modal-active") {
@@ -192,7 +186,7 @@ const CreateToDoC = (props) => {
       formData.append("bookURL", bookURL);
       formData.append("recipeURL", recipeURL);
 
-      const response = await IndexAPI.post("/planner/add-toDo", formData, {
+      await IndexAPI.post("/planner/add-toDo", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       }).catch((err) => console.log(err));
 
@@ -300,5 +294,11 @@ const CreateToDoC = (props) => {
     </div>
   );
 };
+
+CreateToDoC.propTypes = {
+  toDoModal: PropTypes.string,
+  list: PropTypes.string,
+  setNewToDo: PropTypes.func
+}
 
 export default CreateToDoC;

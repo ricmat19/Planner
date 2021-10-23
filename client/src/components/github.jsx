@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import GitHubAPI from "../apis/githubAPI";
+import PropTypes from 'prop-types';
 
 const GitHubC = (props) => {
-  const [username, setUsername] = useState(
-    process.env.REACT_APP_GITHUB_USERNAME
-  );
+  const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
   const [repos, setRepos] = useState([]);
   const [userDisplay, setUserDisplay] = useState(false);
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         if (props.githubModal === "modal modal-active") {
           ///Get repo data from GitHub API
@@ -31,11 +30,11 @@ const GitHubC = (props) => {
     fetchData();
   }, [props.githubModal]);
 
-  const displayRepos = async (e) => {
+  const displayRepos = async () => {
     setUserDisplay(false);
   };
 
-  const displayUser = async (e) => {
+  const displayUser = async () => {
     setUserDisplay(true);
   };
 
@@ -65,14 +64,24 @@ const GitHubC = (props) => {
             <hr />
             <div className="grid github-user-info-div">
               <label className="align-left">GitHub</label>
-              <a className="align-right" href={user.html_url} target="_blank">
+              <a
+                className="align-right"
+                href={user.html_url}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <div>Link</div>
               </a>
             </div>
             <hr />
             <div className="grid github-user-info-div">
               <label className="align-left">Website</label>
-              <a className="align-right" href={user.blog} target="_blank">
+              <a
+                className="align-right"
+                href={user.blog}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <div>Link</div>
               </a>
             </div>
@@ -93,6 +102,7 @@ const GitHubC = (props) => {
                     className="align-right"
                     href={repo.html_url}
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <div className="align-right">Repo</div>
                   </a>
@@ -106,5 +116,9 @@ const GitHubC = (props) => {
     </div>
   );
 };
+
+GitHubC.propTypes = {
+  githubModal: PropTypes.string
+}
 
 export default GitHubC;

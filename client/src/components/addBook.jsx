@@ -1,13 +1,12 @@
 import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import BookSearchAPI from "../apis/bookSearchAPI";
+import PropTypes from 'prop-types';
 
 const AddBooksC = (props) => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [apiKey, setAPIKey] = useState(
-    process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC
-  );
+  const [apiKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
 
   const searchInput = useRef(null);
 
@@ -30,7 +29,7 @@ const AddBooksC = (props) => {
 
   const saveBook = async (book) => {
     try {
-      const response = await IndexAPI.post("/books/add-book", {
+      await IndexAPI.post("/books/add-book", {
         book,
       });
 
@@ -103,7 +102,11 @@ const AddBooksC = (props) => {
                   <div className="grid book-info-div">
                     <div>Desc:</div>
                     <div>
-                      <a href={result.volumeInfo.infoLink} target="_blank">
+                      <a
+                        href={result.volumeInfo.infoLink}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Info
                       </a>
                     </div>
@@ -119,7 +122,7 @@ const AddBooksC = (props) => {
                 <div>
                   <button
                     className="form-button"
-                    onClick={(e) => saveBook(result.id)}
+                    onClick={() => saveBook(result.id)}
                   >
                     Add
                   </button>
@@ -133,5 +136,9 @@ const AddBooksC = (props) => {
     </div>
   );
 };
+
+AddBooksC.propTypes = {
+  setNewBook: PropTypes.func
+}
 
 export default AddBooksC;

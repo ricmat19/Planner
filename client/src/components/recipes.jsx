@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import RecipeAPI from "../apis/recipeAPI";
 import AddRecipeC from "./addRecipe";
+import PropTypes from 'prop-types';
 
 const RecipesC = (props) => {
   const [addRecipesModal, setAddRecipesModal] = useState("modal");
   const [recipes, setRecipes] = useState([]);
   const [newRecipe, setNewRecipe] = useState("");
   const [deletedRecipe, setDeletedRecipe] = useState("");
-  const [apiKey, setAPIKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
+  const [apiKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
 
   const addRecipesRef = useRef();
 
@@ -17,7 +18,7 @@ const RecipesC = (props) => {
   };
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         document.addEventListener("mousedown", (event) => {
           if (addRecipesRef.current !== null) {
@@ -57,9 +58,7 @@ const RecipesC = (props) => {
 
   const removeRecipe = async (recipe) => {
     try {
-      const response = await IndexAPI.delete(
-        `/recipes/remove-recipe/${recipe}`
-      );
+      await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
       setDeletedRecipe(recipe);
     } catch (err) {
       console.log(err);
@@ -119,7 +118,7 @@ const RecipesC = (props) => {
                       <div className="recipe-button-div">
                         <button
                           className="form-button"
-                          onClick={(e) => removeRecipe(recipe.data.id)}
+                          onClick={() => removeRecipe(recipe.data.id)}
                         >
                           Remove
                         </button>
@@ -142,5 +141,9 @@ const RecipesC = (props) => {
     </div>
   );
 };
+
+RecipesC.propTypes = {
+  recipeModal: PropTypes.string
+}
 
 export default RecipesC;

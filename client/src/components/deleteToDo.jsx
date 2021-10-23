@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import IndexAPI from "../apis/indexAPI";
+import PropTypes from 'prop-types';
 
 const DeleteToDoC = (props) => {
   const [toDos, setToDos] = useState([]);
 
   const deleteToDo = async (id) => {
     try {
-      const response = await IndexAPI.delete(`/planner/delete-toDo/${id}`);
+      await IndexAPI.delete(`/planner/delete-toDo/${id}`);
       setToDos(
         toDos.filter((toDo) => {
           return toDo.id !== id;
@@ -34,5 +35,9 @@ const DeleteToDoC = (props) => {
     </div>
   );
 };
+
+DeleteToDoC.propTypes = {
+  deletedToDo: PropTypes.string
+}
 
 export default DeleteToDoC;

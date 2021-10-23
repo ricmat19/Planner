@@ -2,15 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import BookSelectAPI from "../apis/bookSelectAPI";
 import AddBookC from "./addBook";
+import PropTypes from 'prop-types';
 
 const BooksC = (props) => {
   const [addBooksModal, setAddBooksModal] = useState("modal");
   const [bookCollection, setBookCollection] = useState([]);
   const [newBook, setNewBook] = useState("");
   const [deletedBook, setDeletedBook] = useState("");
-  const [apiKey, setAPIKey] = useState(
-    process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC
-  );
+  const [apiKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
 
   const addBooksRef = useRef();
 
@@ -19,7 +18,7 @@ const BooksC = (props) => {
   };
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         document.addEventListener("mousedown", (event) => {
           if (addBooksRef.current !== null) {
@@ -65,7 +64,7 @@ const BooksC = (props) => {
 
   const removeBook = async (book) => {
     try {
-      const response = await IndexAPI.delete(`/books/remove-book/${book}`);
+      await IndexAPI.delete(`/books/remove-book/${book}`);
       setBookCollection(bookCollection);
       setDeletedBook(book);
     } catch (err) {
@@ -132,7 +131,11 @@ const BooksC = (props) => {
                       <div className="grid book-info-div">
                         <div>Desc:</div>
                         <div>
-                          <a href={book.volumeInfo.infoLink} target="_blank">
+                          <a
+                            href={book.volumeInfo.infoLink}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
                             Info
                           </a>
                         </div>
@@ -148,7 +151,7 @@ const BooksC = (props) => {
                     <div>
                       <button
                         className="form-button"
-                        onClick={(e) => removeBook(book.id)}
+                        onClick={() => removeBook(book.id)}
                       >
                         Remove
                       </button>
@@ -164,5 +167,9 @@ const BooksC = (props) => {
     </div>
   );
 };
+
+BooksC.propTypes = {
+  booksModal: PropTypes.string
+}
 
 export default BooksC;

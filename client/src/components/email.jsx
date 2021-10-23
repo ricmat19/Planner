@@ -15,7 +15,7 @@ const EmailC = () => {
   const submitEmail = async (e) => {
     e.preventDefault();
     try {
-      const response = await IndexAPI.post("/email", {
+      await IndexAPI.post("/email", {
         name: name,
         email: email,
         subject: subject,

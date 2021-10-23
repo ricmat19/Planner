@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import IndexAPI from "../apis/indexAPI";
+import PropTypes from 'prop-types';
 
 const DeleteListC = (props) => {
   const [listCollection, setListCollection] = useState([]);
 
   const deleteList = async (list) => {
     try {
-      const response = await IndexAPI.delete(`/planner/delete-list/${list}`);
+      await IndexAPI.delete(`/planner/delete-list/${list}`);
       setListCollection(
         listCollection.filter((list) => {
           return list.list !== list;
@@ -34,5 +35,9 @@ const DeleteListC = (props) => {
     </div>
   );
 };
+
+DeleteListC.propTypes = {
+  deletedList: PropTypes.string
+}
 
 export default DeleteListC;

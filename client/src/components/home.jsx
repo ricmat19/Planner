@@ -3,7 +3,7 @@ import CalculatorC from "./calculator";
 import CalendarC from "./calendar";
 import BooksC from "./books";
 import PlannerC from "./planner";
-import MapC from "./map";
+// import MapC from "./map";
 import GoogleDriveC from "./googleDrive";
 import GitHubC from "./github";
 import RecipesC from "./recipes";
@@ -28,11 +28,11 @@ const NavbarC = () => {
     setBooksModal("modal modal-active");
   };
 
-  const [mapModal, setMapModal] = useState("modal");
-  const mapRef = useRef();
-  const displayMapModal = () => {
-    setMapModal("modal modal-active");
-  };
+  // const [mapModal, setMapModal] = useState("modal");
+  // const mapRef = useRef();
+  // const displayMapModal = () => {
+  //   setMapModal("modal modal-active");
+  // };
 
   const [driveModal, setDriveModal] = useState("modal");
   const driveRef = useRef();
@@ -59,7 +59,7 @@ const NavbarC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         document.addEventListener("mousedown", (event) => {
           if (calculatorRef.current !== null && calendarRef.current !== null) {
@@ -72,9 +72,9 @@ const NavbarC = () => {
             if (!booksRef.current.contains(event.target)) {
               setBooksModal("modal");
             }
-            if (!mapRef.current.contains(event.target)) {
-              setMapModal("modal");
-            }
+            // if (!mapRef.current.contains(event.target)) {
+            //   setMapModal("modal");
+            // }
             if (!driveRef.current.contains(event.target)) {
               setDriveModal("modal");
             }
@@ -116,11 +116,11 @@ const NavbarC = () => {
           <BooksC booksModal={booksModal} booksRef={booksRef} />
         </div>
       </div>
-      <div className={mapModal}>
+      {/* <div className={mapModal}>
         <div ref={mapRef}>
           <MapC mapModal={mapModal} mapRef={mapRef} />
         </div>
-      </div>
+      </div> */}
       <div className={driveModal}>
         <div ref={driveRef} className="modal-content">
           <GoogleDriveC driveModal={driveModal} driveRef={driveRef} />
@@ -163,11 +163,11 @@ const NavbarC = () => {
             <img src="../images/folder-open-solid.svg" />
           </div>
         </span>
-        <span className="nav-item">
+        {/* <span className="nav-item">
           <div className="nav-item-anchor" onClick={displayMapModal}>
             <img src="../images/map-marked-alt-solid.svg" />
           </div>
-        </span>
+        </span> */}
         <span className="nav-item">
           <div className="nav-item-anchor" onClick={displayBooksModal}>
             <img src="../images/book-solid.svg" />
