@@ -3,6 +3,16 @@ const router = express.Router();
 const db = require("../database");
 const multer = require("multer");
 
+// router.get("/", async (req, res) => {
+//   try {
+//     res.status(200).json({
+//       status: "success",
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
+
 //Get all lists in the DB
 router.get("/lists", async (req, res) => {
   try {
@@ -23,7 +33,7 @@ router.get("/lists", async (req, res) => {
 });
 
 //Get all todos from the DB
-router.get("/planner", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     db.query("SELECT * FROM todos", function (err, result) {
       if (err) throw err;

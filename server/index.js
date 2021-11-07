@@ -1,6 +1,7 @@
 //requires the express framework for this file
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 //creates a variable to hold the express framework
 const app = express();
 const plannerRouter = require("./routes/planner");
@@ -33,6 +34,15 @@ app.use(booksRouter);
 app.use(recipesRouter);
 app.use(googleDriveRouter);
 app.use(gmailRouter);
+
+//Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port
