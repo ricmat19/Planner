@@ -33,7 +33,7 @@ router.get("/lists", async (req, res) => {
 });
 
 //Get all todos from the DB
-router.get("/", async (req, res) => {
+router.get("/planner", async (req, res) => {
   try {
     db.query("SELECT * FROM todos", function (err, result) {
       if (err) throw err;
