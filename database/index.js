@@ -7,10 +7,10 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const db = mysql.createConnection({
-  user: process.env.MSQLUSER,
-  host: process.env.MSQLHOST,
-  password: process.env.MSQLPASSWORD,
-  database: process.env.MSQLDATABASE,
+  host: process.env.MSQLHOST || "us-cdbr-east-04.cleardb.com",
+  user: process.env.MSQLUSER || "b140cd93893df7",
+  password: process.env.MSQLPASSWORD || "2594891a",
+  database: process.env.MSQLDATABASE || "heroku_f8f9e414a772132",
 });
 
 db.connect(function (err) {
