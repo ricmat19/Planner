@@ -6,18 +6,17 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-const db = mysql.createConnection({
-  host: process.env.MSQLHOST,
+const db = mysql.createPool({
   user: process.env.MSQLUSER,
+  host: process.env.MSQLHOST,
   password: process.env.MSQLPASSWORD,
   database: process.env.MSQLDATABASE,
 });
 
-db.connect(function (err) {
-  if (err) {
-    throw err;
-  }
-  console.log("Database Connected");
-});
+if(db){
+  console.log("Database Connected")
+}else if (err){
+  throw err
+}
 
 module.exports = db;

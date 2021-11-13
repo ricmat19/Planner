@@ -10,12 +10,6 @@ const recipesRouter = require("./routes/recipes");
 const googleDriveRouter = require("./routes/googleDrive");
 const gmailRouter = require("./routes/gmail");
 
-//insures that the .env file is only run in a development environment and not a production environment
-if (process.env.NODE_ENV !== "production") {
-  //requires the the .env file configuration be run first hiding all info hidden via the .env file
-  require("dotenv").config();
-}
-
 //allows for different domains to communicate
 app.use(cors());
 
@@ -37,15 +31,19 @@ app.use(gmailRouter);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
+
+  require("dotenv").config();
+
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
+  
 }
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port
 app.listen(process.env.PORT, () => {
-  console.log(`Server Running on port:", ${process.env.PORT}`);
+  console.log(`Server Running on port: ${process.env.PORT}`);
 });
