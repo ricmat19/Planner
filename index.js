@@ -9,7 +9,6 @@ const booksRouter = require("./routes/books");
 const recipesRouter = require("./routes/recipes");
 const googleDriveRouter = require("./routes/googleDrive");
 const gmailRouter = require("./routes/gmail");
-const PORT = 3000;
 
 //insures that the .env file is only run in a development environment and not a production environment
 if (process.env.NODE_ENV !== "production") {
@@ -47,6 +46,6 @@ if (process.env.NODE_ENV === "production") {
 
 //uses the Express listen() method
 //the listen() is used to run the server on the specified port
-app.listen(process.env.PORT || PORT, () => {
-  console.log(`Server Running on port", ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server Running on port:", ${process.env.PORT}`);
 });

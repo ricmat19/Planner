@@ -6,18 +6,11 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-// const db = mysql.createConnection({
-//   host: process.env.MSQLHOST,
-//   user: process.env.MSQLUSER,
-//   password: process.env.MSQLPASSWORD,
-//   database: process.env.MSQLDATABASE,
-// });
-
 const db = mysql.createConnection({
-  host: process.env.HEROKUMSQLHOST,
-  user: process.env.HEROKUMSQLUSER,
-  password: process.env.HEROKUMSQLPASSWORD,
-  database: process.env.HEROKUMSQLDATABASE,
+  host: process.env.MSQLHOST,
+  user: process.env.MSQLUSER,
+  password: process.env.MSQLPASSWORD,
+  database: process.env.MSQLDATABASE,
 });
 
 db.connect(function (err) {

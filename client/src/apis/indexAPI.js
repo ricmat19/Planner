@@ -1,6 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  // baseURL: "http://localhost:3000",
-  baseURL: "https://planner-ricmat19.herokuapp.com",
+  baseURL: process.env.REACT_APP_PLANNER_API,
 });
