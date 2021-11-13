@@ -1,6 +1,7 @@
 //requires the express framework for this file
 const express = require("express");
 const cors = require("cors");
+const cookieSession = require("cookie-session");
 const path = require("path");
 //creates a variable to hold the express framework
 const app = express();
@@ -9,9 +10,14 @@ const booksRouter = require("./routes/books");
 const recipesRouter = require("./routes/recipes");
 const googleDriveRouter = require("./routes/googleDrive");
 const gmailRouter = require("./routes/gmail");
+const loginRouter = require("./routes/login");
 
 //allows for different domains to communicate
 app.use(cors());
+
+app.use(cookieSession({
+  keys: [process.env.COOKIE_KEY]
+}))
 
 //Middleware: Puts the json data in a pages body in a req object, parses the data
 app.use(express.json());
@@ -28,6 +34,7 @@ app.use(booksRouter);
 app.use(recipesRouter);
 app.use(googleDriveRouter);
 app.use(gmailRouter);
+app.use(loginRouter);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

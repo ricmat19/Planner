@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import LoginC from "./login";
 import CalculatorC from "./calculator";
 import CalendarC from "./calendar";
 import BooksC from "./books";
@@ -10,6 +11,13 @@ import RecipesC from "./recipes";
 import EmailC from "./email";
 
 const NavbarC = () => {
+
+  const [loginModal, setLoginModal] = useState("modal");
+  const loginRef = useRef();
+  const displayLoginModal = () => {
+    setLoginModal("modal modal-active");
+  };
+
   const [calculatorModal, setCalculatorModal] = useState("modal");
   const calculatorRef = useRef();
   const displayCalculatorModal = () => {
@@ -63,6 +71,9 @@ const NavbarC = () => {
       try {
         document.addEventListener("mousedown", (event) => {
           if (calculatorRef.current !== null && calendarRef.current !== null) {
+            if (!loginRef.current.contains(event.target)) {
+              setLoginModal("modal");
+            }
             if (!calculatorRef.current.contains(event.target)) {
               setCalculatorModal("modal");
             }
@@ -98,6 +109,14 @@ const NavbarC = () => {
 
   return (
     <div>
+      <div className={loginModal}>
+        <div ref={loginRef} className="modal-content">
+          <LoginC
+            loginModal={loginModal}
+            loginRef={loginRef}
+          />
+        </div>
+      </div>
       <div className={calculatorModal}>
         <div ref={calculatorRef} className="modal-content">
           <CalculatorC
@@ -181,6 +200,11 @@ const NavbarC = () => {
         <span className="nav-item">
           <div className="nav-item-anchor" onClick={displayCalculatorModal}>
             <img src="../images/calculator-solid.svg" />
+          </div>
+        </span>
+        <span className="nav-item">
+          <div className="nav-item-anchor" onClick={displayLoginModal}>
+            <img src="../images/unlock-alt-solid.svg" />
           </div>
         </span>
       </nav>

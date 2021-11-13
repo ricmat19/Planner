@@ -3,19 +3,10 @@ const router = express.Router();
 const db = require("../database");
 const multer = require("multer");
 
-// router.get("/", async (req, res) => {
-//   try {
-//     res.status(200).json({
-//       status: "success",
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
 //Get all lists in the DB
 router.get("/lists", async (req, res) => {
   try {
+    console.log(req.session)
     db.query("SELECT * FROM lists", function (err, result) {
       if (err) throw err;
 
@@ -54,6 +45,7 @@ router.get("/planner", async (req, res) => {
 //Create a List
 router.post("/planner/add-list", async (req, res) => {
   try {
+    console.log(req.session)
     const currentList = await db.query("SELECT list FROM lists");
 
     let uniqueList = true;
