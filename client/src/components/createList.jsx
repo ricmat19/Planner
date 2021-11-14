@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from 'prop-types';
 
@@ -6,9 +6,26 @@ const CreateListC = (props) => {
   const [list, setList] = useState("");
   const listInput = useRef(null);
 
+  useEffect(() => {
+      const fetchData = async () => {
+      try {
+
+        //Check if logged in
+        IndexAPI.get(`/login`).then((res) =>{
+          console.log(res)
+        })
+
+      } catch (err) {
+          console.log(err);
+      }
+      };
+      fetchData();
+  }, []);
+
   const createList = async (e) => {
     e.preventDefault();
     try {
+
       await IndexAPI.post("/planner/add-list", {
         list,
       });

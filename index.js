@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(
   // cors()
   cors({
-    origin: [process.env.REACT_APP_PLANNER_API],
+    origin: ["http://localhost:3001"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
@@ -33,10 +33,13 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   session({
-    key: "userID",
+    key: "user",
     secret: [process.env.COOKIE_KEY],
     resave: false,
     saveUninitialized: false,
+    cookie:{
+      expires: 1000 * 60 * 60 * 24
+    }
   })
 )
 

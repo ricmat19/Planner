@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database");
-const loggedIn = require("../middleware/loggedIn");
 
 //Get all books
-router.get("/books", loggedIn, async (req, res) => {
+router.get("/books", async (req, res) => {
   try {
     db.query("SELECT * FROM books", function (err, result) {
       if (err) throw err;
@@ -23,7 +22,7 @@ router.get("/books", loggedIn, async (req, res) => {
 });
 
 //Store a book volume in the DB
-router.post("/books/add-book", loggedIn, async (req, res) => {
+router.post("/books/add-book", async (req, res) => {
   try {
     const book = await db.query(`INSERT INTO books (book) VALUES (?)`, [
       req.body.book,
@@ -42,7 +41,7 @@ router.post("/books/add-book", loggedIn, async (req, res) => {
 });
 
 //Delete a book volume from the DB
-router.delete("/books/remove-book/:book", loggedIn, async (req, res) => {
+router.delete("/books/remove-book/:book", async (req, res) => {
   try {
     db.query("DELETE FROM books WHERE book=? ", [req.params.book]);
 
