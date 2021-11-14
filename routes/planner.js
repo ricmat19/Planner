@@ -2,11 +2,24 @@ const express = require("express");
 const router = express.Router();
 const db = require("../database");
 const multer = require("multer");
+const loggedIn = require("../middleware/loggedIn");
+
+//Get all lists in the DB
+router.get("/", loggedIn, async (req, res) => {
+  try {
+    req.session.isAuth = true;
+    console.log(req.session)
+
+    res.status(200).json();
+    
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //Get all lists in the DB
 router.get("/lists", async (req, res) => {
   try {
-    console.log(req.session)
     db.query("SELECT * FROM lists", function (err, result) {
       if (err) throw err;
 
@@ -43,9 +56,9 @@ router.get("/planner", async (req, res) => {
 });
 
 //Create a List
-router.post("/planner/add-list", async (req, res) => {
+router.post("/planner/add-list", loggedIn, async (req, res) => {
   try {
-    console.log(req.session)
+    console.log(loggedIn)
     const currentList = await db.query("SELECT list FROM lists");
 
     let uniqueList = true;
@@ -75,7 +88,7 @@ router.post("/planner/add-list", async (req, res) => {
 
 //Create a todo
 const upload = multer({ dest: "images/" });
-router.post("/planner/add-toDo", upload.single("imgRef"), async (req, res) => {
+router.post("/planner/add-toDo", loggedIn, upload.single("imgRef"), async (req, res) => {
   try {
     const todo = await db.query(
       "INSERT INTO todos (list, todo, dueDate, info, file, repo, book, recipe) values (?, ?, ?, ?, ?, ?, ?, ?)",
@@ -104,7 +117,7 @@ router.post("/planner/add-toDo", upload.single("imgRef"), async (req, res) => {
 });
 
 //Edit a todo
-router.put("/planner/edit-toDo", async (req, res) => {
+router.put("/planner/edit-toDo", loggedIn, async (req, res) => {
   try {
     const todo = await db.query(
       "UPDATE todos SET list=?, todo=?, dueDate=?, info=?, file=?, repo=?, book=?, recipe=? WHERE id=?",
@@ -134,7 +147,7 @@ router.put("/planner/edit-toDo", async (req, res) => {
 });
 
 //delete a list and all it's todos
-router.delete("/planner/delete-list/:list", async (req, res) => {
+router.delete("/planner/delete-list/:list", loggedIn, async (req, res) => {
   try {
     db.query("DELETE FROM lists WHERE list=? ", [req.params.list]);
 
@@ -149,7 +162,7 @@ router.delete("/planner/delete-list/:list", async (req, res) => {
 });
 
 //Delete a todo
-router.delete("/planner/delete-toDo/:id", async (req, res) => {
+router.delete("/planner/delete-toDo/:id", loggedIn, async (req, res) => {
   try {
     db.query("DELETE FROM todos WHERE id = ?", [req.params.id]);
     res.status(204).json({

@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { 
+    // useEffect, 
+    useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 
 const LoginC = () => {
@@ -9,18 +11,16 @@ const LoginC = () => {
     const emailInput = useRef(null);
     const passwordInput = useRef(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //     try {
 
-            console.log("use effect")
-
-        } catch (err) {
-            console.log(err);
-        }
-        };
-        fetchData();
-    }, []);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    //     };
+    //     fetchData();
+    // }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();

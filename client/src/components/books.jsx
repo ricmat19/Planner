@@ -30,9 +30,11 @@ const BooksC = (props) => {
 
         //Get the list of books in DB
         let bookSet = [];
-        const booksResponse = await IndexAPI.get(`/books`);
-        for (let i = 0; i < booksResponse.data.data.books.length; i++) {
-          bookSet.push(booksResponse.data.data.books[i].book);
+        if (props.booksModal === "modal modal-active") {
+          const booksResponse = await IndexAPI.get(`/books`);
+          for (let i = 0; i < booksResponse.data.data.books.length; i++) {
+            bookSet.push(booksResponse.data.data.books[i].book);
+          }
         }
 
         //Request all data from Google Books API pertaining to the list of books

@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database");
+const loggedIn = require("../middleware/loggedIn");
 
 //Get all recipes
-router.get("/recipes", async (req, res) => {
+router.get("/recipes", loggedIn, async (req, res) => {
   try {
     db.query("SELECT * FROM recipes", function (err, result) {
       if (err) throw err;
@@ -22,7 +23,7 @@ router.get("/recipes", async (req, res) => {
 });
 
 //Get a recipe
-router.get("/recipe/:recipe", async (req, res) => {
+router.get("/recipe/:recipe", loggedIn, async (req, res) => {
   try {
     db.query(
       "SELECT * FROM recipe WHERE recipe=?",
@@ -45,7 +46,7 @@ router.get("/recipe/:recipe", async (req, res) => {
 });
 
 //Store a recipe in the DB
-router.post("/recipes/add-recipe", async (req, res) => {
+router.post("/recipes/add-recipe", loggedIn, async (req, res) => {
   try {
     const recipe = db.query(`INSERT INTO recipes (recipe) VALUES (?)`, [
       req.body.recipe,
@@ -64,7 +65,7 @@ router.post("/recipes/add-recipe", async (req, res) => {
 });
 
 //Delete a recipe from the DB
-router.delete("/recipes/remove-recipe/:recipe", async (req, res) => {
+router.delete("/recipes/remove-recipe/:recipe", loggedIn, async (req, res) => {
   try {
     db.query("DELETE FROM recipes WHERE recipe=?", [req.params.recipe]);
 

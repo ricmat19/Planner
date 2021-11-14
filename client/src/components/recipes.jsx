@@ -30,9 +30,11 @@ const RecipesC = (props) => {
 
         //Get the list of recipes in the DB
         let recipes = [];
-        const recipesResponse = await IndexAPI.get(`/recipes`);
-        for (let i = 0; i < recipesResponse.data.data.recipes.length; i++) {
-          recipes.push(recipesResponse.data.data.recipes[i].recipe);
+        if (props.recipeModal === "modal modal-active") {
+          const recipesResponse = await IndexAPI.get(`/recipes`);
+          for (let i = 0; i < recipesResponse.data.data.recipes.length; i++) {
+            recipes.push(recipesResponse.data.data.recipes[i].recipe);
+          }
         }
 
         //Request all data from Recipe API pertaining to the list of recipes

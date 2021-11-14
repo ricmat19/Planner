@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { google } = require("googleapis");
 const nodemailer = require("nodemailer");
+const loggedIn = require("../middleware/loggedIn");
 
 const clientId = process.env.GOOGLE_API_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_API_CLIENT_SECRET;
@@ -16,7 +17,7 @@ const oAuth2Client = new google.auth.OAuth2(
 oAuth2Client.setCredentials({ refresh_token: refreshToken });
 
 //Send an email via GMAIL
-router.post("/email", async (req, res) => {
+router.post("/email", loggedIn, async (req, res) => {
   try {
     const accessToken = await oAuth2Client.getAccessToken();
 

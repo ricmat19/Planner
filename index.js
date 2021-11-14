@@ -1,7 +1,9 @@
 //requires the express framework for this file
 const express = require("express");
 const cors = require("cors");
-const cookieSession = require("cookie-session");
+// const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const path = require("path");
 //creates a variable to hold the express framework
 const app = express();
@@ -12,22 +14,41 @@ const googleDriveRouter = require("./routes/googleDrive");
 const gmailRouter = require("./routes/gmail");
 const loginRouter = require("./routes/login");
 
-//allows for different domains to communicate
-app.use(cors());
-
-app.use(cookieSession({
-  keys: [process.env.COOKIE_KEY]
-}))
-
 //Middleware: Puts the json data in a pages body in a req object, parses the data
 app.use(express.json());
+
+//allows for different domains to communicate
+app.use(
+  // cors()
+  cors({
+    origin: [process.env.REACT_APP_PLANNER_API],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
+app.use(cookieParser());
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(
+  session({
+    key: "userID",
+    secret: [process.env.COOKIE_KEY],
+    resave: false,
+    saveUninitialized: false,
+  })
+)
 
 //uses the Express use() method
 //the use() method is used to implement middleware on the server
 //middleware used to give the server access to programs front-end files
 app.use(express.static("public"));
 
-app.use(express.urlencoded({ extended: false }));
+// app.use(cookieSession({
+//   name: "session",
+//   keys: [process.env.COOKIE_KEY]
+// }))
 
 app.use(plannerRouter);
 app.use(booksRouter);

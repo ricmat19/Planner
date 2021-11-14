@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { google } = require("googleapis");
+const loggedIn = require("../middleware/loggedIn");
 
 const clientId = process.env.GOOGLE_API_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_API_CLIENT_SECRET;
@@ -14,7 +15,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: refreshToken });
 
-router.get("/files", async (req, res) => {
+router.get("/files", loggedIn, async (req, res) => {
   const drive = google.drive({ version: "v3", auth: oAuth2Client });
 
   let files = {};
