@@ -5,6 +5,8 @@ import AddRecipeC from "./addRecipe";
 import PropTypes from 'prop-types';
 
 const RecipesC = (props) => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [addRecipesModal, setAddRecipesModal] = useState("modal");
   const [recipes, setRecipes] = useState([]);
   const [newRecipe, setNewRecipe] = useState("");
@@ -13,13 +15,14 @@ const RecipesC = (props) => {
 
   const addRecipesRef = useRef();
 
-  const displayAddRecipeModal = () => {
-    setAddRecipesModal("modal modal-active");
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        //Check if logged in
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoggedIn(loginResponse.data.data.loggedIn)
+
         document.addEventListener("mousedown", (event) => {
           if (addRecipesRef.current !== null) {
             if (!addRecipesRef.current.contains(event.target)) {
@@ -30,26 +33,25 @@ const RecipesC = (props) => {
 
         //Get the list of recipes in the DB
         let recipes = [];
-        if (props.recipeModal === "modal modal-active") {
+        if (props.recipeModal === "modal modal-active" && loginResponse.data.data.loggedIn) {
+
           const recipesResponse = await IndexAPI.get(`/recipes`);
           for (let i = 0; i < recipesResponse.data.data.recipes.length; i++) {
             recipes.push(recipesResponse.data.data.recipes[i].recipe);
           }
-        }
 
-        //Request all data from Recipe API pertaining to the list of recipes
-        const recipeArray = [];
-        if (props.recipeModal === "modal modal-active") {
-          for (let i = 0; i < recipes.length; i++) {
-            const recipeInfo = await RecipeAPI.get(
-              "https://api.spoonacular.com/recipes/" +
-                recipes[i] +
-                "/information?apiKey=" +
-                apiKey
-            );
-            recipeArray.push(recipeInfo);
-          }
-          setRecipes(recipeArray);
+          //Request all data from Recipe API pertaining to the list of recipes
+          const recipeArray = [];
+            for (let i = 0; i < recipes.length; i++) {
+              const recipeInfo = await RecipeAPI.get(
+                "https://api.spoonacular.com/recipes/" +
+                  recipes[i] +
+                  "/information?apiKey=" +
+                  apiKey
+              );
+              recipeArray.push(recipeInfo);
+            }
+            setRecipes(recipeArray);
         }
       } catch (err) {
         console.log(err);
@@ -58,12 +60,20 @@ const RecipesC = (props) => {
     fetchData();
   }, [props.recipeModal, newRecipe, deletedRecipe]);
 
+  const displayAddRecipeModal = () => {
+    if(loggedIn){
+      setAddRecipesModal("modal modal-active");
+    }
+  };
+
   const removeRecipe = async (recipe) => {
-    try {
-      await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
-      setDeletedRecipe(recipe);
-    } catch (err) {
-      console.log(err);
+    if(loggedIn){
+      try {
+        await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
+        setDeletedRecipe(recipe);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

@@ -6,6 +6,8 @@ import RecipeAPI from "../apis/recipeAPI";
 import PropTypes from 'prop-types';
 
 const EditToDoC = (props) => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
   const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
   const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
@@ -38,6 +40,11 @@ const EditToDoC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        //Check if logged in
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoggedIn(loginResponse.data.data.loggedIn)
+
         //Set the data for the selected to do
         setListCollection(props.listCollection);
         if (list === "" || id !== props.id) {
@@ -53,7 +60,7 @@ const EditToDoC = (props) => {
         }
 
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
-        if (props.editModal === "modal modal-active") {
+        if (props.editModal === "modal modal-active" && loginResponse.data.data.loggedIn) {
           const googleDriveResponse = await IndexAPI.get(`/files`);
           for (let i = 0; i < googleDriveResponse.data.data.files.length; i++) {
             //SpreadSheet
@@ -159,60 +166,62 @@ const EditToDoC = (props) => {
 
   const editToDo = async (e) => {
     e.preventDefault();
-    try {
-      if (toDo === "") {
-        return;
-      }
-
-      let fileURL = "";
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].name === file || files[i].url === file) {
-          fileURL = files[i].url;
+    if(loggedIn){
+      try {
+        if (toDo === "") {
+          return;
         }
-      }
 
-      let repoURL = "";
-      for (let i = 0; i < repos.length; i++) {
-        if (repos[i].name === repo || repos[i].html_url === repo) {
-          repoURL = repos[i].html_url;
+        let fileURL = "";
+        for (let i = 0; i < files.length; i++) {
+          if (files[i].name === file || files[i].url === file) {
+            fileURL = files[i].url;
+          }
         }
-      }
 
-      let bookURL = "";
-      for (let i = 0; i < books.length; i++) {
-        if (
-          books[i].volumeInfo.title === book ||
-          books[i].volumeInfo.previewLink === book
-        ) {
-          bookURL = books[i].volumeInfo.previewLink;
+        let repoURL = "";
+        for (let i = 0; i < repos.length; i++) {
+          if (repos[i].name === repo || repos[i].html_url === repo) {
+            repoURL = repos[i].html_url;
+          }
         }
-      }
 
-      let recipeURL = "";
-      for (let i = 0; i < recipes.length; i++) {
-        if (
-          recipes[i].data.title === recipe ||
-          recipes[i].data.spoonacularSourceUrl === recipe
-        ) {
-          recipeURL = recipes[i].data.spoonacularSourceUrl;
+        let bookURL = "";
+        for (let i = 0; i < books.length; i++) {
+          if (
+            books[i].volumeInfo.title === book ||
+            books[i].volumeInfo.previewLink === book
+          ) {
+            bookURL = books[i].volumeInfo.previewLink;
+          }
         }
+
+        let recipeURL = "";
+        for (let i = 0; i < recipes.length; i++) {
+          if (
+            recipes[i].data.title === recipe ||
+            recipes[i].data.spoonacularSourceUrl === recipe
+          ) {
+            recipeURL = recipes[i].data.spoonacularSourceUrl;
+          }
+        }
+
+        await IndexAPI.put(`/planner/edit-toDo`, {
+          id: props.id,
+          list: list,
+          toDo: toDo,
+          dueDate: dueDate,
+          info: info,
+          fileURL: fileURL,
+          repoURL: repoURL,
+          bookURL: bookURL,
+          recipeURL: recipeURL,
+        });
+
+        props.editToDo(toDo);
+      } catch (err) {
+        console.log(err);
       }
-
-      await IndexAPI.put(`/planner/edit-toDo`, {
-        id: props.id,
-        list: list,
-        toDo: toDo,
-        dueDate: dueDate,
-        info: info,
-        fileURL: fileURL,
-        repoURL: repoURL,
-        bookURL: bookURL,
-        recipeURL: recipeURL,
-      });
-
-      props.editToDo(toDo);
-    } catch (err) {
-      console.log(err);
     }
   };
 

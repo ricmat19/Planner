@@ -3,14 +3,21 @@ import IndexAPI from "../apis/indexAPI";
 import PropTypes from 'prop-types';
 
 const GoogleDriveC = (props) => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [files, setFiles] = useState([]);
   const [fileType, setFileType] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        //Check if logged in
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoggedIn(loginResponse.data.data.loggedIn)
+
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
-        if (props.driveModal === "modal modal-active") {
+        if (props.driveModal === "modal modal-active" && loginResponse.data.data.loggedIn) {
           const googleDriveResponse = await IndexAPI.get(`/files`);
           for (let i = 0; i < googleDriveResponse.data.data.files.length; i++) {
             //SpreadSheet
@@ -70,7 +77,9 @@ const GoogleDriveC = (props) => {
   }, [props.driveModal]);
 
   const displayFiles = (fileType) => {
-    setFileType(fileType);
+    if(loggedIn){
+      setFileType(fileType);
+    }
   };
 
   return (

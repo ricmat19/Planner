@@ -1,7 +1,6 @@
 //requires the express framework for this file
 const express = require("express");
 const cors = require("cors");
-// const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path");
@@ -19,7 +18,6 @@ app.use(express.json());
 
 //allows for different domains to communicate
 app.use(
-  // cors()
   cors({
     origin: ["http://localhost:3001"],
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -37,9 +35,9 @@ app.use(
     secret: [process.env.COOKIE_KEY],
     resave: false,
     saveUninitialized: false,
-    cookie:{
-      expires: 1000 * 60 * 60 * 24
-    }
+    // cookie:{
+    //   expires: 1000 * 60 * 60 * 24
+    // }
   })
 )
 
@@ -47,11 +45,6 @@ app.use(
 //the use() method is used to implement middleware on the server
 //middleware used to give the server access to programs front-end files
 app.use(express.static("public"));
-
-// app.use(cookieSession({
-//   name: "session",
-//   keys: [process.env.COOKIE_KEY]
-// }))
 
 app.use(plannerRouter);
 app.use(booksRouter);

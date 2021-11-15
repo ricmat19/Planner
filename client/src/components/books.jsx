@@ -5,6 +5,8 @@ import AddBookC from "./addBook";
 import PropTypes from 'prop-types';
 
 const BooksC = (props) => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [addBooksModal, setAddBooksModal] = useState("modal");
   const [bookCollection, setBookCollection] = useState([]);
   const [newBook, setNewBook] = useState("");
@@ -13,13 +15,14 @@ const BooksC = (props) => {
 
   const addBooksRef = useRef();
 
-  const displayaddBookModal = () => {
-    setAddBooksModal("modal modal-active");
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        //Check if logged in
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoggedIn(loginResponse.data.data.loggedIn)
+
         document.addEventListener("mousedown", (event) => {
           if (addBooksRef.current !== null) {
             if (!addBooksRef.current.contains(event.target)) {
@@ -64,13 +67,21 @@ const BooksC = (props) => {
     fetchData();
   }, [props.booksModal, newBook, deletedBook]);
 
+  const displayaddBookModal = () => {
+    if(loggedIn){
+      setAddBooksModal("modal modal-active");
+    }
+  };
+
   const removeBook = async (book) => {
-    try {
-      await IndexAPI.delete(`/books/remove-book/${book}`);
-      setBookCollection(bookCollection);
-      setDeletedBook(book);
-    } catch (err) {
-      console.log(err);
+    if(loggedIn){
+      try {
+        await IndexAPI.delete(`/books/remove-book/${book}`);
+        setBookCollection(bookCollection);
+        setDeletedBook(book);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

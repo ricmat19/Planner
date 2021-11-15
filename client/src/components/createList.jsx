@@ -3,6 +3,8 @@ import IndexAPI from "../apis/indexAPI";
 import PropTypes from 'prop-types';
 
 const CreateListC = (props) => {
+  
+  const [loggedIn, setLoggedIn] = useState(false);
   const [list, setList] = useState("");
   const listInput = useRef(null);
 
@@ -11,9 +13,8 @@ const CreateListC = (props) => {
       try {
 
         //Check if logged in
-        IndexAPI.get(`/login`).then((res) =>{
-          console.log(res)
-        })
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoggedIn(loginResponse.data.data.loggedIn)
 
       } catch (err) {
           console.log(err);
@@ -24,16 +25,18 @@ const CreateListC = (props) => {
 
   const createList = async (e) => {
     e.preventDefault();
-    try {
+    if(loggedIn){
+      try {
 
-      await IndexAPI.post("/planner/add-list", {
-        list,
-      });
-      listInput.current.value = "";
+        await IndexAPI.post("/planner/add-list", {
+          list,
+        });
+        listInput.current.value = "";
 
-      props.setNewList(list);
-    } catch (err) {
-      console.log(err);
+        props.setNewList(list);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   return (

@@ -1,49 +1,72 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import RecipeAPI from "../apis/recipeAPI";
 import PropTypes from 'prop-types';
 
 const AddRecipeC = (props) => {
-  const searchInput = useRef(null);
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [apiKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
 
+  const searchInput = useRef(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+    try {
+
+      //Check if logged in
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoggedIn(loginResponse.data.data.loggedIn)
+
+    } catch (err) {
+        console.log(err);
+    }
+    };
+    fetchData();
+}, []);
+
   const searchRecipes = async (e) => {
     e.preventDefault();
-    try {
-      const searchResponse = await RecipeAPI.get(
-        "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
-          apiKey +
-          "&query=" +
-          search
-      );
-
-      const recipeArray = [];
-      for (let i = 0; i < searchResponse.data.results.length; i++) {
-        const recipeInfo = await RecipeAPI.get(
-          "https://api.spoonacular.com/recipes/" +
-            searchResponse.data.results[i].id +
-            "/information?apiKey=" +
-            apiKey
+    
+    if(loggedIn){
+      try {
+        const searchResponse = await RecipeAPI.get(
+          "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
+            apiKey +
+            "&query=" +
+            search
         );
-        recipeArray.push(recipeInfo);
+
+        const recipeArray = [];
+        for (let i = 0; i < searchResponse.data.results.length; i++) {
+          const recipeInfo = await RecipeAPI.get(
+            "https://api.spoonacular.com/recipes/" +
+              searchResponse.data.results[i].id +
+              "/information?apiKey=" +
+              apiKey
+          );
+          recipeArray.push(recipeInfo);
+        }
+        setSearchResults(recipeArray);
+      } catch (err) {
+        console.log(err);
       }
-      setSearchResults(recipeArray);
-    } catch (err) {
-      console.log(err);
     }
   };
 
   const saveRecipe = async (recipe) => {
-    try {
-      await IndexAPI.post("/recipes/add-recipe", {
-        recipe,
-      });
+    if(loggedIn){
+      try {
+        await IndexAPI.post("/recipes/add-recipe", {
+          recipe,
+        });
 
-      props.setNewRecipe(recipe);
-    } catch (err) {
-      console.log(err);
+        props.setNewRecipe(recipe);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

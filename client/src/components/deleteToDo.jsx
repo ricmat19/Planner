@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from 'prop-types';
 
 const DeleteToDoC = (props) => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [toDos, setToDos] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+    try {
+
+      //Check if logged in
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoggedIn(loginResponse.data.data.loggedIn)
+
+    } catch (err) {
+        console.log(err);
+    }
+    };
+    fetchData();
+}, []);
 
   const deleteToDo = async (id) => {
     try {
-      await IndexAPI.delete(`/planner/delete-toDo/${id}`);
-      setToDos(
-        toDos.filter((toDo) => {
-          return toDo.id !== id;
-        })
-      );
+      if(loggedIn){
+        await IndexAPI.delete(`/planner/delete-toDo/${id}`);
+        setToDos(
+          toDos.filter((toDo) => {
+            return toDo.id !== id;
+          })
+        );
+      }
     } catch (err) {
       console.log(err);
     }

@@ -1,43 +1,61 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import BookSearchAPI from "../apis/bookSearchAPI";
 import PropTypes from 'prop-types';
 
 const AddBooksC = (props) => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [apiKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
 
   const searchInput = useRef(null);
 
-  const searchBooks = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchData = async () => {
     try {
 
-      const response = await BookSearchAPI.get(
-        "https://www.googleapis.com/books/v1/volumes?q=" +
-          search +
-          "&key=" +
-          apiKey +
-          "&maxResults=40"
-      );
-      setSearchResults(response.data.items);
-      searchInput.current.value = "";
+      //Check if logged in
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoggedIn(loginResponse.data.data.loggedIn)
+
     } catch (err) {
-      console.log(err);
+        console.log(err);
+    }
+    };
+    fetchData();
+}, []);
+
+  const searchBooks = async (e) => {
+    e.preventDefault();
+    if(loggedIn){
+      try {
+        const response = await BookSearchAPI.get(
+          "https://www.googleapis.com/books/v1/volumes?q=" +
+            search +
+            "&key=" +
+            apiKey +
+            "&maxResults=40"
+        );
+        setSearchResults(response.data.items);
+        searchInput.current.value = "";
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   const saveBook = async (book) => {
-    try {
-
-      await IndexAPI.post("/books/add-book", {
-        book,
-      });
-
-      props.setNewBook(book);
-    } catch (err) {
-      console.log(err);
+    if(loggedIn){
+      try {
+        await IndexAPI.post("/books/add-book", {
+          book,
+        });
+        props.setNewBook(book);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

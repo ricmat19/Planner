@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 
 const EmailC = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -12,22 +14,39 @@ const EmailC = () => {
   const subjectInput = useRef(null);
   const messageInput = useRef(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+    try {
+
+      //Check if logged in
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoggedIn(loginResponse.data.data.loggedIn)
+
+    } catch (err) {
+        console.log(err);
+    }
+    };
+    fetchData();
+}, []);
+
   const submitEmail = async (e) => {
     e.preventDefault();
-    try {
-      await IndexAPI.post("/email", {
-        name: name,
-        email: email,
-        subject: subject,
-        message: message,
-      });
+    if(loggedIn){
+      try {
+        await IndexAPI.post("/email", {
+          name: name,
+          email: email,
+          subject: subject,
+          message: message,
+        });
 
-      nameInput.current.value = "";
-      emailInput.current.value = "";
-      subjectInput.current.value = "";
-      messageInput.current.value = "";
-    } catch (err) {
-      console.log(err);
+        nameInput.current.value = "";
+        emailInput.current.value = "";
+        subjectInput.current.value = "";
+        messageInput.current.value = "";
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
