@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 
 const EmailC = () => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -14,40 +14,28 @@ const EmailC = () => {
   const subjectInput = useRef(null);
   const messageInput = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-    try {
-
-      //Check if logged in
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoggedIn(loginResponse.data.data.loggedIn)
-
-    } catch (err) {
-        console.log(err);
-    }
-    };
-    fetchData();
-}, []);
-
   const submitEmail = async (e) => {
     e.preventDefault();
-    if(loggedIn){
       try {
-        await IndexAPI.post("/email", {
-          name: name,
-          email: email,
-          subject: subject,
-          message: message,
-        });
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.status)
 
-        nameInput.current.value = "";
-        emailInput.current.value = "";
-        subjectInput.current.value = "";
-        messageInput.current.value = "";
+        if(loginResponse.data.data.loggedIn){
+          await IndexAPI.post("/email", {
+            name: name,
+            email: email,
+            subject: subject,
+            message: message,
+          });
+
+          nameInput.current.value = "";
+          emailInput.current.value = "";
+          subjectInput.current.value = "";
+          messageInput.current.value = "";
+        }
       } catch (err) {
         console.log(err);
       }
-    }
   };
 
   return (
@@ -96,7 +84,8 @@ const EmailC = () => {
               required
             ></textarea>
           </div>
-          <div>
+          <div className="login-error-message">{loginStatus}</div>
+          <div className="form-button-div">
             <button onClick={submitEmail} type="submit" className="form-button">
               submit
             </button>

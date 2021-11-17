@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from 'prop-types';
 
 const DeleteToDoC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [toDos, setToDos] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-    try {
-
-      //Check if logged in
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoggedIn(loginResponse.data.data.loggedIn)
-
-    } catch (err) {
-        console.log(err);
-    }
-    };
-    fetchData();
-}, []);
 
   const deleteToDo = async (id) => {
     try {
-      if(loggedIn){
+
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status)
+
+      if(loginResponse.data.data.loggedIn){
         await IndexAPI.delete(`/planner/delete-toDo/${id}`);
         setToDos(
           toDos.filter((toDo) => {
@@ -43,7 +32,8 @@ const DeleteToDoC = (props) => {
       <div>
         <label>Are you sure you want to delete this to do?</label>
       </div>
-      <div>
+      <div className="login-error-message">{loginStatus}</div>
+      <div className="form-button-div">
         <button
           className="delete form-button"
           onClick={() => deleteToDo(props.deletedToDo)}

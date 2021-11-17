@@ -1,37 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import RecipeAPI from "../apis/recipeAPI";
 import PropTypes from 'prop-types';
 
 const AddRecipeC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [apiKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
 
   const searchInput = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-    try {
-
-      //Check if logged in
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoggedIn(loginResponse.data.data.loggedIn)
-
-    } catch (err) {
-        console.log(err);
-    }
-    };
-    fetchData();
-}, []);
-
   const searchRecipes = async (e) => {
     e.preventDefault();
-    
-    if(loggedIn){
-      try {
+    try {
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status)
+
+      if(loginResponse.data.data.loggedIn){
         const searchResponse = await RecipeAPI.get(
           "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
             apiKey +
@@ -50,23 +37,26 @@ const AddRecipeC = (props) => {
           recipeArray.push(recipeInfo);
         }
         setSearchResults(recipeArray);
+      }
       } catch (err) {
         console.log(err);
       }
-    }
   };
 
   const saveRecipe = async (recipe) => {
-    if(loggedIn){
-      try {
+    try {
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status)
+
+      if(loginResponse.data.data.loggedIn){
         await IndexAPI.post("/recipes/add-recipe", {
           recipe,
         });
 
         props.setNewRecipe(recipe);
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -85,7 +75,7 @@ const AddRecipeC = (props) => {
                 placeholder="Search..."
               />
             </div>
-            <div>
+            <div className="form-button-div">
               <button className="form-button" onClick={searchRecipes}>
                 Search
               </button>
@@ -126,6 +116,7 @@ const AddRecipeC = (props) => {
                   )}
                 </div>
                 <div>
+                  <div className="login-error-message">{loginStatus}</div>
                   <div className="recipe-button-div">
                     <button
                       className="form-button"

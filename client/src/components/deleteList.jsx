@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from 'prop-types';
 
 const DeleteListC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [listCollection, setListCollection] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-    try {
-
-      //Check if logged in
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoggedIn(loginResponse.data.data.loggedIn)
-
-    } catch (err) {
-        console.log(err);
-    }
-    };
-    fetchData();
-}, []);
 
   const deleteList = async (list) => {
     try {
-      if(loggedIn){
+
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status)
+
+      if(loginResponse.data.data.loggedIn){
         await IndexAPI.delete(`/planner/delete-list/${list}`);
         setListCollection(
           listCollection.filter((list) => {
@@ -43,7 +32,8 @@ const DeleteListC = (props) => {
       <div>
         <label>Are you sure you want to delete this list?</label>
       </div>
-      <div>
+      <div className="login-error-message">{loginStatus}</div>
+      <div className="form-button-div">
         <button
           className="delete form-button"
           onClick={() => deleteList(props.deletedList)}

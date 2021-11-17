@@ -1,36 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import BookSearchAPI from "../apis/bookSearchAPI";
 import PropTypes from 'prop-types';
 
 const AddBooksC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [apiKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
 
   const searchInput = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-    try {
-
-      //Check if logged in
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoggedIn(loginResponse.data.data.loggedIn)
-
-    } catch (err) {
-        console.log(err);
-    }
-    };
-    fetchData();
-}, []);
-
   const searchBooks = async (e) => {
     e.preventDefault();
-    if(loggedIn){
-      try {
+    try {
+
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status)
+
+      if(loginResponse.data.data.loggedIn){
         const response = await BookSearchAPI.get(
           "https://www.googleapis.com/books/v1/volumes?q=" +
             search +
@@ -40,22 +29,25 @@ const AddBooksC = (props) => {
         );
         setSearchResults(response.data.items);
         searchInput.current.value = "";
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const saveBook = async (book) => {
-    if(loggedIn){
-      try {
+    try {
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status)
+
+      if(loginResponse.data.data.loggedIn){
         await IndexAPI.post("/books/add-book", {
           book,
         });
         props.setNewBook(book);
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -74,7 +66,7 @@ const AddBooksC = (props) => {
                 placeholder="Search..."
               />
             </div>
-            <div>
+            <div className="form-button-div">
               <button className="form-button" onClick={searchBooks}>
                 Search
               </button>
@@ -139,7 +131,8 @@ const AddBooksC = (props) => {
                       : "Unknown"}
                   </div>
                 </div>
-                <div>
+                <div className="login-error-message">{loginStatus}</div>
+                <div className="form-button-div">
                   <button
                     className="form-button"
                     onClick={() => saveBook(result.id)}

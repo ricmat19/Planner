@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const RecipesC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [addRecipesModal, setAddRecipesModal] = useState("modal");
   const [recipes, setRecipes] = useState([]);
   const [newRecipe, setNewRecipe] = useState("");
@@ -19,10 +19,6 @@ const RecipesC = (props) => {
     const fetchData = async () => {
       try {
 
-        //Check if logged in
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoggedIn(loginResponse.data.data.loggedIn)
-
         document.addEventListener("mousedown", (event) => {
           if (addRecipesRef.current !== null) {
             if (!addRecipesRef.current.contains(event.target)) {
@@ -33,7 +29,7 @@ const RecipesC = (props) => {
 
         //Get the list of recipes in the DB
         let recipes = [];
-        if (props.recipeModal === "modal modal-active" && loginResponse.data.data.loggedIn) {
+        if (props.recipeModal === "modal modal-active") {
 
           const recipesResponse = await IndexAPI.get(`/recipes`);
           for (let i = 0; i < recipesResponse.data.data.recipes.length; i++) {
@@ -61,20 +57,23 @@ const RecipesC = (props) => {
   }, [props.recipeModal, newRecipe, deletedRecipe]);
 
   const displayAddRecipeModal = () => {
-    if(loggedIn){
       setAddRecipesModal("modal modal-active");
-    }
   };
 
   const removeRecipe = async (recipe) => {
-    if(loggedIn){
+
       try {
-        await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
-        setDeletedRecipe(recipe);
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.status)
+
+        if(loginResponse.data.data.loggedIn){
+          await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
+          setDeletedRecipe(recipe);
+        }
       } catch (err) {
         console.log(err);
       }
-    }
+
   };
 
   return (
@@ -150,6 +149,7 @@ const RecipesC = (props) => {
           })}
         </div>
       </div>
+      <div className="login-error-message">{loginStatus}</div>
     </div>
   );
 };

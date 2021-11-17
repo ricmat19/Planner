@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const BooksC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [addBooksModal, setAddBooksModal] = useState("modal");
   const [bookCollection, setBookCollection] = useState([]);
   const [newBook, setNewBook] = useState("");
@@ -18,10 +18,6 @@ const BooksC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        //Check if logged in
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoggedIn(loginResponse.data.data.loggedIn)
 
         document.addEventListener("mousedown", (event) => {
           if (addBooksRef.current !== null) {
@@ -68,21 +64,23 @@ const BooksC = (props) => {
   }, [props.booksModal, newBook, deletedBook]);
 
   const displayaddBookModal = () => {
-    if(loggedIn){
       setAddBooksModal("modal modal-active");
-    }
   };
 
   const removeBook = async (book) => {
-    if(loggedIn){
+
       try {
-        await IndexAPI.delete(`/books/remove-book/${book}`);
-        setBookCollection(bookCollection);
-        setDeletedBook(book);
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.status)
+
+        if(loginResponse.data.data.loggedIn){
+          await IndexAPI.delete(`/books/remove-book/${book}`);
+          setBookCollection(bookCollection);
+          setDeletedBook(book);
+        }
       } catch (err) {
         console.log(err);
       }
-    }
   };
 
   return (
@@ -161,7 +159,8 @@ const BooksC = (props) => {
                           : "Unknown"}
                       </div>
                     </div>
-                    <div>
+                    <div className="login-error-message">{loginStatus}</div>
+                    <div className="form-button-div">
                       <button
                         className="form-button"
                         onClick={() => removeBook(book.id)}

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const EditToDoC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
   const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
   const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
@@ -41,10 +41,6 @@ const EditToDoC = (props) => {
     const fetchData = async () => {
       try {
 
-        //Check if logged in
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoggedIn(loginResponse.data.data.loggedIn)
-
         //Set the data for the selected to do
         setListCollection(props.listCollection);
         if (list === "" || id !== props.id) {
@@ -60,7 +56,7 @@ const EditToDoC = (props) => {
         }
 
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
-        if (props.editModal === "modal modal-active" && loginResponse.data.data.loggedIn) {
+        if (props.editModal === "modal modal-active") {
           const googleDriveResponse = await IndexAPI.get(`/files`);
           for (let i = 0; i < googleDriveResponse.data.data.files.length; i++) {
             //SpreadSheet
@@ -166,8 +162,13 @@ const EditToDoC = (props) => {
 
   const editToDo = async (e) => {
     e.preventDefault();
-    if(loggedIn){
-      try {
+
+    try {
+
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status)
+
+      if(loginResponse.data.data.loggedIn){
         if (toDo === "") {
           return;
         }
@@ -219,9 +220,9 @@ const EditToDoC = (props) => {
         });
 
         props.editToDo(toDo);
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -421,10 +422,11 @@ const EditToDoC = (props) => {
         </div>
       )}
       {/* <div className="grid toDo-modal-grid">
-                <label>Attachment</label>
-                <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
-            </div> */}
-      <div>
+          <label>Attachment</label>
+          <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
+      </div> */}
+      <div className="login-error-message">{loginStatus}</div>
+      <div className="form-button-div">
         <button className="form-button" onClick={editToDo}>
           Save
         </button>

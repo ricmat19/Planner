@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const CreateToDoC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
   const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
   const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
@@ -37,12 +37,8 @@ const CreateToDoC = (props) => {
     const fetchData = async () => {
       try {
 
-        //Check if logged in
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoggedIn(loginResponse.data.data.loggedIn)
-
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
-        if (props.toDoModal === "modal modal-active" && loginResponse.data.data.loggedIn) {
+        if (props.toDoModal === "modal modal-active") {
           const googleDriveResponse = await IndexAPI.get(`/files`);
           for (let i = 0; i < googleDriveResponse.data.data.files.length; i++) {
             //SpreadSheet
@@ -148,65 +144,71 @@ const CreateToDoC = (props) => {
 
   const createToDo = async (e) => {
     e.preventDefault();
-    if(loggedIn){
+    
       try {
-        if (toDo === "") {
-          return;
-        }
 
-        let fileURL = "";
-        for (let i = 0; i < files.length; i++) {
-          if (files[i].name === file) {
-            fileURL = files[i].url;
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.status)
+
+        if(loginResponse.data.data.loggedIn){
+          if (toDo === "") {
+            return;
           }
-        }
 
-        let repoURL = "";
-        for (let i = 0; i < repos.length; i++) {
-          if (repos[i].name === repo) {
-            repoURL = repos[i].html_url;
+          let fileURL = "";
+          for (let i = 0; i < files.length; i++) {
+            if (files[i].name === file) {
+              fileURL = files[i].url;
+            }
           }
-        }
 
-        let bookURL = "";
-        for (let i = 0; i < books.length; i++) {
-          if (books[i].volumeInfo.title === book) {
-            bookURL = books[i].volumeInfo.previewLink;
+          let repoURL = "";
+          for (let i = 0; i < repos.length; i++) {
+            if (repos[i].name === repo) {
+              repoURL = repos[i].html_url;
+            }
           }
-        }
 
-        let recipeURL = "";
-        for (let i = 0; i < recipes.length; i++) {
-          if (recipes[i].data.title === recipe) {
-            recipeURL = recipes[i].data.spoonacularSourceUrl;
+          let bookURL = "";
+          for (let i = 0; i < books.length; i++) {
+            if (books[i].volumeInfo.title === book) {
+              bookURL = books[i].volumeInfo.previewLink;
+            }
           }
+
+          let recipeURL = "";
+          for (let i = 0; i < recipes.length; i++) {
+            if (recipes[i].data.title === recipe) {
+              recipeURL = recipes[i].data.spoonacularSourceUrl;
+            }
+          }
+
+          let formData = new FormData();
+
+          formData.append("list", props.list);
+          formData.append("toDo", toDo);
+          formData.append("dueDate", dueDate);
+          // formData.append('imgRef', imgRef);
+          formData.append("info", info);
+          formData.append("fileURL", fileURL);
+          formData.append("repoURL", repoURL);
+          formData.append("bookURL", bookURL);
+          formData.append("recipeURL", recipeURL);
+
+          await IndexAPI.post("/planner/add-toDo", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          }).catch((err) => console.log(err));
+
+          toDoInput.current.value = "";
+          dueDateInput.current.value = "";
+          infoInput.current.value = "";
+
+          props.setNewToDo(toDo);
         }
-
-        let formData = new FormData();
-
-        formData.append("list", props.list);
-        formData.append("toDo", toDo);
-        formData.append("dueDate", dueDate);
-        // formData.append('imgRef', imgRef);
-        formData.append("info", info);
-        formData.append("fileURL", fileURL);
-        formData.append("repoURL", repoURL);
-        formData.append("bookURL", bookURL);
-        formData.append("recipeURL", recipeURL);
-
-        await IndexAPI.post("/planner/add-toDo", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        }).catch((err) => console.log(err));
-
-        toDoInput.current.value = "";
-        dueDateInput.current.value = "";
-        infoInput.current.value = "";
-
-        props.setNewToDo(toDo);
       } catch (err) {
         console.log(err);
       }
-    }
+
   };
 
   return (
@@ -292,10 +294,11 @@ const CreateToDoC = (props) => {
         </select>
       </div>
       {/* <div className="grid toDo-modal-grid">
-                <label>Attachment</label>
-                <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
-            </div> */}
-      <div>
+          <label>Attachment</label>
+          <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
+      </div> */}
+      <div className="login-error-message">{loginStatus}</div>
+      <div className="form-button-div">
         <button className="form-button" type="submit" onClick={createToDo}>
           Save
         </button>

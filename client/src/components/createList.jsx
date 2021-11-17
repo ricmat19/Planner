@@ -1,46 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from 'prop-types';
 
 const CreateListC = (props) => {
   
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [list, setList] = useState("");
   const listInput = useRef(null);
 
-  useEffect(() => {
-      const fetchData = async () => {
-      try {
-
-        //Check if logged in
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoggedIn(loginResponse.data.data.loggedIn)
-
-      } catch (err) {
-          console.log(err);
-      }
-      };
-      fetchData();
-  }, []);
-
   const createList = async (e) => {
     e.preventDefault();
-    if(loggedIn){
+
       try {
 
-        await IndexAPI.post("/planner/add-list", {
-          list,
-        });
-        listInput.current.value = "";
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.status)
 
-        props.setNewList(list);
+        if(loginResponse.data.data.loggedIn){
+          await IndexAPI.post("/planner/add-list", {
+            list,
+          });
+          listInput.current.value = "";
+
+          props.setNewList(list);
+        }
       } catch (err) {
         console.log(err);
       }
-    }
+
   };
+
   return (
-    <div>
+    <div className="add-list-div">
       {/* Create List */}
       <div className="grid">
         <label className="title">List</label>
@@ -54,7 +45,8 @@ const CreateListC = (props) => {
           name="list"
         />
       </div>
-      <div>
+      <div className="login-error-message">{loginStatus}</div>
+      <div className="form-button-div">
         <button className="form-button" onClick={createList}>
           Save
         </button>

@@ -151,6 +151,10 @@ textarea {
   padding: 2px;
 }
 
+.form-button-div{
+  margin: 10px 0;
+}
+
 .form-button {
   width: fit-content;
 }
@@ -192,6 +196,10 @@ button {
 
 .search-image {
   width: 100%;
+}
+
+.login-error-message{
+  color: rgb(207, 37, 156, 1);
 }
 
 @import "planner";

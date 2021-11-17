@@ -1,26 +1,14 @@
-import React, { 
-    // useEffect, 
-    useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 
 const LoginC = () => {
 
+    // const [loginStatus, setLoginStatus] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const emailInput = useRef(null);
     const passwordInput = useRef(null);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //     try {
-
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    //     };
-    //     fetchData();
-    // }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -35,10 +23,10 @@ const LoginC = () => {
       };
 
     return (
-        <div>
+        <div className="login-div">
             <p className="login-header title">login</p>
             <div>
-                <div className="modal-input-div">
+                <div className="grid modal-input-div">
                 <input
                     type="email"
                     ref={emailInput}
@@ -50,7 +38,7 @@ const LoginC = () => {
                     }}
                 />
                 </div>
-                <div className="modal-input-div">
+                <div className="grid modal-input-div">
                 <input
                     type="password"
                     ref={passwordInput}
@@ -63,8 +51,8 @@ const LoginC = () => {
                 />
                 </div>
             </div>
-            <div>
-                <button className="login-button" onClick={handleLogin}>Login</button>
+            <div className="form-button-div">
+                <button className="form-button" onClick={handleLogin}>Login</button>
             </div>
         </div>
     );

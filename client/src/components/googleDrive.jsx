@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const GoogleDriveC = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
   const [files, setFiles] = useState([]);
   const [fileType, setFileType] = useState("");
 
@@ -12,12 +12,8 @@ const GoogleDriveC = (props) => {
     const fetchData = async () => {
       try {
 
-        //Check if logged in
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoggedIn(loginResponse.data.data.loggedIn)
-
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
-        if (props.driveModal === "modal modal-active" && loginResponse.data.data.loggedIn) {
+        if (props.driveModal === "modal modal-active") {
           const googleDriveResponse = await IndexAPI.get(`/files`);
           for (let i = 0; i < googleDriveResponse.data.data.files.length; i++) {
             //SpreadSheet
@@ -76,8 +72,11 @@ const GoogleDriveC = (props) => {
     fetchData();
   }, [props.driveModal]);
 
-  const displayFiles = (fileType) => {
-    if(loggedIn){
+  const displayFiles = async (fileType) => {
+    const loginResponse = await IndexAPI.get(`/login`);
+    setLoginStatus(loginResponse.data.status)
+
+    if(loginResponse.data.data.loggedIn){
       setFileType(fileType);
     }
   };
@@ -189,6 +188,7 @@ const GoogleDriveC = (props) => {
           })}
         </div>
       </div>
+      <div className="login-error-message">{loginStatus}</div>
     </div>
   );
 };
