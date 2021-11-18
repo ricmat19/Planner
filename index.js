@@ -19,7 +19,7 @@ app.use(express.json());
 //allows for different domains to communicate
 app.use(
   cors({
-    origin: ["http://localhost:3001", process.env.REACT_APP_PLANNER_API],
+    origin: [process.env.ORIGIN, process.env.REACT_APP_PLANNER_API],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
