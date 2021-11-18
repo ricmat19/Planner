@@ -36,8 +36,12 @@ const RecipesC = (props) => {
             recipes.push(recipesResponse.data.data.recipes[i].recipe);
           }
 
-          //Request all data from Recipe API pertaining to the list of recipes
-          const recipeArray = [];
+          const loginResponse = await IndexAPI.get(`/login`);
+          setLoginStatus(loginResponse.data.status)
+
+          if(loginResponse.data.data.loggedIn){
+            //Request all data from Recipe API pertaining to the list of recipes
+            const recipeArray = [];
             for (let i = 0; i < recipes.length; i++) {
               const recipeInfo = await RecipeAPI.get(
                 "https://api.spoonacular.com/recipes/" +
@@ -48,6 +52,7 @@ const RecipesC = (props) => {
               recipeArray.push(recipeInfo);
             }
             setRecipes(recipeArray);
+          }
         }
       } catch (err) {
         console.log(err);

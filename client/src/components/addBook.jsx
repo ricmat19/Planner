@@ -131,7 +131,6 @@ const AddBooksC = (props) => {
                       : "Unknown"}
                   </div>
                 </div>
-                <div className="login-error-message">{loginStatus}</div>
                 <div className="form-button-div">
                   <button
                     className="form-button"
@@ -146,6 +145,7 @@ const AddBooksC = (props) => {
           ))}
         </div>
       </div>
+      <div className="login-error-message">{loginStatus}</div>
     </div>
   );
 };

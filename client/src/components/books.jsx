@@ -34,28 +34,35 @@ const BooksC = (props) => {
           for (let i = 0; i < booksResponse.data.data.books.length; i++) {
             bookSet.push(booksResponse.data.data.books[i].book);
           }
+
+
+          const loginResponse = await IndexAPI.get(`/login`);
+          setLoginStatus(loginResponse.data.status)
+
+          if(loginResponse.data.data.loggedIn){
+            //Request all data from Google Books API pertaining to the list of books
+            let bookVolumeResponse = [];
+            if (props.booksModal === "modal modal-active") {
+              for (let i = 0; i < bookSet.length; i++) {
+                const bookVolume = await BookSelectAPI.get(
+                  "https://www.googleapis.com/books/v1/volumes/" +
+                    bookSet[i] +
+                    "?key=" +
+                    apiKey
+                );
+                bookVolumeResponse.push(bookVolume.data);
+              }
+
+              if (
+                JSON.stringify(bookVolumeResponse) !==
+                JSON.stringify(bookCollection)
+              ) {
+                setBookCollection(bookVolumeResponse);
+              }
+            }
+          }
         }
 
-        //Request all data from Google Books API pertaining to the list of books
-        let bookVolumeResponse = [];
-        if (props.booksModal === "modal modal-active") {
-          for (let i = 0; i < bookSet.length; i++) {
-            const bookVolume = await BookSelectAPI.get(
-              "https://www.googleapis.com/books/v1/volumes/" +
-                bookSet[i] +
-                "?key=" +
-                apiKey
-            );
-            bookVolumeResponse.push(bookVolume.data);
-          }
-
-          if (
-            JSON.stringify(bookVolumeResponse) !==
-            JSON.stringify(bookCollection)
-          ) {
-            setBookCollection(bookVolumeResponse);
-          }
-        }
       } catch (err) {
         console.log(err);
       }
@@ -159,7 +166,6 @@ const BooksC = (props) => {
                           : "Unknown"}
                       </div>
                     </div>
-                    <div className="login-error-message">{loginStatus}</div>
                     <div className="form-button-div">
                       <button
                         className="form-button"
@@ -175,6 +181,7 @@ const BooksC = (props) => {
             );
           })}
         </div>
+        <div className="login-error-message">{loginStatus}</div>
       </div>
     </div>
   );

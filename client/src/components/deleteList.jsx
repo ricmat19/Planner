@@ -32,7 +32,6 @@ const DeleteListC = (props) => {
       <div>
         <label>Are you sure you want to delete this list?</label>
       </div>
-      <div className="login-error-message">{loginStatus}</div>
       <div className="form-button-div">
         <button
           className="delete form-button"
@@ -41,6 +40,7 @@ const DeleteListC = (props) => {
           Delete
         </button>
       </div>
+      <div className="login-error-message">{loginStatus}</div>
     </div>
   );
 };
