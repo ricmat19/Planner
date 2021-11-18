@@ -22,7 +22,8 @@
     "nth-check": "^2.0.1",
     "set-value": "^4.1.0",
     "tmpl": "^1.0.5",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "dotenv": "^10.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,7 +52,6 @@
   },
   "devDependencies": {
     "eslint": "^7.11.0",
-    "eslint-plugin-react": "^7.27.0",
-    "dotenv": "^10.0.0"
+    "eslint-plugin-react": "^7.27.0"
   }
 }
