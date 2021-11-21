@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import BookSelectAPI from "../apis/bookSelectAPI";
 import AddBookC from "./addBook";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const BooksC = (props) => {
-
   const [loginStatus, setLoginStatus] = useState("");
   const [addBooksModal, setAddBooksModal] = useState("modal");
   const [bookCollection, setBookCollection] = useState([]);
@@ -18,7 +17,6 @@ const BooksC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         document.addEventListener("mousedown", (event) => {
           if (addBooksRef.current !== null) {
             if (!addBooksRef.current.contains(event.target)) {
@@ -35,11 +33,10 @@ const BooksC = (props) => {
             bookSet.push(booksResponse.data.data.books[i].book);
           }
 
-
           const loginResponse = await IndexAPI.get(`/login`);
-          setLoginStatus(loginResponse.data.status)
+          setLoginStatus(loginResponse.data.status);
 
-          if(loginResponse.data.data.loggedIn){
+          if (loginResponse.data.data.loggedIn) {
             //Request all data from Google Books API pertaining to the list of books
             let bookVolumeResponse = [];
             if (props.booksModal === "modal modal-active") {
@@ -62,7 +59,6 @@ const BooksC = (props) => {
             }
           }
         }
-
       } catch (err) {
         console.log(err);
       }
@@ -71,23 +67,22 @@ const BooksC = (props) => {
   }, [props.booksModal, newBook, deletedBook]);
 
   const displayaddBookModal = () => {
-      setAddBooksModal("modal modal-active");
+    setAddBooksModal("modal modal-active");
   };
 
   const removeBook = async (book) => {
+    try {
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status);
 
-      try {
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoginStatus(loginResponse.data.status)
-
-        if(loginResponse.data.data.loggedIn){
-          await IndexAPI.delete(`/books/remove-book/${book}`);
-          setBookCollection(bookCollection);
-          setDeletedBook(book);
-        }
-      } catch (err) {
-        console.log(err);
+      if (loginResponse.data.data.loggedIn) {
+        await IndexAPI.delete(`/books/remove-book/${book}`);
+        setBookCollection(bookCollection);
+        setDeletedBook(book);
       }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -188,7 +183,7 @@ const BooksC = (props) => {
 };
 
 BooksC.propTypes = {
-  booksModal: PropTypes.string
-}
+  booksModal: PropTypes.string,
+};
 
 export default BooksC;

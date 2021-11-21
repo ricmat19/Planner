@@ -11,7 +11,6 @@ import RecipesC from "./recipes";
 import EmailC from "./email";
 
 const NavbarC = () => {
-
   const [loginModal, setLoginModal] = useState("modal");
   const loginRef = useRef();
   const displayLoginModal = () => {
@@ -111,10 +110,7 @@ const NavbarC = () => {
     <div>
       <div className={loginModal}>
         <div ref={loginRef} className="modal-content">
-          <LoginC
-            loginModal={loginModal}
-            loginRef={loginRef}
-          />
+          <LoginC loginModal={loginModal} loginRef={loginRef} />
         </div>
       </div>
       <div className={calculatorModal}>

@@ -3,10 +3,9 @@ import IndexAPI from "../apis/indexAPI";
 import GitHubAPI from "../apis/githubAPI";
 import BookSelectAPI from "../apis/bookSelectAPI";
 import RecipeAPI from "../apis/recipeAPI";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const EditToDoC = (props) => {
-
   const [loginStatus, setLoginStatus] = useState("");
   const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
   const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
@@ -40,7 +39,6 @@ const EditToDoC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         //Set the data for the selected to do
         setListCollection(props.listCollection);
         if (list === "" || id !== props.id) {
@@ -164,11 +162,10 @@ const EditToDoC = (props) => {
     e.preventDefault();
 
     try {
-
       const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status)
+      setLoginStatus(loginResponse.data.status);
 
-      if(loginResponse.data.data.loggedIn){
+      if (loginResponse.data.data.loggedIn) {
         if (toDo === "") {
           return;
         }
@@ -447,7 +444,7 @@ EditToDoC.propTypes = {
   book: PropTypes.string,
   recipe: PropTypes.string,
   editModal: PropTypes.string,
-  editToDo: PropTypes.func
-}
+  editToDo: PropTypes.func,
+};
 
 export default EditToDoC;

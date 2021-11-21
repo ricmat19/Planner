@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const CreateListC = (props) => {
-  
   const [loginStatus, setLoginStatus] = useState("");
   const [list, setList] = useState("");
   const listInput = useRef(null);
@@ -11,23 +10,21 @@ const CreateListC = (props) => {
   const createList = async (e) => {
     e.preventDefault();
 
-      try {
+    try {
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status);
 
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoginStatus(loginResponse.data.status)
+      if (loginResponse.data.data.loggedIn) {
+        await IndexAPI.post("/planner/add-list", {
+          list,
+        });
+        listInput.current.value = "";
 
-        if(loginResponse.data.data.loggedIn){
-          await IndexAPI.post("/planner/add-list", {
-            list,
-          });
-          listInput.current.value = "";
-
-          props.setNewList(list);
-        }
-      } catch (err) {
-        console.log(err);
+        props.setNewList(list);
       }
-
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -56,7 +53,7 @@ const CreateListC = (props) => {
 };
 
 CreateListC.propTypes = {
-  setNewList: PropTypes.func
-}
+  setNewList: PropTypes.func,
+};
 
 export default CreateListC;

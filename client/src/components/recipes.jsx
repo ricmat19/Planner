@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import RecipeAPI from "../apis/recipeAPI";
 import AddRecipeC from "./addRecipe";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const RecipesC = (props) => {
-
   const [loginStatus, setLoginStatus] = useState("");
   const [addRecipesModal, setAddRecipesModal] = useState("modal");
   const [recipes, setRecipes] = useState([]);
@@ -18,7 +17,6 @@ const RecipesC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         document.addEventListener("mousedown", (event) => {
           if (addRecipesRef.current !== null) {
             if (!addRecipesRef.current.contains(event.target)) {
@@ -30,16 +28,15 @@ const RecipesC = (props) => {
         //Get the list of recipes in the DB
         let recipes = [];
         if (props.recipeModal === "modal modal-active") {
-
           const recipesResponse = await IndexAPI.get(`/recipes`);
           for (let i = 0; i < recipesResponse.data.data.recipes.length; i++) {
             recipes.push(recipesResponse.data.data.recipes[i].recipe);
           }
 
           const loginResponse = await IndexAPI.get(`/login`);
-          setLoginStatus(loginResponse.data.status)
+          setLoginStatus(loginResponse.data.status);
 
-          if(loginResponse.data.data.loggedIn){
+          if (loginResponse.data.data.loggedIn) {
             //Request all data from Recipe API pertaining to the list of recipes
             const recipeArray = [];
             for (let i = 0; i < recipes.length; i++) {
@@ -62,23 +59,21 @@ const RecipesC = (props) => {
   }, [props.recipeModal, newRecipe, deletedRecipe]);
 
   const displayAddRecipeModal = () => {
-      setAddRecipesModal("modal modal-active");
+    setAddRecipesModal("modal modal-active");
   };
 
   const removeRecipe = async (recipe) => {
+    try {
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status);
 
-      try {
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoginStatus(loginResponse.data.status)
-
-        if(loginResponse.data.data.loggedIn){
-          await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
-          setDeletedRecipe(recipe);
-        }
-      } catch (err) {
-        console.log(err);
+      if (loginResponse.data.data.loggedIn) {
+        await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
+        setDeletedRecipe(recipe);
       }
-
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -160,7 +155,7 @@ const RecipesC = (props) => {
 };
 
 RecipesC.propTypes = {
-  recipeModal: PropTypes.string
-}
+  recipeModal: PropTypes.string,
+};
 
 export default RecipesC;

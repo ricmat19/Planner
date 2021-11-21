@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import RecipeAPI from "../apis/recipeAPI";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const AddRecipeC = (props) => {
-
   const [loginStatus, setLoginStatus] = useState("");
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -16,9 +15,9 @@ const AddRecipeC = (props) => {
     e.preventDefault();
     try {
       const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status)
+      setLoginStatus(loginResponse.data.status);
 
-      if(loginResponse.data.data.loggedIn){
+      if (loginResponse.data.data.loggedIn) {
         const searchResponse = await RecipeAPI.get(
           "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
             apiKey +
@@ -38,17 +37,17 @@ const AddRecipeC = (props) => {
         }
         setSearchResults(recipeArray);
       }
-      } catch (err) {
-        console.log(err);
-      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const saveRecipe = async (recipe) => {
     try {
       const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status)
+      setLoginStatus(loginResponse.data.status);
 
-      if(loginResponse.data.data.loggedIn){
+      if (loginResponse.data.data.loggedIn) {
         await IndexAPI.post("/recipes/add-recipe", {
           recipe,
         });
@@ -143,7 +142,7 @@ const AddRecipeC = (props) => {
 };
 
 AddRecipeC.propTypes = {
-  setNewRecipe: PropTypes.func
-}
+  setNewRecipe: PropTypes.func,
+};
 
 export default AddRecipeC;

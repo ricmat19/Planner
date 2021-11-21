@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const CalendarToDoC = (props) => {
   const [year, setYear] = useState("");
@@ -53,7 +53,7 @@ const CalendarToDoC = (props) => {
 
 CalendarToDoC.propTypes = {
   selectedDay: PropTypes.string,
-  days: PropTypes.array
-}
+  days: PropTypes.array,
+};
 
 export default CalendarToDoC;

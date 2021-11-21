@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const GoogleDriveC = (props) => {
-
   const [loginStatus, setLoginStatus] = useState("");
   const [files, setFiles] = useState([]);
   const [fileType, setFileType] = useState("");
@@ -11,7 +10,6 @@ const GoogleDriveC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
         if (props.driveModal === "modal modal-active") {
           const googleDriveResponse = await IndexAPI.get(`/files`);
@@ -74,9 +72,9 @@ const GoogleDriveC = (props) => {
 
   const displayFiles = async (fileType) => {
     const loginResponse = await IndexAPI.get(`/login`);
-    setLoginStatus(loginResponse.data.status)
+    setLoginStatus(loginResponse.data.status);
 
-    if(loginResponse.data.data.loggedIn){
+    if (loginResponse.data.data.loggedIn) {
       setFileType(fileType);
     }
   };
@@ -194,7 +192,7 @@ const GoogleDriveC = (props) => {
 };
 
 GoogleDriveC.propTypes = {
-  driveModal: PropTypes.string
-}
+  driveModal: PropTypes.string,
+};
 
 export default GoogleDriveC;

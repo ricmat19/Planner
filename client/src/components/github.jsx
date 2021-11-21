@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import GitHubAPI from "../apis/githubAPI";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const GitHubC = (props) => {
   const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
@@ -118,7 +118,7 @@ const GitHubC = (props) => {
 };
 
 GitHubC.propTypes = {
-  githubModal: PropTypes.string
-}
+  githubModal: PropTypes.string,
+};
 
 export default GitHubC;

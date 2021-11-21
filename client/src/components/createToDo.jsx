@@ -3,10 +3,9 @@ import IndexAPI from "../apis/indexAPI";
 import GitHubAPI from "../apis/githubAPI";
 import BookSelectAPI from "../apis/bookSelectAPI";
 import RecipeAPI from "../apis/recipeAPI";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const CreateToDoC = (props) => {
-
   const [loginStatus, setLoginStatus] = useState("");
   const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
   const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
@@ -36,7 +35,6 @@ const CreateToDoC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
         if (props.toDoModal === "modal modal-active") {
           const googleDriveResponse = await IndexAPI.get(`/files`);
@@ -144,71 +142,69 @@ const CreateToDoC = (props) => {
 
   const createToDo = async (e) => {
     e.preventDefault();
-    
-      try {
 
-        const loginResponse = await IndexAPI.get(`/login`);
-        setLoginStatus(loginResponse.data.status)
+    try {
+      const loginResponse = await IndexAPI.get(`/login`);
+      setLoginStatus(loginResponse.data.status);
 
-        if(loginResponse.data.data.loggedIn){
-          if (toDo === "") {
-            return;
-          }
-
-          let fileURL = "";
-          for (let i = 0; i < files.length; i++) {
-            if (files[i].name === file) {
-              fileURL = files[i].url;
-            }
-          }
-
-          let repoURL = "";
-          for (let i = 0; i < repos.length; i++) {
-            if (repos[i].name === repo) {
-              repoURL = repos[i].html_url;
-            }
-          }
-
-          let bookURL = "";
-          for (let i = 0; i < books.length; i++) {
-            if (books[i].volumeInfo.title === book) {
-              bookURL = books[i].volumeInfo.previewLink;
-            }
-          }
-
-          let recipeURL = "";
-          for (let i = 0; i < recipes.length; i++) {
-            if (recipes[i].data.title === recipe) {
-              recipeURL = recipes[i].data.spoonacularSourceUrl;
-            }
-          }
-
-          let formData = new FormData();
-
-          formData.append("list", props.list);
-          formData.append("toDo", toDo);
-          formData.append("dueDate", dueDate);
-          // formData.append('imgRef', imgRef);
-          formData.append("info", info);
-          formData.append("fileURL", fileURL);
-          formData.append("repoURL", repoURL);
-          formData.append("bookURL", bookURL);
-          formData.append("recipeURL", recipeURL);
-
-          await IndexAPI.post("/planner/add-toDo", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-          }).catch((err) => console.log(err));
-
-          toDoInput.current.value = "";
-          dueDateInput.current.value = "";
-          infoInput.current.value = "";
-
-          props.setNewToDo(toDo);
+      if (loginResponse.data.data.loggedIn) {
+        if (toDo === "") {
+          return;
         }
-      } catch (err) {
-        console.log(err);
-      }
 
+        let fileURL = "";
+        for (let i = 0; i < files.length; i++) {
+          if (files[i].name === file) {
+            fileURL = files[i].url;
+          }
+        }
+
+        let repoURL = "";
+        for (let i = 0; i < repos.length; i++) {
+          if (repos[i].name === repo) {
+            repoURL = repos[i].html_url;
+          }
+        }
+
+        let bookURL = "";
+        for (let i = 0; i < books.length; i++) {
+          if (books[i].volumeInfo.title === book) {
+            bookURL = books[i].volumeInfo.previewLink;
+          }
+        }
+
+        let recipeURL = "";
+        for (let i = 0; i < recipes.length; i++) {
+          if (recipes[i].data.title === recipe) {
+            recipeURL = recipes[i].data.spoonacularSourceUrl;
+          }
+        }
+
+        let formData = new FormData();
+
+        formData.append("list", props.list);
+        formData.append("toDo", toDo);
+        formData.append("dueDate", dueDate);
+        // formData.append('imgRef', imgRef);
+        formData.append("info", info);
+        formData.append("fileURL", fileURL);
+        formData.append("repoURL", repoURL);
+        formData.append("bookURL", bookURL);
+        formData.append("recipeURL", recipeURL);
+
+        await IndexAPI.post("/planner/add-toDo", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        }).catch((err) => console.log(err));
+
+        toDoInput.current.value = "";
+        dueDateInput.current.value = "";
+        infoInput.current.value = "";
+
+        props.setNewToDo(toDo);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -310,7 +306,7 @@ const CreateToDoC = (props) => {
 CreateToDoC.propTypes = {
   toDoModal: PropTypes.string,
   list: PropTypes.string,
-  setNewToDo: PropTypes.func
-}
+  setNewToDo: PropTypes.func,
+};
 
 export default CreateToDoC;

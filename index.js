@@ -21,7 +21,7 @@ app.use(
   cors({
     origin: [process.env.ORIGIN, process.env.REACT_APP_PLANNER_API],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    credentials: true,
   })
 );
 
@@ -35,11 +35,8 @@ app.use(
     secret: [process.env.COOKIE_KEY],
     resave: false,
     saveUninitialized: false,
-    // cookie:{
-    //   expires: 1000 * 60 * 60 * 24
-    // }
   })
-)
+);
 
 //uses the Express use() method
 //the use() method is used to implement middleware on the server
@@ -55,7 +52,6 @@ app.use(loginRouter);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
-
   require("dotenv").config();
 
   app.use(express.static("client/build"));
@@ -63,7 +59,6 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
-  
 }
 
 //uses the Express listen() method

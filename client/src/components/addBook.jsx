@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import BookSearchAPI from "../apis/bookSearchAPI";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const AddBooksC = (props) => {
-
   const [loginStatus, setLoginStatus] = useState("");
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -15,11 +14,10 @@ const AddBooksC = (props) => {
   const searchBooks = async (e) => {
     e.preventDefault();
     try {
-
       const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status)
+      setLoginStatus(loginResponse.data.status);
 
-      if(loginResponse.data.data.loggedIn){
+      if (loginResponse.data.data.loggedIn) {
         const response = await BookSearchAPI.get(
           "https://www.googleapis.com/books/v1/volumes?q=" +
             search +
@@ -38,9 +36,9 @@ const AddBooksC = (props) => {
   const saveBook = async (book) => {
     try {
       const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status)
+      setLoginStatus(loginResponse.data.status);
 
-      if(loginResponse.data.data.loggedIn){
+      if (loginResponse.data.data.loggedIn) {
         await IndexAPI.post("/books/add-book", {
           book,
         });
@@ -151,7 +149,7 @@ const AddBooksC = (props) => {
 };
 
 AddBooksC.propTypes = {
-  setNewBook: PropTypes.func
-}
+  setNewBook: PropTypes.func,
+};
 
 export default AddBooksC;
