@@ -8,7 +8,7 @@ import PlannerC from "./planner";
 // import GoogleDriveC from "./googleDrive";
 import GitHubC from "./github";
 import RecipesC from "./recipes";
-import EmailC from "./email";
+// import EmailC from "./email";
 
 const NavbarC = () => {
   // const [loginModal, setLoginModal] = useState("modal");
@@ -59,11 +59,11 @@ const NavbarC = () => {
     setRecipeModal("modal modal-active");
   };
 
-  const [emailModal, setEmailModal] = useState("modal");
-  const emailRef = useRef();
-  const displayEmailModal = () => {
-    setEmailModal("modal modal-active");
-  };
+  // const [emailModal, setEmailModal] = useState("modal");
+  // const emailRef = useRef();
+  // const displayEmailModal = () => {
+  //   setEmailModal("modal modal-active");
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,9 +94,9 @@ const NavbarC = () => {
             if (!recipeRef.current.contains(event.target)) {
               setRecipeModal("modal");
             }
-            if (!emailRef.current.contains(event.target)) {
-              setEmailModal("modal");
-            }
+            // if (!emailRef.current.contains(event.target)) {
+            //   setEmailModal("modal");
+            // }
           }
         });
       } catch (err) {
@@ -151,18 +151,18 @@ const NavbarC = () => {
           <RecipesC recipeModal={recipeModal} recipeRef={recipeRef} />
         </div>
       </div>
-      <div className={emailModal}>
+      {/* <div className={emailModal}>
         <div ref={emailRef} className="modal-content email-modal-content">
           <EmailC emailModal={emailModal} emailRef={emailRef} />
         </div>
-      </div>
+      </div> */}
 
       <nav className="grid nav-div">
-        <span className="nav-item">
+        {/* <span className="nav-item">
           <div className="nav-item-anchor" onClick={displayEmailModal}>
             <img src="../images/envelope-solid.svg" />
           </div>
-        </span>
+        </span> */}
         <span className="nav-item">
           <div className="nav-item-anchor" onClick={displayRecipesModal}>
             <img src="../images/utensils-solid.svg" />
