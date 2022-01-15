@@ -5,7 +5,7 @@ import AddRecipeC from "./addRecipe";
 import PropTypes from "prop-types";
 
 const RecipesC = (props) => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [addRecipesModal, setAddRecipesModal] = useState("modal");
   const [recipes, setRecipes] = useState([]);
   const [newRecipe, setNewRecipe] = useState("");
@@ -33,10 +33,10 @@ const RecipesC = (props) => {
             recipes.push(recipesResponse.data.data.recipes[i].recipe);
           }
 
-          const loginResponse = await IndexAPI.get(`/login`);
-          setLoginStatus(loginResponse.data.status);
+          // const loginResponse = await IndexAPI.get(`/login`);
+          // setLoginStatus(loginResponse.data.status);
 
-          if (loginResponse.data.data.loggedIn) {
+          // if (loginResponse.data.data.loggedIn) {
             //Request all data from Recipe API pertaining to the list of recipes
             const recipeArray = [];
             for (let i = 0; i < recipes.length; i++) {
@@ -49,7 +49,7 @@ const RecipesC = (props) => {
               recipeArray.push(recipeInfo);
             }
             setRecipes(recipeArray);
-          }
+          // }
         }
       } catch (err) {
         console.log(err);
@@ -64,13 +64,13 @@ const RecipesC = (props) => {
 
   const removeRecipe = async (recipe) => {
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
         setDeletedRecipe(recipe);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -115,15 +115,17 @@ const RecipesC = (props) => {
                     </div>
                     <div>
                       <div>Steps</div>
-                      {recipe.data.analyzedInstructions[0].steps.map(
-                        (step, index) => (
-                          <div className="recipe-steps" key={index}>
-                            <div>
-                              {index + 1}. {step.step}
-                            </div>
-                          </div>
-                        )
-                      )}
+                      {recipe.data.analyzedInstructions[0].steps !== undefined
+                        ? recipe.data.analyzedInstructions[0].steps.map(
+                            (step, index) => (
+                              <div className="recipe-steps" key={index}>
+                                <div>
+                                  {index + 1}. {step.step}
+                                </div>
+                              </div>
+                            )
+                          )
+                        : "Unknown"}
                     </div>
                     <div>
                       <div className="recipe-button-div">
@@ -149,7 +151,7 @@ const RecipesC = (props) => {
           })}
         </div>
       </div>
-      <div className="login-error-message">{loginStatus}</div>
+      {/* <div className="login-error-message">{loginStatus}</div> */}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import RecipeAPI from "../apis/recipeAPI";
 import PropTypes from "prop-types";
 
 const EditToDoC = (props) => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [googleBooksKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
   const [recipeKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
   const [username] = useState(process.env.REACT_APP_GITHUB_USERNAME);
@@ -162,10 +162,10 @@ const EditToDoC = (props) => {
     e.preventDefault();
 
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         if (toDo === "") {
           return;
         }
@@ -217,7 +217,7 @@ const EditToDoC = (props) => {
         });
 
         props.editToDo(toDo);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -422,7 +422,7 @@ const EditToDoC = (props) => {
           <label>Attachment</label>
           <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
       </div> */}
-      <div className="login-error-message">{loginStatus}</div>
+      {/* <div className="login-error-message">{loginStatus}</div> */}
       <div className="form-button-div">
         <button className="form-button" onClick={editToDo}>
           Save

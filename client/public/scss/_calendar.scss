@@ -11,28 +11,27 @@
 .month-forward {
   width: 35px;
   border: none;
+  background-color: $light-grey;
 }
 
 .day-names,
 .day-boxes {
   display: grid;
-  grid-template-columns: repeat(7, 85px);
+  grid-template-columns: repeat(7, minmax(0px, 1fr));
   gap: 3px;
+  width: 100%;
 }
 
 .day-name {
   border-bottom: $solid-border;
-  padding: 5px 0;
-  margin: 5px 0;
 }
 
 .day-box {
   border: $solid-border;
   border-radius: 10px;
-  height: 80px;
-  width: 80px;
+  height: auto;
+  padding: 20px;
   cursor: pointer;
-
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -40,34 +39,33 @@
   align-items: center;
 
   &:hover {
-    background-color: rgba(207, 37, 156, 0.5);
+    background-color: rgb(200, 222, 255);
   }
 }
 
 .day-box-task {
-  background-color: rgba(207, 37, 156, 0.2);
+  background-color: rgb(93, 158, 255);
 
   &:hover {
-    background-color: rgba(207, 37, 156, 0.7);
+    background-color: rgb(0, 74, 211);
     color: white;
   }
 }
 
 .day-box-task-today,
 .day-box-task-today:hover {
-  background-color: rgba(207, 37, 156, 1);
+  background-color: rgb(0, 74, 211);
   color: white;
 }
 
 .day-today,
 .day-today:hover {
-  background-color: rgba(207, 37, 156, 0.7);
+  background-color: rgb(20, 91, 197);
   color: white;
 }
 
 .center-num {
   height: 100%;
-  width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;

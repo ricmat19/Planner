@@ -3,7 +3,7 @@ import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
 
 const CreateListC = (props) => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [list, setList] = useState("");
   const listInput = useRef(null);
 
@@ -11,17 +11,17 @@ const CreateListC = (props) => {
     e.preventDefault();
 
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         await IndexAPI.post("/planner/add-list", {
           list,
         });
         listInput.current.value = "";
 
         props.setNewList(list);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -42,7 +42,7 @@ const CreateListC = (props) => {
           name="list"
         />
       </div>
-      <div className="login-error-message">{loginStatus}</div>
+      {/* <div className="login-error-message">{loginStatus}</div> */}
       <div className="form-button-div">
         <button className="form-button" onClick={createList}>
           Save

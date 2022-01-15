@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 
 const EmailC = () => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -16,10 +16,10 @@ const EmailC = () => {
   const submitEmail = async (e) => {
     e.preventDefault();
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         await IndexAPI.post("/email", {
           name: name,
           email: email,
@@ -31,7 +31,7 @@ const EmailC = () => {
         emailInput.current.value = "";
         subjectInput.current.value = "";
         messageInput.current.value = "";
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -83,7 +83,7 @@ const EmailC = () => {
               required
             ></textarea>
           </div>
-          <div className="login-error-message">{loginStatus}</div>
+          {/* <div className="login-error-message">{loginStatus}</div> */}
           <div className="form-button-div">
             <button onClick={submitEmail} type="submit" className="form-button">
               submit

@@ -5,7 +5,7 @@ import AddBookC from "./addBook";
 import PropTypes from "prop-types";
 
 const BooksC = (props) => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [addBooksModal, setAddBooksModal] = useState("modal");
   const [bookCollection, setBookCollection] = useState([]);
   const [newBook, setNewBook] = useState("");
@@ -33,10 +33,10 @@ const BooksC = (props) => {
             bookSet.push(booksResponse.data.data.books[i].book);
           }
 
-          const loginResponse = await IndexAPI.get(`/login`);
-          setLoginStatus(loginResponse.data.status);
+          // const loginResponse = await IndexAPI.get(`/login`);
+          // setLoginStatus(loginResponse.data.status);
 
-          if (loginResponse.data.data.loggedIn) {
+          // if (loginResponse.data.data.loggedIn) {
             //Request all data from Google Books API pertaining to the list of books
             let bookVolumeResponse = [];
             if (props.booksModal === "modal modal-active") {
@@ -58,7 +58,7 @@ const BooksC = (props) => {
               }
             }
           }
-        }
+        // }
       } catch (err) {
         console.log(err);
       }
@@ -72,14 +72,14 @@ const BooksC = (props) => {
 
   const removeBook = async (book) => {
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         await IndexAPI.delete(`/books/remove-book/${book}`);
         setBookCollection(bookCollection);
         setDeletedBook(book);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -176,7 +176,7 @@ const BooksC = (props) => {
             );
           })}
         </div>
-        <div className="login-error-message">{loginStatus}</div>
+        {/* <div className="login-error-message">{loginStatus}</div> */}
       </div>
     </div>
   );

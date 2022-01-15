@@ -4,7 +4,7 @@ import BookSearchAPI from "../apis/bookSearchAPI";
 import PropTypes from "prop-types";
 
 const AddBooksC = (props) => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [apiKey] = useState(process.env.REACT_APP_GOOGLE_BOOKS_PUBLIC);
@@ -14,10 +14,10 @@ const AddBooksC = (props) => {
   const searchBooks = async (e) => {
     e.preventDefault();
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         const response = await BookSearchAPI.get(
           "https://www.googleapis.com/books/v1/volumes?q=" +
             search +
@@ -27,7 +27,7 @@ const AddBooksC = (props) => {
         );
         setSearchResults(response.data.items);
         searchInput.current.value = "";
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -35,15 +35,15 @@ const AddBooksC = (props) => {
 
   const saveBook = async (book) => {
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         await IndexAPI.post("/books/add-book", {
           book,
         });
         props.setNewBook(book);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -143,7 +143,7 @@ const AddBooksC = (props) => {
           ))}
         </div>
       </div>
-      <div className="login-error-message">{loginStatus}</div>
+      {/* <div className="login-error-message">{loginStatus}</div> */}
     </div>
   );
 };

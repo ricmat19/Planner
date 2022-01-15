@@ -4,7 +4,7 @@ import RecipeAPI from "../apis/recipeAPI";
 import PropTypes from "prop-types";
 
 const AddRecipeC = (props) => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [apiKey] = useState(process.env.REACT_APP_RECIPE_APIKEY);
@@ -14,10 +14,10 @@ const AddRecipeC = (props) => {
   const searchRecipes = async (e) => {
     e.preventDefault();
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         const searchResponse = await RecipeAPI.get(
           "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
             apiKey +
@@ -36,7 +36,7 @@ const AddRecipeC = (props) => {
           recipeArray.push(recipeInfo);
         }
         setSearchResults(recipeArray);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -44,16 +44,16 @@ const AddRecipeC = (props) => {
 
   const saveRecipe = async (recipe) => {
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         await IndexAPI.post("/recipes/add-recipe", {
           recipe,
         });
 
         props.setNewRecipe(recipe);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -85,7 +85,7 @@ const AddRecipeC = (props) => {
           {searchResults.map((result) => (
             <div key={result.data.id}>
               <div className="sub-title">{result.data.title}</div>
-              <div className="grid">
+              <div className="grid recipe-info-div">
                 <div>
                   <div>Ingredients</div>
                   <ul>
@@ -104,18 +104,20 @@ const AddRecipeC = (props) => {
                 </div>
                 <div>
                   <div>Steps</div>
-                  {result.data.analyzedInstructions[0].steps.map(
-                    (step, index) => (
-                      <div className="recipe-steps" key={index}>
-                        <div>
-                          {index + 1}. {step.step}
-                        </div>
-                      </div>
-                    )
-                  )}
+                  {result.data.analyzedInstructions[0] !== undefined
+                    ? result.data.analyzedInstructions[0].steps.map(
+                        (step, index) => (
+                          <div className="recipe-steps" key={index}>
+                            <div>
+                              {index + 1}. {step.step}
+                            </div>
+                          </div>
+                        )
+                      )
+                    : "Unknown"}
                 </div>
                 <div>
-                  <div className="login-error-message">{loginStatus}</div>
+                  {/* <div className="login-error-message">{loginStatus}</div> */}
                   <div className="recipe-button-div">
                     <button
                       className="form-button"

@@ -3,23 +3,22 @@ import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
 
 const DeleteListC = (props) => {
-  const [loginStatus, setLoginStatus] = useState("");
+  // const [loginStatus, setLoginStatus] = useState("");
   const [listCollection, setListCollection] = useState([]);
 
   const deleteList = async (list) => {
     try {
-      const loginResponse = await IndexAPI.get(`/login`);
-      setLoginStatus(loginResponse.data.status);
+      // const loginResponse = await IndexAPI.get(`/login`);
+      // setLoginStatus(loginResponse.data.status);
 
-      console.log(loginResponse.data.status);
-      if (loginResponse.data.data.loggedIn) {
+      // if (loginResponse.data.data.loggedIn) {
         await IndexAPI.delete(`/planner/delete-list/${list}`);
         setListCollection(
           listCollection.filter((list) => {
             return list.list !== list;
           })
         );
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -39,7 +38,7 @@ const DeleteListC = (props) => {
           Delete
         </button>
       </div>
-      <div className="login-error-message">{loginStatus}</div>
+      {/* <div className="login-error-message">{loginStatus}</div> */}
     </div>
   );
 };
