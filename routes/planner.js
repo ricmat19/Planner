@@ -76,13 +76,13 @@ const upload = multer({ dest: "images/" });
 router.post("/planner/add-toDo", upload.single("imgRef"), async (req, res) => {
   try {
     const todo = await db.query(
-      "INSERT INTO todos (list, todo, dueDate, info, file, repo, book, recipe) values (?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO todos (list, todo, dueDate, info, repo, book, recipe) values (?, ?, ?, ?, ?, ?, ?)",
       [
         req.body.list,
         req.body.toDo,
         req.body.dueDate,
         req.body.info,
-        req.body.fileURL,
+        // req.body.fileURL,
         req.body.repoURL,
         req.body.bookURL,
         req.body.recipeURL,
@@ -105,13 +105,13 @@ router.post("/planner/add-toDo", upload.single("imgRef"), async (req, res) => {
 router.put("/planner/edit-toDo", async (req, res) => {
   try {
     const todo = await db.query(
-      "UPDATE todos SET list=?, todo=?, dueDate=?, info=?, file=?, repo=?, book=?, recipe=? WHERE id=?",
+      "UPDATE todos SET list=?, todo=?, dueDate=?, info=?, repo=?, book=?, recipe=? WHERE id=?",
       [
         req.body.list,
         req.body.toDo,
         req.body.dueDate,
         req.body.info,
-        req.body.fileURL,
+        // req.body.fileURL,
         req.body.repoURL,
         req.body.bookURL,
         req.body.recipeURL,

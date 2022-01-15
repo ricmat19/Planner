@@ -41,77 +41,79 @@ const GitHubC = (props) => {
   return (
     <div>
       <div className="title">GitHub</div>
-      <div className="grid github-nav">
-        <div className="sub-title" onClick={displayRepos}>
-          Repos
-        </div>
-        <div className="sub-title" onClick={displayUser}>
-          User
-        </div>
-      </div>
-      <div>
-        {userDisplay ? (
-          <div>
-            <div className="grid github-user-info-div">
-              <label className="align-left">Name</label>
-              <div className="align-right">{user.name}</div>
-            </div>
-            <hr />
-            <div className="grid github-user-info-div">
-              <label className="align-left">Location</label>
-              <div className="align-right">{user.location}</div>
-            </div>
-            <hr />
-            <div className="grid github-user-info-div">
-              <label className="align-left">GitHub</label>
-              <a
-                className="align-right"
-                href={user.html_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div>Link</div>
-              </a>
-            </div>
-            <hr />
-            <div className="grid github-user-info-div">
-              <label className="align-left">Website</label>
-              <a
-                className="align-right"
-                href={user.blog}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div>Link</div>
-              </a>
-            </div>
-            <hr />
-            <div className="grid github-user-info-div">
-              <label className="align-left"># of Repos</label>
-              <div className="align-right">{user.public_repos}</div>
-            </div>
+      <div className="search-results-container">
+        <div className="grid github-nav">
+          <div className="sub-title" onClick={displayRepos}>
+            Repos
           </div>
-        ) : (
-          repos.map((repo) => {
-            return (
-              <div key={repo.id}>
-                <div className="github-repo-div">
-                  <div className="align-left">{repo.name}</div>
-                  <div className="align-left">{repo.language}</div>
-                  <a
-                    className="align-right"
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <div className="align-right">Repo</div>
-                  </a>
-                </div>
-                <hr />
+          <div className="sub-title" onClick={displayUser}>
+            User
+          </div>
+        </div>
+        <div>
+          {userDisplay ? (
+            <div>
+              <div className="grid github-user-info-div">
+                <label className="align-left">Name</label>
+                <div className="align-right">{user.name}</div>
               </div>
-            );
-          })
-        )}
+              <hr />
+              <div className="grid github-user-info-div">
+                <label className="align-left">Location</label>
+                <div className="align-right">{user.location}</div>
+              </div>
+              <hr />
+              <div className="grid github-user-info-div">
+                <label className="align-left">GitHub</label>
+                <a
+                  className="align-right"
+                  href={user.html_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div>Link</div>
+                </a>
+              </div>
+              <hr />
+              <div className="grid github-user-info-div">
+                <label className="align-left">Website</label>
+                <a
+                  className="align-right"
+                  href={user.blog}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div>Link</div>
+                </a>
+              </div>
+              <hr />
+              <div className="grid github-user-info-div">
+                <label className="align-left"># of Repos</label>
+                <div className="align-right">{user.public_repos}</div>
+              </div>
+            </div>
+          ) : (
+            repos.map((repo) => {
+              return (
+                <div key={repo.id}>
+                  <div className="github-repo-div">
+                    <div className="align-left">{repo.name}</div>
+                    <div className="align-left">{repo.language}</div>
+                    <a
+                      className="align-right"
+                      href={repo.html_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div className="align-right">Repo</div>
+                    </a>
+                  </div>
+                  <hr />
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
     </div>
   );

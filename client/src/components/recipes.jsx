@@ -90,7 +90,7 @@ const RecipesC = (props) => {
           <img src="../images/plus-solid-white.svg" />
         </button>
         <div className="title">Recipe Collection</div>
-        <div>
+        <div className="search-results-container">
           {recipes.map((recipe) => {
             return (
               <div key={recipe.data.id} className="grid grid-center">

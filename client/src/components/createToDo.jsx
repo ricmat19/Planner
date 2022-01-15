@@ -16,8 +16,8 @@ const CreateToDoC = (props) => {
   // const [imgRef, setImgRef] = useState("");
   const [info, setInfo] = useState("");
 
-  const [files, setFiles] = useState([]);
-  const [file, setFile] = useState("");
+  // const [files, setFiles] = useState([]);
+  // const [file, setFile] = useState("");
 
   const [repos, setRepos] = useState([]);
   const [repo, setRepo] = useState("");
@@ -37,55 +37,55 @@ const CreateToDoC = (props) => {
       try {
         //Get a list of all files from the Google Drive API and add a url key:value pair for each file
         if (props.toDoModal === "modal modal-active") {
-          const googleDriveResponse = await IndexAPI.get(`/files`);
-          for (let i = 0; i < googleDriveResponse.data.data.files.length; i++) {
-            //SpreadSheet
-            if (
-              googleDriveResponse.data.data.files[i].mimeType ===
-              "application/vnd.google-apps.spreadsheet"
-            ) {
-              googleDriveResponse.data.data.files[i].url =
-                "https://docs.google.com/spreadsheets/d/" +
-                googleDriveResponse.data.data.files[i].id;
-            }
-            //Document
-            if (
-              googleDriveResponse.data.data.files[i].mimeType ===
-              "application/vnd.google-apps.document"
-            ) {
-              googleDriveResponse.data.data.files[i].url =
-                "https://docs.google.com/document/d/" +
-                googleDriveResponse.data.data.files[i].id;
-            }
-            //Drawing
-            if (
-              googleDriveResponse.data.data.files[i].mimeType ===
-              "application/vnd.google-apps.drawing"
-            ) {
-              googleDriveResponse.data.data.files[i].url =
-                "https://docs.google.com/drawings/d/" +
-                googleDriveResponse.data.data.files[i].id;
-            }
-            //PDF
-            if (
-              googleDriveResponse.data.data.files[i].mimeType ===
-              "application/pdf"
-            ) {
-              googleDriveResponse.data.data.files[i].url =
-                "https://drive.google.com/file/d/" +
-                googleDriveResponse.data.data.files[i].id;
-            }
-            //Diagram
-            if (
-              googleDriveResponse.data.data.files[i].mimeType ===
-              "application/vnd.jgraph.mxfile"
-            ) {
-              googleDriveResponse.data.data.files[i].url =
-                "https://app.diagrams.net/#G" +
-                googleDriveResponse.data.data.files[i].id;
-            }
-          }
-          setFiles(googleDriveResponse.data.data.files);
+          // const googleDriveResponse = await IndexAPI.get(`/files`);
+          // for (let i = 0; i < googleDriveResponse.data.data.files.length; i++) {
+          //   //SpreadSheet
+          //   if (
+          //     googleDriveResponse.data.data.files[i].mimeType ===
+          //     "application/vnd.google-apps.spreadsheet"
+          //   ) {
+          //     googleDriveResponse.data.data.files[i].url =
+          //       "https://docs.google.com/spreadsheets/d/" +
+          //       googleDriveResponse.data.data.files[i].id;
+          //   }
+          //   //Document
+          //   if (
+          //     googleDriveResponse.data.data.files[i].mimeType ===
+          //     "application/vnd.google-apps.document"
+          //   ) {
+          //     googleDriveResponse.data.data.files[i].url =
+          //       "https://docs.google.com/document/d/" +
+          //       googleDriveResponse.data.data.files[i].id;
+          //   }
+          //   //Drawing
+          //   if (
+          //     googleDriveResponse.data.data.files[i].mimeType ===
+          //     "application/vnd.google-apps.drawing"
+          //   ) {
+          //     googleDriveResponse.data.data.files[i].url =
+          //       "https://docs.google.com/drawings/d/" +
+          //       googleDriveResponse.data.data.files[i].id;
+          //   }
+          //   //PDF
+          //   if (
+          //     googleDriveResponse.data.data.files[i].mimeType ===
+          //     "application/pdf"
+          //   ) {
+          //     googleDriveResponse.data.data.files[i].url =
+          //       "https://drive.google.com/file/d/" +
+          //       googleDriveResponse.data.data.files[i].id;
+          //   }
+          //   //Diagram
+          //   if (
+          //     googleDriveResponse.data.data.files[i].mimeType ===
+          //     "application/vnd.jgraph.mxfile"
+          //   ) {
+          //     googleDriveResponse.data.data.files[i].url =
+          //       "https://app.diagrams.net/#G" +
+          //       googleDriveResponse.data.data.files[i].id;
+          //   }
+          // }
+          // setFiles(googleDriveResponse.data.data.files);
 
           //Get repo data from GitHub API
           const githubRepoResponse = await GitHubAPI.get(
@@ -152,11 +152,11 @@ const CreateToDoC = (props) => {
           return;
         }
 
-        let fileURL = "";
-        for (let i = 0; i < files.length; i++) {
-          if (files[i].name === file) {
-            fileURL = files[i].url;
-          }
+        // let fileURL = "";
+        // for (let i = 0; i < files.length; i++) {
+        //   if (files[i].name === file) {
+        //     fileURL = files[i].url;
+        //   }
         // }
 
         let repoURL = "";
@@ -187,7 +187,7 @@ const CreateToDoC = (props) => {
         formData.append("dueDate", dueDate);
         // formData.append('imgRef', imgRef);
         formData.append("info", info);
-        formData.append("fileURL", fileURL);
+        // formData.append("fileURL", fileURL);
         formData.append("repoURL", repoURL);
         formData.append("bookURL", bookURL);
         formData.append("recipeURL", recipeURL);
@@ -201,7 +201,7 @@ const CreateToDoC = (props) => {
         infoInput.current.value = "";
 
         props.setNewToDo(toDo);
-      }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -245,7 +245,7 @@ const CreateToDoC = (props) => {
           name="dueDate"
         />
       </div>
-      <div className="grid toDo-modal-grid">
+      {/* <div className="grid toDo-modal-grid">
         <label>File</label>
         <select value={file} onChange={(e) => setFile(e.target.value)}>
           <option value="" disabled>
@@ -255,7 +255,7 @@ const CreateToDoC = (props) => {
             return <option key={index}>{file.name}</option>;
           })}
         </select>
-      </div>
+      </div> */}
       <div className="grid toDo-modal-grid">
         <label>Repo</label>
         <select value={repo} onChange={(e) => setRepo(e.target.value)}>
