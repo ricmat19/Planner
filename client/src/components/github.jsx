@@ -41,7 +41,7 @@ const GitHubC = (props) => {
   return (
     <div>
       <div className="title">GitHub</div>
-      <div className="search-results-container">
+      <div>
         <div className="grid github-nav">
           <div className="sub-title" onClick={displayRepos}>
             Repos
@@ -50,7 +50,7 @@ const GitHubC = (props) => {
             User
           </div>
         </div>
-        <div>
+        <div className="search-results-container">
           {userDisplay ? (
             <div>
               <div className="grid github-user-info-div">
