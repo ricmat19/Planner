@@ -37,18 +37,18 @@ const RecipesC = (props) => {
           // setLoginStatus(loginResponse.data.status);
 
           // if (loginResponse.data.data.loggedIn) {
-            //Request all data from Recipe API pertaining to the list of recipes
-            const recipeArray = [];
-            for (let i = 0; i < recipes.length; i++) {
-              const recipeInfo = await RecipeAPI.get(
-                "https://api.spoonacular.com/recipes/" +
-                  recipes[i] +
-                  "/information?apiKey=" +
-                  apiKey
-              );
-              recipeArray.push(recipeInfo);
-            }
-            setRecipes(recipeArray);
+          //Request all data from Recipe API pertaining to the list of recipes
+          const recipeArray = [];
+          for (let i = 0; i < recipes.length; i++) {
+            const recipeInfo = await RecipeAPI.get(
+              "https://api.spoonacular.com/recipes/" +
+                recipes[i] +
+                "/information?apiKey=" +
+                apiKey
+            );
+            recipeArray.push(recipeInfo);
+          }
+          setRecipes(recipeArray);
           // }
         }
       } catch (err) {
@@ -68,8 +68,8 @@ const RecipesC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
-        setDeletedRecipe(recipe);
+      await IndexAPI.delete(`/recipes/remove-recipe/${recipe}`);
+      setDeletedRecipe(recipe);
       // }
     } catch (err) {
       console.log(err);

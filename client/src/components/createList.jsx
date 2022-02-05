@@ -15,12 +15,12 @@ const CreateListC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        await IndexAPI.post("/planner/add-list", {
-          list,
-        });
-        listInput.current.value = "";
+      await IndexAPI.post("/planner/add-list", {
+        list,
+      });
+      listInput.current.value = "";
 
-        props.setNewList(list);
+      props.setNewList(list);
       // }
     } catch (err) {
       console.log(err);

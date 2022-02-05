@@ -13,7 +13,6 @@ const CreateToDoC = (props) => {
 
   const [toDo, setToDo] = useState("");
   const [dueDate, setDueDate] = useState("");
-  // const [imgRef, setImgRef] = useState("");
   const [info, setInfo] = useState("");
 
   // const [files, setFiles] = useState([]);
@@ -148,59 +147,58 @@ const CreateToDoC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        if (toDo === "") {
-          return;
+      if (toDo === "") {
+        return;
+      }
+
+      // let fileURL = "";
+      // for (let i = 0; i < files.length; i++) {
+      //   if (files[i].name === file) {
+      //     fileURL = files[i].url;
+      //   }
+      // }
+
+      let repoURL = "";
+      for (let i = 0; i < repos.length; i++) {
+        if (repos[i].name === repo) {
+          repoURL = repos[i].html_url;
         }
+      }
 
-        // let fileURL = "";
-        // for (let i = 0; i < files.length; i++) {
-        //   if (files[i].name === file) {
-        //     fileURL = files[i].url;
-        //   }
-        // }
-
-        let repoURL = "";
-        for (let i = 0; i < repos.length; i++) {
-          if (repos[i].name === repo) {
-            repoURL = repos[i].html_url;
-          }
+      let bookURL = "";
+      for (let i = 0; i < books.length; i++) {
+        if (books[i].volumeInfo.title === book) {
+          bookURL = books[i].volumeInfo.previewLink;
         }
+      }
 
-        let bookURL = "";
-        for (let i = 0; i < books.length; i++) {
-          if (books[i].volumeInfo.title === book) {
-            bookURL = books[i].volumeInfo.previewLink;
-          }
+      let recipeURL = "";
+      for (let i = 0; i < recipes.length; i++) {
+        if (recipes[i].data.title === recipe) {
+          recipeURL = recipes[i].data.spoonacularSourceUrl;
         }
+      }
 
-        let recipeURL = "";
-        for (let i = 0; i < recipes.length; i++) {
-          if (recipes[i].data.title === recipe) {
-            recipeURL = recipes[i].data.spoonacularSourceUrl;
-          }
-        }
+      let formData = new FormData();
 
-        let formData = new FormData();
+      formData.append("list", props.list);
+      formData.append("toDo", toDo);
+      formData.append("dueDate", dueDate);
+      formData.append("info", info);
+      // formData.append("fileURL", fileURL);
+      formData.append("repoURL", repoURL);
+      formData.append("bookURL", bookURL);
+      formData.append("recipeURL", recipeURL);
 
-        formData.append("list", props.list);
-        formData.append("toDo", toDo);
-        formData.append("dueDate", dueDate);
-        // formData.append('imgRef', imgRef);
-        formData.append("info", info);
-        // formData.append("fileURL", fileURL);
-        formData.append("repoURL", repoURL);
-        formData.append("bookURL", bookURL);
-        formData.append("recipeURL", recipeURL);
+      await IndexAPI.post("/planner/add-toDo", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).catch((err) => console.log(err));
 
-        await IndexAPI.post("/planner/add-toDo", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        }).catch((err) => console.log(err));
+      toDoInput.current.value = "";
+      dueDateInput.current.value = "";
+      infoInput.current.value = "";
 
-        toDoInput.current.value = "";
-        dueDateInput.current.value = "";
-        infoInput.current.value = "";
-
-        props.setNewToDo(toDo);
+      props.setNewToDo(toDo);
       // }
     } catch (err) {
       console.log(err);
@@ -289,10 +287,6 @@ const CreateToDoC = (props) => {
           })}
         </select>
       </div>
-      {/* <div className="grid toDo-modal-grid">
-          <label>Attachment</label>
-          <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
-      </div> */}
       {/* <div className="login-error-message">{loginStatus}</div> */}
       <div className="form-button-div">
         <button className="form-button" type="submit" onClick={createToDo}>

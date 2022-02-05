@@ -12,12 +12,12 @@ const DeleteListC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        await IndexAPI.delete(`/planner/delete-list/${list}`);
-        setListCollection(
-          listCollection.filter((list) => {
-            return list.list !== list;
-          })
-        );
+      await IndexAPI.delete(`/planner/delete-list/${list}`);
+      setListCollection(
+        listCollection.filter((list) => {
+          return list.list !== list;
+        })
+      );
       // }
     } catch (err) {
       console.log(err);

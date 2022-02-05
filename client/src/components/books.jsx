@@ -37,27 +37,27 @@ const BooksC = (props) => {
           // setLoginStatus(loginResponse.data.status);
 
           // if (loginResponse.data.data.loggedIn) {
-            //Request all data from Google Books API pertaining to the list of books
-            let bookVolumeResponse = [];
-            if (props.booksModal === "modal modal-active") {
-              for (let i = 0; i < bookSet.length; i++) {
-                const bookVolume = await BookSelectAPI.get(
-                  "https://www.googleapis.com/books/v1/volumes/" +
-                    bookSet[i] +
-                    "?key=" +
-                    apiKey
-                );
-                bookVolumeResponse.push(bookVolume.data);
-              }
+          //Request all data from Google Books API pertaining to the list of books
+          let bookVolumeResponse = [];
+          if (props.booksModal === "modal modal-active") {
+            for (let i = 0; i < bookSet.length; i++) {
+              const bookVolume = await BookSelectAPI.get(
+                "https://www.googleapis.com/books/v1/volumes/" +
+                  bookSet[i] +
+                  "?key=" +
+                  apiKey
+              );
+              bookVolumeResponse.push(bookVolume.data);
+            }
 
-              if (
-                JSON.stringify(bookVolumeResponse) !==
-                JSON.stringify(bookCollection)
-              ) {
-                setBookCollection(bookVolumeResponse);
-              }
+            if (
+              JSON.stringify(bookVolumeResponse) !==
+              JSON.stringify(bookCollection)
+            ) {
+              setBookCollection(bookVolumeResponse);
             }
           }
+        }
         // }
       } catch (err) {
         console.log(err);
@@ -76,9 +76,9 @@ const BooksC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        await IndexAPI.delete(`/books/remove-book/${book}`);
-        setBookCollection(bookCollection);
-        setDeletedBook(book);
+      await IndexAPI.delete(`/books/remove-book/${book}`);
+      setBookCollection(bookCollection);
+      setDeletedBook(book);
       // }
     } catch (err) {
       console.log(err);

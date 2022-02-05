@@ -166,57 +166,57 @@ const EditToDoC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        if (toDo === "") {
-          return;
+      if (toDo === "") {
+        return;
+      }
+
+      // let fileURL = "";
+      // for (let i = 0; i < files.length; i++) {
+      //   if (files[i].name === file || files[i].url === file) {
+      //     fileURL = files[i].url;
+      //   }
+      // }
+
+      let repoURL = "";
+      for (let i = 0; i < repos.length; i++) {
+        if (repos[i].name === repo || repos[i].html_url === repo) {
+          repoURL = repos[i].html_url;
         }
+      }
 
-        // let fileURL = "";
-        // for (let i = 0; i < files.length; i++) {
-        //   if (files[i].name === file || files[i].url === file) {
-        //     fileURL = files[i].url;
-        //   }
-        // }
-
-        let repoURL = "";
-        for (let i = 0; i < repos.length; i++) {
-          if (repos[i].name === repo || repos[i].html_url === repo) {
-            repoURL = repos[i].html_url;
-          }
+      let bookURL = "";
+      for (let i = 0; i < books.length; i++) {
+        if (
+          books[i].volumeInfo.title === book ||
+          books[i].volumeInfo.previewLink === book
+        ) {
+          bookURL = books[i].volumeInfo.previewLink;
         }
+      }
 
-        let bookURL = "";
-        for (let i = 0; i < books.length; i++) {
-          if (
-            books[i].volumeInfo.title === book ||
-            books[i].volumeInfo.previewLink === book
-          ) {
-            bookURL = books[i].volumeInfo.previewLink;
-          }
+      let recipeURL = "";
+      for (let i = 0; i < recipes.length; i++) {
+        if (
+          recipes[i].data.title === recipe ||
+          recipes[i].data.spoonacularSourceUrl === recipe
+        ) {
+          recipeURL = recipes[i].data.spoonacularSourceUrl;
         }
+      }
 
-        let recipeURL = "";
-        for (let i = 0; i < recipes.length; i++) {
-          if (
-            recipes[i].data.title === recipe ||
-            recipes[i].data.spoonacularSourceUrl === recipe
-          ) {
-            recipeURL = recipes[i].data.spoonacularSourceUrl;
-          }
-        }
+      await IndexAPI.put(`/planner/edit-toDo`, {
+        id: props.id,
+        list: list,
+        toDo: toDo,
+        dueDate: dueDate,
+        info: info,
+        // fileURL: fileURL,
+        repoURL: repoURL,
+        bookURL: bookURL,
+        recipeURL: recipeURL,
+      });
 
-        await IndexAPI.put(`/planner/edit-toDo`, {
-          id: props.id,
-          list: list,
-          toDo: toDo,
-          dueDate: dueDate,
-          info: info,
-          // fileURL: fileURL,
-          repoURL: repoURL,
-          bookURL: bookURL,
-          recipeURL: recipeURL,
-        });
-
-        props.editToDo(toDo);
+      props.editToDo(toDo);
       // }
     } catch (err) {
       console.log(err);
@@ -418,10 +418,6 @@ const EditToDoC = (props) => {
           </select>
         </div>
       )}
-      {/* <div className="grid toDo-modal-grid">
-          <label>Attachment</label>
-          <input  type="file" onChange={e => setImgRef(e.target.files[0])} name="imgRef" className="form-control" required/>
-      </div> */}
       {/* <div className="login-error-message">{loginStatus}</div> */}
       <div className="form-button-div">
         <button className="form-button" onClick={editToDo}>

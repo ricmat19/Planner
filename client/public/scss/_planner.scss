@@ -59,7 +59,7 @@
 }
 
 .past-due {
-  background-color:  rgb(0, 74, 211);
+  background-color: rgb(0, 74, 211);
   color: white;
 }
 
@@ -73,7 +73,7 @@
   color: black;
 }
 
-.add-list-div{
+.add-list-div {
   width: 400px;
 }
 
@@ -87,7 +87,8 @@
   gap: 10px;
 }
 
-.toDo-modal-grid, .link-div-no-file {
+.toDo-modal-grid,
+.link-div-no-file {
   grid-template-columns: 100px 1fr;
   text-align: left;
   align-items: center;

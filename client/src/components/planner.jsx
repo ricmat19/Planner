@@ -29,7 +29,6 @@ const ToDoC = () => {
   const [list, setList] = useState("");
   const [toDo, setToDo] = useState("");
   const [dueDate, setDueDate] = useState("");
-  // const [imgRef, setImgRef] = useState("");
   const [info, setInfo] = useState("");
   const [file, setFile] = useState("");
   const [repo, setRepo] = useState("");

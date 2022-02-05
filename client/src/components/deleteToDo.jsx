@@ -12,12 +12,12 @@ const DeleteToDoC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        await IndexAPI.delete(`/planner/delete-toDo/${id}`);
-        setToDos(
-          toDos.filter((toDo) => {
-            return toDo.id !== id;
-          })
-        );
+      await IndexAPI.delete(`/planner/delete-toDo/${id}`);
+      setToDos(
+        toDos.filter((toDo) => {
+          return toDo.id !== id;
+        })
+      );
       // }
     } catch (err) {
       console.log(err);

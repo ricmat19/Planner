@@ -18,15 +18,15 @@ const AddBooksC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        const response = await BookSearchAPI.get(
-          "https://www.googleapis.com/books/v1/volumes?q=" +
-            search +
-            "&key=" +
-            apiKey +
-            "&maxResults=40"
-        );
-        setSearchResults(response.data.items);
-        searchInput.current.value = "";
+      const response = await BookSearchAPI.get(
+        "https://www.googleapis.com/books/v1/volumes?q=" +
+          search +
+          "&key=" +
+          apiKey +
+          "&maxResults=40"
+      );
+      setSearchResults(response.data.items);
+      searchInput.current.value = "";
       // }
     } catch (err) {
       console.log(err);
@@ -39,10 +39,10 @@ const AddBooksC = (props) => {
       // setLoginStatus(loginResponse.data.status);
 
       // if (loginResponse.data.data.loggedIn) {
-        await IndexAPI.post("/books/add-book", {
-          book,
-        });
-        props.setNewBook(book);
+      await IndexAPI.post("/books/add-book", {
+        book,
+      });
+      props.setNewBook(book);
       // }
     } catch (err) {
       console.log(err);
