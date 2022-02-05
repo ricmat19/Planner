@@ -175,7 +175,7 @@ const CalendarC = () => {
               <img src="../images/angle-left-solid.svg" />
             </button>
           </div>
-          <div className="title month-title">{dateDisplay}</div>
+          <div className="title align-center">{dateDisplay}</div>
           <div>
             <button onClick={() => setNav(nav + 1)} className="month-forward">
               <img src="../images/angle-right-solid.svg" />

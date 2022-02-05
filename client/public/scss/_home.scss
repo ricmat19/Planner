@@ -1,0 +1,15 @@
+.nav-div {
+  grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+  align-items: center;
+  justify-items: center;
+  border-bottom: $solid-border;
+  background-color: $white;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.nav-item {
+  padding: 5px;
+  width: 50px;
+}

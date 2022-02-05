@@ -32,7 +32,7 @@ const DeleteListC = (props) => {
       </div>
       <div className="form-button-div">
         <button
-          className="delete form-button"
+          className="delete-button form-button"
           onClick={() => deleteList(props.deletedList)}
         >
           Delete

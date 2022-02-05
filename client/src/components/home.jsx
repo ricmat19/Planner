@@ -159,47 +159,47 @@ const NavbarC = () => {
 
       <nav className="grid nav-div">
         {/* <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayEmailModal}>
+          <div className="pointer" onClick={displayEmailModal}>
             <img src="../images/envelope-solid.svg" />
           </div>
         </span> */}
         <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayRecipesModal}>
+          <div className="pointer" onClick={displayRecipesModal}>
             <img src="../images/utensils-solid.svg" />
           </div>
         </span>
         <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayGitHubModal}>
+          <div className="pointer" onClick={displayGitHubModal}>
             <img src="../images/github-square-brands.svg" />
           </div>
         </span>
         {/* <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayDriveModal}>
+          <div className="pointer" onClick={displayDriveModal}>
             <img src="../images/folder-open-solid.svg" />
           </div>
         </span> */}
         {/* <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayMapModal}>
+          <div className="pointer" onClick={displayMapModal}>
             <img src="../images/map-marked-alt-solid.svg" />
           </div>
         </span> */}
         <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayBooksModal}>
+          <div className="pointer" onClick={displayBooksModal}>
             <img src="../images/book-solid.svg" />
           </div>
         </span>
         <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayCalendarModal}>
+          <div className="pointer" onClick={displayCalendarModal}>
             <img src="../images/calendar-alt-solid.svg" />
           </div>
         </span>
         <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayCalculatorModal}>
+          <div className="pointer" onClick={displayCalculatorModal}>
             <img src="../images/calculator-solid.svg" />
           </div>
         </span>
         {/* <span className="nav-item">
-          <div className="nav-item-anchor" onClick={displayLoginModal}>
+          <div className="pointer" onClick={displayLoginModal}>
             <img src="../images/unlock-alt-solid.svg" />
           </div>
         </span> */}

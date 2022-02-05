@@ -33,7 +33,7 @@ const DeleteToDoC = (props) => {
       {/* <div className="login-error-message">{loginStatus}</div> */}
       <div className="form-button-div">
         <button
-          className="delete form-button"
+          className="delete-button form-button"
           onClick={() => deleteToDo(props.deletedToDo)}
         >
           Delete

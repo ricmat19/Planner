@@ -257,7 +257,7 @@ const ToDoC = () => {
             >
               <div
                 onClick={() => displayDeleteListModal(list)}
-                className="delete delete-list"
+                className="delete-list"
               >
                 X
               </div>
@@ -294,10 +294,10 @@ const ToDoC = () => {
                           >
                             <img src="../images/wrench-solid.svg" />
                           </button>
-                          <div className="to-do-item-name">{toDo.todo}</div>
+                          <div className="align-center">{toDo.todo}</div>
                           <button
                             onClick={() => displayDeleteToDoModal(toDo.id)}
-                            className="delete to-do-delete item-button"
+                            className="to-do-delete item-button"
                           >
                             X
                           </button>
@@ -328,10 +328,10 @@ const ToDoC = () => {
                           >
                             <img src="../images/wrench-solid.svg" />
                           </button>
-                          <div className="to-do-item-name">{toDo.todo}</div>
+                          <div className="align-center">{toDo.todo}</div>
                           <button
                             onClick={() => displayDeleteToDoModal(toDo.id)}
-                            className="delete to-do-delete item-button"
+                            className="to-do-delete item-button"
                           >
                             X
                           </button>
@@ -361,10 +361,10 @@ const ToDoC = () => {
                           >
                             <img src="../images/wrench-solid.svg" />
                           </button>
-                          <div className="to-do-item-name">{toDo.todo}</div>
+                          <div className="align-center">{toDo.todo}</div>
                           <button
                             onClick={() => displayDeleteToDoModal(toDo.id)}
-                            className="delete to-do-delete item-button"
+                            className="to-do-delete item-button"
                           >
                             X
                           </button>
@@ -391,10 +391,10 @@ const ToDoC = () => {
                           >
                             <img src="../images/wrench-solid.svg" />
                           </button>
-                          <div className="to-do-item-name">{toDo.todo}</div>
+                          <div className="align-center">{toDo.todo}</div>
                           <button
                             onClick={() => displayDeleteToDoModal(toDo.id)}
-                            className="delete to-do-delete item-button"
+                            className="to-do-delete item-button"
                           >
                             X
                           </button>

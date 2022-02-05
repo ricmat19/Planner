@@ -23,9 +23,9 @@ const LoginC = () => {
 
   return (
     <div className="login-div">
-      <p className="login-header title">login</p>
+      <p className="title">login</p>
       <div>
-        <div className="grid modal-input-div">
+        <div className="grid">
           <input
             type="email"
             ref={emailInput}
@@ -37,7 +37,7 @@ const LoginC = () => {
             }}
           />
         </div>
-        <div className="grid modal-input-div">
+        <div className="grid">
           <input
             type="password"
             ref={passwordInput}

@@ -38,7 +38,7 @@ const CalendarToDoC = (props) => {
         <div className="grid">
           {daysToDos.map((todo, index) => (
             <div className="grid calendar-to-do-item" key={index}>
-              <div className="calender-to-do">
+              <div className="align-left">
                 {index + 1}. {todo}
               </div>
             </div>

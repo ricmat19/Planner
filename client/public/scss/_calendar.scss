@@ -1,7 +1,3 @@
-.month-title {
-  align-self: center;
-}
-
 .month-row {
   grid-template-columns: repeat(3, 1fr);
   margin-top: 10px;
@@ -75,8 +71,4 @@
   margin: 3px 0;
   padding: 3px 0;
   border-bottom: $solid-border;
-}
-
-.calender-to-do {
-  text-align: left;
 }

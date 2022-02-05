@@ -224,7 +224,7 @@ const EditToDoC = (props) => {
   };
 
   return (
-    <div className="edit-modal-container">
+    <div>
       {/* Edit To Do */}
       <div className="grid toDo-modal-grid">
         <label>To Do</label>

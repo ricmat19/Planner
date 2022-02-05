@@ -86,7 +86,7 @@ const BooksC = (props) => {
   };
 
   return (
-    <div className="main-body">
+    <div>
       {/* Day's To Do's */}
       <div className={addBooksModal}>
         <div ref={addBooksRef} className="modal-content">
